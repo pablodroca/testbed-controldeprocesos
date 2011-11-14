@@ -13208,7 +13208,7 @@
 <XPD:REF name="Views[21]">NBKG5BvLCE6Dhjuy6vSElAAA</XPD:REF>
 <XPD:REF name="Views[22]">oVP/wW3QfU6oGzGBQFEy4QAA</XPD:REF>
 <XPD:REF name="Views[23]">RuyDDfZl8UewQFKyQ7G4zAAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">3</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="2JpbG8MvXUOpzWZkDrK85AAA">
 <XPD:ATTR name="Name" type="string">conectarConSeleccion</XPD:ATTR>
 <XPD:REF name="Owner">CbZ7K1SM/0Sbp8cXCJ/ufAAA</XPD:REF>
@@ -13216,6 +13216,10 @@
 <XPD:OBJ name="Operations[1]" type="UMLOperation" guid="Qa2MPdmcwUuqoCK4igOi5QAA">
 <XPD:ATTR name="Name" type="string">mostrarError</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
+<XPD:REF name="Owner">CbZ7K1SM/0Sbp8cXCJ/ufAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="Z6RDR65WKkeKtq1FyBk7ZwAA">
+<XPD:ATTR name="Name" type="string">mostrar</XPD:ATTR>
 <XPD:REF name="Owner">CbZ7K1SM/0Sbp8cXCJ/ufAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">11</XPD:ATTR>
@@ -13340,6 +13344,15 @@
 <XPD:REF name="Views[21]">AlN4n8NKM0yArAGZ2uzsPQAA</XPD:REF>
 <XPD:REF name="Views[22]">PfutAVsHDEyFNonbeA8dyQAA</XPD:REF>
 <XPD:REF name="Views[23]">BVmDK76vJ0SRDqkOmzkkuQAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="Z8kJE9qP/06ym6OOX9XXCwAA">
+<XPD:ATTR name="Name" type="string">cerrar</XPD:ATTR>
+<XPD:REF name="Owner">SGG+x7KT6EieJLaPEj/eRgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="2rTYNPNYG0evFJw4cCyKogAA">
+<XPD:ATTR name="Name" type="string">modificar</XPD:ATTR>
+<XPD:REF name="Owner">SGG+x7KT6EieJLaPEj/eRgAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">5</XPD:ATTR>
 <XPD:REF name="Associations[0]">LY2KyfKm8UmVLp/i7c7y0QAA</XPD:REF>
 <XPD:REF name="Associations[1]">LFgYWhUnnkKse6iSv0dxGwAA</XPD:REF>
@@ -13381,6 +13394,15 @@
 <XPD:REF name="Views[21]">xj6DCIOnvUeubOy58gtY0gAA</XPD:REF>
 <XPD:REF name="Views[22]">j9jpgJKiP0GqT4ak3wfP1AAA</XPD:REF>
 <XPD:REF name="Views[23]">0h67sGoavUy6bjPHMJhDXAAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="iqHgnben702dA50IzHJjtAAA">
+<XPD:ATTR name="Name" type="string">cerrar</XPD:ATTR>
+<XPD:REF name="Owner">hrnYZ13KUESDHv1/7Ks9nAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="nKsAOdLa+EKmCmEENP34HwAA">
+<XPD:ATTR name="Name" type="string">modificar</XPD:ATTR>
+<XPD:REF name="Owner">hrnYZ13KUESDHv1/7Ks9nAAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">5</XPD:ATTR>
 <XPD:REF name="Associations[0]">dWhdMrDo8kK78U9fZ2XAugAA</XPD:REF>
 <XPD:REF name="Associations[1]">+wf73xIG2UCu6CMopc4E/AAA</XPD:REF>
@@ -13478,12 +13500,16 @@
 <XPD:REF name="Views[21]">E0ssz5F2l0Gpz2BmHI1/nAAA</XPD:REF>
 <XPD:REF name="Views[22]">zr8AK1GVOEGw7+Hov8LxygAA</XPD:REF>
 <XPD:REF name="Views[23]">6NP4PbrWZUCH4OXEeTRF3QAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="GCF5hARBlEyF7qPB5GM4TQAA">
 <XPD:ATTR name="Name" type="string">conectar</XPD:ATTR>
 <XPD:REF name="Owner">9zct2LUNwEaslTgzFxTHCQAA</XPD:REF>
 <XPD:ATTR name="#CallActions" type="integer">1</XPD:ATTR>
 <XPD:REF name="CallActions[0]">xnt+nVo0m0Gp/B4WrI4j6wAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="JUKoJ8k9DUuk2rTlTgFIjQAA">
+<XPD:ATTR name="Name" type="string">desconectar</XPD:ATTR>
+<XPD:REF name="Owner">9zct2LUNwEaslTgzFxTHCQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">12</XPD:ATTR>
 <XPD:REF name="Associations[0]">QM5m+LIXsUyOT4Kcbx49pQAA</XPD:REF>
@@ -13532,6 +13558,15 @@
 <XPD:REF name="Views[21]">7rnnAF/1gkq6SCmylGfRAgAA</XPD:REF>
 <XPD:REF name="Views[22]">j9U7FCT8HEasOAh0zHe8FAAA</XPD:REF>
 <XPD:REF name="Views[23]">t+IFDv8BeUi6lFiWtrEqfwAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="/zyORX3Ftki8aU9osY2xsQAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">b4HHDqNVnkKA1I7SAq1a1AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="Q+IFsdPyiUSNHyoSNQDtfwAA">
+<XPD:ATTR name="Name" type="string">restaurar</XPD:ATTR>
+<XPD:REF name="Owner">b4HHDqNVnkKA1I7SAq1a1AAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">7</XPD:ATTR>
 <XPD:REF name="Associations[0]">9hcAweLDG026dBHUosqY5QAA</XPD:REF>
 <XPD:REF name="Associations[1]">eFTNRI9jVki0nqFWsUbj7QAA</XPD:REF>
@@ -13576,6 +13611,15 @@
 <XPD:REF name="Views[21]">rMED+jZ7e0m73R0TWBqqtwAA</XPD:REF>
 <XPD:REF name="Views[22]">cJmkU9F040+6Jq/tnTzlKQAA</XPD:REF>
 <XPD:REF name="Views[23]">Jh2z7NhB+U+OkPUSJ0nOdgAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="xQjGIE3UXk+AE9pGJtSLvgAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">BLOLb9aQYkODeoxyaYSvpQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="883OVI7lVk6wtLxVfK2K9AAA">
+<XPD:ATTR name="Name" type="string">restaurar</XPD:ATTR>
+<XPD:REF name="Owner">BLOLb9aQYkODeoxyaYSvpQAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">6</XPD:ATTR>
 <XPD:REF name="Associations[0]">udJGoHpIhEKQWsk4SJHJlQAA</XPD:REF>
 <XPD:REF name="Associations[1]">w9scX/KLH0++7g3C+RQIbQAA</XPD:REF>
@@ -13767,9 +13811,65 @@
 <XPD:REF name="Views[45]">qL0iWvGw206ulZ68YrUwCQAA</XPD:REF>
 <XPD:REF name="Views[46]">lJM0f7i2JUe3ajtQGCKbNAAA</XPD:REF>
 <XPD:REF name="Views[47]">ZE1b5DTVvEy7laYcaxU17wAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">15</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="SDwxCBdZ3Ue7IvcQqCCtKgAA">
 <XPD:ATTR name="Name" type="string">mostrar</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="FlOn107DjkyfIKzXhsfJ6wAA">
+<XPD:ATTR name="Name" type="string">desconectar</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="sngW9/St606/sOmYZlh/cAAA">
+<XPD:ATTR name="Name" type="string">mostrarError</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="H3mspyZIgkmducVikhtRjwAA">
+<XPD:ATTR name="Name" type="string">abrirGrafico</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="MO9vACm73EW2IFEiPLjWeAAA">
+<XPD:ATTR name="Name" type="string">modificarParametro</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[5]" type="UMLOperation" guid="IWfG8NlLUECIrPfvnQrm8AAA">
+<XPD:ATTR name="Name" type="string">mostrarMensajeExcepcion</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[6]" type="UMLOperation" guid="l1e5A8DMuEeXuiAChW5UPAAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[7]" type="UMLOperation" guid="73bMrDv6skCxVmjxxScP/QAA">
+<XPD:ATTR name="Name" type="string">mostrarSeleccionDeArchivo</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[8]" type="UMLOperation" guid="dhbP/DfpVk+o78Jv+m67lQAA">
+<XPD:ATTR name="Name" type="string">seleccionarArchivo</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[9]" type="UMLOperation" guid="D+T7f6bro0uQVjAzwh2QkQAA">
+<XPD:ATTR name="Name" type="string">comenzarGrabacion</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[10]" type="UMLOperation" guid="cVaQmlUpXkWXL5IwIgNvogAA">
+<XPD:ATTR name="Name" type="string">mostrarOpcionComentar</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[11]" type="UMLOperation" guid="5d0iYV4od0+rOb16bMTdCAAA">
+<XPD:ATTR name="Name" type="string">cancelarSeleccionDeArchivo</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[12]" type="UMLOperation" guid="tgLi4+FWrkOZiMn5VafyRgAA">
+<XPD:ATTR name="Name" type="string">mostrarMensajeErrorGrabacion</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[13]" type="UMLOperation" guid="aEk5pZTwukGTsLI2cDJlGAAA">
+<XPD:ATTR name="Name" type="string">finalizarGrabacion</XPD:ATTR>
+<XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[14]" type="UMLOperation" guid="oWVFwvBwe0GUdN6jxC8dJQAA">
+<XPD:ATTR name="Name" type="string">mostrarMensajeGrabacionFinalizada</XPD:ATTR>
 <XPD:REF name="Owner">U8vqMB0G4UiR+j0374opjAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">13</XPD:ATTR>
@@ -13874,6 +13974,35 @@
 <XPD:REF name="Views[41]">xozLK82MukirwcruLFP7vAAA</XPD:REF>
 <XPD:REF name="Views[42]">MujVe9zhUUy7Wfiak3/57AAA</XPD:REF>
 <XPD:REF name="Views[43]">KqQ7X9WBs0W98yBsRtvSaAAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">7</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="8/bIHGRbfkG8ktEmNFNPZwAA">
+<XPD:ATTR name="Name" type="string">desconectar</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="U/03kDWb3UeDOypQAn0JhwAA">
+<XPD:ATTR name="Name" type="string">abrirGrafico</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="7iTUFQPGvUGOPWDcBypUzAAA">
+<XPD:ATTR name="Name" type="string">modificarParametro</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="NhbqWT+gy0iwP0iBVsR4XAAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="PxoQ72f5DkKW2hFrEvDmLwAA">
+<XPD:ATTR name="Name" type="string">comenzarGrabacion</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[5]" type="UMLOperation" guid="nq+Gw7b/w06J/ysYgaWofwAA">
+<XPD:ATTR name="Name" type="string">cancelarSeleccionDeArchivo</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[6]" type="UMLOperation" guid="XPsuY5mXY0qTA7nj+uS1zAAA">
+<XPD:ATTR name="Name" type="string">finalizarGrabacion</XPD:ATTR>
+<XPD:REF name="Owner">5vMQeRPYBk2rJ4dFb5dX/AAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">42</XPD:ATTR>
 <XPD:REF name="Associations[0]">BD+f2iNMSUGBs+LsWq1Y2AAA</XPD:REF>
 <XPD:REF name="Associations[1]">tuKHVgajyUO6SdZYcAW7DAAA</XPD:REF>
@@ -14055,6 +14184,23 @@
 <XPD:REF name="Views[33]">sICtSZabtEWqS9ICoh51UAAA</XPD:REF>
 <XPD:REF name="Views[34]">vB8LyNTgvkW+AuE+LbaMVgAA</XPD:REF>
 <XPD:REF name="Views[35]">WJtapBprc0a1SCCJGSYAVwAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">4</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="J8/GhSSYGkaNx09fPfNRnwAA">
+<XPD:ATTR name="Name" type="string">cerrar</XPD:ATTR>
+<XPD:REF name="Owner">NEabJsv29UiGpzKOROo/qQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="/IGsdp/CW0KcGDrixshXLAAA">
+<XPD:ATTR name="Name" type="string">leer</XPD:ATTR>
+<XPD:REF name="Owner">NEabJsv29UiGpzKOROo/qQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="muJ/kPzuEUC6zyAzZ+PQOgAA">
+<XPD:ATTR name="Name" type="string">grabar</XPD:ATTR>
+<XPD:REF name="Owner">NEabJsv29UiGpzKOROo/qQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="x+f9waMUaEyjD6LT0YWkTQAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">NEabJsv29UiGpzKOROo/qQAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">17</XPD:ATTR>
 <XPD:REF name="Associations[0]">lhZYgqLsyUC1TVNeDCK4lwAA</XPD:REF>
 <XPD:REF name="Associations[1]">KQDzKKTdgEiYk2Nqib6UvQAA</XPD:REF>
@@ -14284,6 +14430,15 @@
 <XPD:REF name="Views[17]">YcSP/9p7x0WsyH/HjFMptwAA</XPD:REF>
 <XPD:REF name="Views[18]">D9H2wuZidUault6+OTbTDwAA</XPD:REF>
 <XPD:REF name="Views[19]">THrDrMThJ0WNHIqK9lwlBAAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="Z4/e5K174kSJIsuTlZwCiwAA">
+<XPD:ATTR name="Name" type="string">mostrar</XPD:ATTR>
+<XPD:REF name="Owner">gmeFq+Qg50OG5dx7hv4d8AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="g7Tl+Uv6IkOoKZ4rqczGNAAA">
+<XPD:ATTR name="Name" type="string">cambiarOpciones</XPD:ATTR>
+<XPD:REF name="Owner">gmeFq+Qg50OG5dx7hv4d8AAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">9</XPD:ATTR>
 <XPD:REF name="Associations[0]">rrAyT57RXkGfRiuoQ5H8ggAA</XPD:REF>
 <XPD:REF name="Associations[1]">lZrJtBrKVkyY/5nY5ckVOwAA</XPD:REF>
@@ -14320,6 +14475,11 @@
 <XPD:REF name="Views[13]">pvFST2vzyUetJ+lT21wXgAAA</XPD:REF>
 <XPD:REF name="Views[14]">K+4hiBlNQ0yX6c1pjg/8fgAA</XPD:REF>
 <XPD:REF name="Views[15]">LnWVvA8cq0WYocgxBL06tQAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="t2WJqy/BhE2wdC49mS6YTAAA">
+<XPD:ATTR name="Name" type="string">cambiarOpciones</XPD:ATTR>
+<XPD:REF name="Owner">m2tE6oHMuUKbF9auRxoTSAAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">6</XPD:ATTR>
 <XPD:REF name="Associations[0]">VQApbYPqdEud1A84+UYv8QAA</XPD:REF>
 <XPD:REF name="Associations[1]">HKyrc83yWkSADAn1eMofOgAA</XPD:REF>
@@ -14357,6 +14517,11 @@
 <XPD:REF name="Views[17]">Z9EjF0zTjUat1eHxmbe1VwAA</XPD:REF>
 <XPD:REF name="Views[18]">aDEEPHolG0+RhTRDHOrs6wAA</XPD:REF>
 <XPD:REF name="Views[19]">X72iNZRp7kKCNr4zQoE5bgAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="zYcWy42+pEuO7zAQwRt0EAAA">
+<XPD:ATTR name="Name" type="string">leer</XPD:ATTR>
+<XPD:REF name="Owner">qTnZsE4iKU635Yx47S2gggAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">14</XPD:ATTR>
 <XPD:REF name="Associations[0]">YFTq5RCjT0Si0WjvGxXKswAA</XPD:REF>
 <XPD:REF name="Associations[1]">FFYXoXwk60y4wjnzquA62QAA</XPD:REF>
@@ -14489,6 +14654,11 @@
 <XPD:REF name="Views[21]">SEm0u0K5gkuBWcLaIhXhJAAA</XPD:REF>
 <XPD:REF name="Views[22]">Kvn6dBKuKkePYDSvXzStowAA</XPD:REF>
 <XPD:REF name="Views[23]">et3jkEGNYUeMSx83z0NeKAAA</XPD:REF>
+<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="ZOXDSZCH8kmHa7OKRIB34AAA">
+<XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
+<XPD:REF name="Owner">w28chrIE6UmhkLyvM6KqSAAA</XPD:REF>
+</XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">15</XPD:ATTR>
 <XPD:REF name="Associations[0]">ed4vMMf1qUq1VsgOUaBs6wAA</XPD:REF>
 <XPD:REF name="Associations[1]">+Wxx4RBd7EOXt4Ld5iRYOAAA</XPD:REF>
