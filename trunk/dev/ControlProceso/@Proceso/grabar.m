@@ -1,0 +1,4 @@
+function grabar( )
+    'grabar'
+end
+
