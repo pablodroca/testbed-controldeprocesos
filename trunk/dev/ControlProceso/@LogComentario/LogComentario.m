@@ -1,5 +1,6 @@
 function [ self ] = LogComentario( )
-   self = struct();
-   self = class(self, 'VisorDelProceso');
+   self = struct('dummyAtt','');
+   error('mensaje');
+   self = class(self, 'LogComentario');
 end
 
