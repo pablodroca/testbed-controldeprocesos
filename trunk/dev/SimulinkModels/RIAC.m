@@ -1,4 +1,4 @@
-function [sys,x0,str,ts]= RIAC_Dummy(t,x,u,flag)
+function [sys,x0,str,ts]= RIAC(t,x,u,flag)
 global dt T A Ts B C n conexion
 
 switch flag
