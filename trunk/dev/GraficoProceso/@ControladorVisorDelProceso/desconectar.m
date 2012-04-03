@@ -1,4 +1,11 @@
 function desconectar( self )
-    'desconectar'
+
+global conexion
+global setDeControl
+
+	stop(self.timer);
+	setDeControl = cerrar(setDeControl);
+	conexion = desconectar(conexion);
+	delete(self.vista);
 end
 

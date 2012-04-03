@@ -6,7 +6,7 @@ function [self, muestra] = obtenerMuestra( self )
     end
     self.clockUltimaMuestra = clock;
   %  fprintf('Conexion: Muestra Obtenida: %f\n', self.valorDummy);
-    muestra = self.ultimaMuestraDummy;
+    muestra = self.muestrasDummy(self.indiceUltimaMuestraDummy);
     fprintf('ConexionDummy: Muestra Obtenida: %f.\n', muestra);
 end
 
