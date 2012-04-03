@@ -8,6 +8,11 @@ function [ self ] = ConexionDummy( modoConexion )
    self.canalSensor = 1;
    self.canalActuador = 2;
    self.placa = 'null';
+   data = importdata('muestras.mat');
+   self.muestrasDummy = data.muestras;
+   self.indiceUltimaMuestraDummy = 1;
+   timerFunction = 'conexion = establecerUltimaMuestraDummy(conexion);';
+   self.timer = timer('Period',self.msEntreMuestras / 1000.0, 'ExecutionMode','fixedDelay', 'TimerFcn', timerFunction);
    self = class(self, 'ConexionDummy');
 end
 

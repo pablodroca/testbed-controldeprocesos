@@ -220,7 +220,7 @@ function btnConectar_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-conectar(handles.controlador)
+handles.controlador = conectar(handles.controlador, 'UnTanque');
 
 
 % --- Executes when user attempts to close wSeleccionDeModelo.
@@ -238,6 +238,6 @@ function EvaluarSalir(handles)
 user_response = questdlg('¿Desea salir del sistema?','Salir', 'Aceptar', 'Cancelar', 'Aceptar');
 %user_response = ConfirmarSalidaGUI;
 if user_response == 'Aceptar'
-	    delete(handles.wSeleccionDeModelo)
+	    delete(handles.wSeleccionDeModelo);
 %else doNothing    
 end

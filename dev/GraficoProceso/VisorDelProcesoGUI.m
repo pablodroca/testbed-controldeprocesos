@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 30-Mar-2012 01:55:36
+% Last Modified by GUIDE v2.5 03-Apr-2012 02:12:03
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -214,8 +214,8 @@ function edit3_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function edit4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function txtNivel_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtNivel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -229,18 +229,18 @@ end
 
 
 
-function edit4_Callback(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function txtNivel_Callback(hObject, eventdata, handles)
+% hObject    handle to txtNivel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit4 as text
-%        str2double(get(hObject,'String')) returns contents of edit4 as a double
+% Hints: get(hObject,'String') returns contents of txtNivel as text
+%        str2double(get(hObject,'String')) returns contents of txtNivel as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function txtMuestra_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtMuestra (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -254,15 +254,19 @@ end
 
 
 
-function edit5_Callback(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function txtMuestra_Callback(hObject, eventdata, handles)
+% hObject    handle to txtMuestra (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit5 as text
-%        str2double(get(hObject,'String')) returns contents of edit5 as a double
+% Hints: get(hObject,'String') returns contents of txtMuestra as text
+%        str2double(get(hObject,'String')) returns contents of txtMuestra as a double
 
-function agregarMuestra(instante, muestra)
-fprintf('valor recibido en instante %d. VAlor: %f', instante, muestra); 
-msgbox('valor de muestra recibido');
+% --- Executes on button press in pushbutton2.
+function pushbutton2_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+desconectar(handles.controlador);
 
