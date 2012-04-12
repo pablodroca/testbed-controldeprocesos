@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 03-Apr-2012 02:12:03
+% Last Modified by GUIDE v2.5 11-Apr-2012 22:38:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
