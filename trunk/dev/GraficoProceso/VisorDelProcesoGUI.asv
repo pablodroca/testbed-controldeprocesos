@@ -17,12 +17,13 @@ function varargout = VisorDelProcesoGUI(varargin)
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
-%
+%   
++
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 28-Mar-2012 00:44:20
+% Last Modified by GUIDE v2.5 30-Mar-2012 01:55:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,12 +55,25 @@ function VisorDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for VisorDelProcesoGUI
 handles.output = hObject;
+handles.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso);
 
 % Update handles structure
 guidata(hObject, handles);
 
 % UIWAIT makes VisorDelProcesoGUI wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+% uiwait(handles.wVisorDelProceso);
+
+return;
+wSeleccionDeModelo = find(strcmp(varargin, 'wSeleccionDeModelo'));
+if (isempty(wSeleccionDeModelo) ...
+  || (length(varargin) <= wSeleccionDeModelo) ...
+  || (~ishandle(varargin{wSeleccionDeModelo+1})))
+    msgbox('Error al abrir el Visor Del Proceso sin una Seleccion del Modelo Valida');
+    delete (handles.wVisorDelProceso);
+else
+    handles.wSeleccionDeModelo = varargin{wSeleccionDeModelo+1};
+end
+
 
 
 % --- Outputs from this function are returned to the command line.
@@ -173,7 +187,7 @@ function edit2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit2 as text
 %        str2double(get(hObject,'String')) returns contents of edit2 as a double
-
+msgbox('This is edit2');
 
 % --- Executes during object creation, after setting all properties.
 function edit3_CreateFcn(hObject, eventdata, handles)
@@ -249,4 +263,7 @@ function edit5_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit5 as text
 %        str2double(get(hObject,'String')) returns contents of edit5 as a double
 
+function agregarMuestra(instante, muestra)
+fprintf('valor recibido en instante %d. VAlor: %f', instante, muestra); 
+msgbox('valor de muestra recibido');
 
