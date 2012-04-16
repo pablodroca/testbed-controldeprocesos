@@ -5,8 +5,9 @@ global setDeControl
 
     conexion = ConexionDummy(3);
     conexion = crearYConectar(conexion);
+	proceso = Proceso;
 	setDeControl = SetDeControlMatlab(archivoSimulink);
     
-	VisorDelProcesoGUI('wSeleccionDeModelo', 'dummy');    
+	VisorDelProcesoGUI( self.vista, proceso);    
 end
 

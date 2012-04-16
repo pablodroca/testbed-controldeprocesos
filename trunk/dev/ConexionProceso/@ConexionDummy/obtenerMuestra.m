@@ -1,7 +1,7 @@
 function [self, muestra] = obtenerMuestra( self )
     transcurrido = etime(clock, self.clockUltimaMuestra);
     while transcurrido*1000 < self.msEntreMuestras
-        pause(0.5 * self.msEntreMuestras/1000);
+        pause(0.33 * self.msEntreMuestras/1000);
         transcurrido = etime(clock, self.clockUltimaMuestra);
     end
     self.clockUltimaMuestra = clock;

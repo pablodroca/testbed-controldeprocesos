@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 11-Apr-2012 22:38:53
+% Last Modified by GUIDE v2.5 16-Apr-2012 02:37:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,24 +54,24 @@ function VisorDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for VisorDelProcesoGUI
 handles.output = hObject;
-handles.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso);
+if length(varargin) < 2
+    delete (handles.wVisorDelProceso);
+    error('testbed:VisorDelProceso', strcat('Visor Del Proceso requiere 2 parametros. Ejemplo de ejecucion: ' ...
+            , 'VisorDelProceso(wSeleccionDelProceso, proceso)'));
+end
 
-% Update handles structure
+wSeleccionDeModelo = varargin{1};
+proceso = varargin{2};
+if (~ishandle(wSeleccionDeModelo)) || ...
+    (~isobject(proceso)) 
+    delete (handles.wVisorDelProceso);
+    error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
+end
+
+handles.wSeleccionDeModelo = wSeleccionDeModelo;
+handles.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
 guidata(hObject, handles);
 
-% UIWAIT makes VisorDelProcesoGUI wait for user response (see UIRESUME)
-% uiwait(handles.wVisorDelProceso);
-
-return;
-wSeleccionDeModelo = find(strcmp(varargin, 'wSeleccionDeModelo'));
-if (isempty(wSeleccionDeModelo) ...
-  || (length(varargin) <= wSeleccionDeModelo) ...
-  || (~ishandle(varargin{wSeleccionDeModelo+1})))
-    msgbox('Error al abrir el Visor Del Proceso sin una Seleccion del Modelo Valida');
-    delete (handles.wVisorDelProceso);
-else
-    handles.wSeleccionDeModelo = varargin{wSeleccionDeModelo+1};
-end
 
 
 
@@ -267,6 +267,76 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+desconectarControlador(handles);
 
-desconectar(handles.controlador);
+% --------------------------------------------------------------------
+function Archivo_Callback(hObject, eventdata, handles)
+% hObject    handle to Archivo (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 
+
+% --------------------------------------------------------------------
+function Desconectar_Callback(hObject, eventdata, handles)
+% hObject    handle to Desconectar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+desconectarControlador(handles);
+
+% --------------------------------------------------------------------
+function Grabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to Grabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function IniciarGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to IniciarGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', 'Grabaciones/proceso.mat');
+if filename
+	handles.controlador = comenzarGrabacion(handles.controlador, strcat(filepath,filename));
+end
+
+% --------------------------------------------------------------------
+function FinalizarGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to FinalizarGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+try
+	handles.controlador = guardar(handles.controlador);
+	msgbox('El proceso ha sido grabado correctamente.', 'Grabacion Finalizada', 'modal');
+catch
+	err = lasterr;
+	msgbox(sprintf('Ha ocurrido un error durante la grabacion.%s\n', err), 'Error de Grabacion', 'error', 'modal');
+end
+
+
+% --- Executes when user attempts to close wVisorDelProceso.
+function wVisorDelProceso_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to wVisorDelProceso (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: delete(hObject) closes the figure
+user_response = questdlg('Desea salir del Visor Del Proceso y desconectar el modelo actual?','Desconectar Modelo', 'Aceptar', 'Cancelar', 'Aceptar');
+%user_response = ConfirmarSalidaGUI;
+if user_response == 'Aceptar'
+
+	desconectarControlador(handles);
+	delete(hObject);
+%else doNothing    
+end
+
+
+function desconectarControlador(handles)
+	try
+		handles.controlador = desconectar(handles.controlador);
+	catch
+		err = lasterr;
+		msgbox(sprintf('Ha ocurrido un error durante la desconexion.%s\n', err), 'Error durante Desconexion', 'error', 'modal');
+	end
+end

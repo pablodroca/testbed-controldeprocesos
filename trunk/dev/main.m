@@ -6,15 +6,14 @@ addpath(fullfile(pwd, 'ControlProceso'));
 addpath(fullfile(pwd, 'GraficoProceso'));
 addpath(fullfile(pwd, 'SimulinkModels'));
 
-%c = ControladorSeleccionDeModelo;
-
 global conexion
 global setDeControl
-
 global ControladorVisorDelProcesoSelf
+
 global muestraTimer
 global muestras
+
 muestraTimer = 0;
 muestras = [];
 SeleccionDeModeloGUI
-return;
+
