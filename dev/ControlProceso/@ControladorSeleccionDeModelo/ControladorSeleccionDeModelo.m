@@ -1,5 +1,5 @@
-function [ self ] = ControladorSeleccionDeModelo()
-   self = struct('dummyAtt', 'null');
+function [ self ] = ControladorSeleccionDeModelo(wSeleccionDeModelo)
+   self.vista = wSeleccionDeModelo;
    self = class(self, 'ControladorSeleccionDeModelo');
 end
 

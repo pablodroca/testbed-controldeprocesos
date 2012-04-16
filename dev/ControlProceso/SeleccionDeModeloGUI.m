@@ -54,7 +54,7 @@ function SeleccionDeModeloGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for SeleccionDeModeloGUI
 handles.output = hObject;
-handles.controlador = ControladorSeleccionDeModelo;
+handles.controlador = ControladorSeleccionDeModelo(handles.wSeleccionDeModelo);
 
 % Update handles structure
 guidata(hObject, handles);

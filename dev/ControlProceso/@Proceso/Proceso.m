@@ -1,4 +1,8 @@
 function [ self ] = Proceso( )
-   self = struct();
-   self = class(self, 'ConfiguracionAvanzada');
+   self.muestras = [];
+   self.instanteUltimaMuestra = 0;
+   self.instanteInicioGrabacion = 0;
+   self.archivo = '';
+   self.modoGrabacion = false;
+   self = class(self, 'Proceso');
 end
