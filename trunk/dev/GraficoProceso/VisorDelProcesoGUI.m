@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 16-Apr-2012 02:37:28
+% Last Modified by GUIDE v2.5 18-Apr-2012 01:37:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -68,8 +68,13 @@ if (~ishandle(wSeleccionDeModelo)) || ...
     error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
 end
 
+handles.axesMuestras = handles.axesVisorProceso;
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
-handles.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
+window.vista = hObject;
+window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
+setWindow('VisorDelProceso', window);
+window.controlador = iniciar(window.controlador);
+setWindow('VisorDelProceso', window);
 guidata(hObject, handles);
 
 
@@ -267,7 +272,7 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-desconectarControlador(handles);
+desconectarControlador;
 
 % --------------------------------------------------------------------
 function Archivo_Callback(hObject, eventdata, handles)
@@ -281,7 +286,7 @@ function Desconectar_Callback(hObject, eventdata, handles)
 % hObject    handle to Desconectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-desconectarControlador(handles);
+desconectarControlador;
 
 % --------------------------------------------------------------------
 function Grabacion_Callback(hObject, eventdata, handles)
@@ -297,7 +302,9 @@ function IniciarGrabacion_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', 'Grabaciones/proceso.mat');
 if filename
-	handles.controlador = comenzarGrabacion(handles.controlador, strcat(filepath,filename));
+    w = getWindow('VisorDelProceso');
+	w.controlador = comenzarGrabacion(w.controlador, strcat(filepath,filename));
+    setWindow('VisorDelProceso', w);
 end
 
 % --------------------------------------------------------------------
@@ -307,7 +314,9 @@ function FinalizarGrabacion_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 try
-	handles.controlador = guardar(handles.controlador);
+    w = getWindow('VisorDelProceso');
+	w.controlador = finalizarGrabacion(w.controlador);
+    setWindow('VisorDelProceso', w);
 	msgbox('El proceso ha sido grabado correctamente.', 'Grabacion Finalizada', 'modal');
 catch
 	err = lasterr;
@@ -325,18 +334,31 @@ function wVisorDelProceso_CloseRequestFcn(hObject, eventdata, handles)
 user_response = questdlg('Desea salir del Visor Del Proceso y desconectar el modelo actual?','Desconectar Modelo', 'Aceptar', 'Cancelar', 'Aceptar');
 %user_response = ConfirmarSalidaGUI;
 if user_response == 'Aceptar'
-
-	desconectarControlador(handles);
+	desconectarControlador;
 	delete(hObject);
 %else doNothing    
 end
 
 
-function desconectarControlador(handles)
+function desconectarControlador()
 	try
-		handles.controlador = desconectar(handles.controlador);
+        w = getWindow('VisorDelProceso');
+		w.controlador = desconectar(w.controlador);
+		setWindow('VisorDelProceso', w);
 	catch
 		err = lasterr;
 		msgbox(sprintf('Ha ocurrido un error durante la desconexion.%s\n', err), 'Error durante Desconexion', 'error', 'modal');
 	end
 end
+
+
+% --------------------------------------------------------------------
+function CancelarGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to CancelarGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)	
+	w = getWindow('VisorDelProceso');
+	w.controlador = cancelarGrabacion(w.controlador);
+	setWindow('VisorDelProceso', w);
+end
+
