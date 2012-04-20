@@ -54,8 +54,9 @@ function SeleccionDeModeloGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for SeleccionDeModeloGUI
 handles.output = hObject;
-handles.controlador = ControladorSeleccionDeModelo(handles.wSeleccionDeModelo);
-
+window.vista = hObject;
+window.controlador = ControladorSeleccionDeModelo(handles.wSeleccionDeModelo);
+setWindow('SeleccionDeModelo', window);
 % Update handles structure
 guidata(hObject, handles);
 
@@ -220,8 +221,9 @@ function btnConectar_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.controlador = conectar(handles.controlador, 'UnTanque');
-
+w = getWindow('SeleccionDeModelo');
+w.controlador = conectar(w.controlador, 'UnTanque');
+setWindow('SeleccionDeModelo', w);
 
 % --- Executes when user attempts to close wSeleccionDeModelo.
 function wSeleccionDeModelo_CloseRequestFcn(hObject, eventdata, handles)
