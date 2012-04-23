@@ -22,7 +22,7 @@ function varargout = SeleccionDeModeloGUI(varargin)
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 30-Mar-2012 00:43:57
+% Last Modified by GUIDE v2.5 20-Apr-2012 19:47:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -197,6 +197,7 @@ function rdManual_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of rdManual
 
+toogle_RadioButton(hObject,handles);
 
 % --- Executes on button press in rdAutomaticoABB.
 function rdAutomaticoABB_Callback(hObject, eventdata, handles)
@@ -206,6 +207,7 @@ function rdAutomaticoABB_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoABB
 
+toogle_RadioButton(hObject,handles);
 
 % --- Executes on button press in rdAutomaticoMatlab.
 function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
@@ -214,17 +216,23 @@ function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoMatlab
-
+toogle_RadioButton(hObject,handles);
 
 % --- Executes on button press in btnConectar.
 function btnConectar_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+tipoSetDeControl = getTipoSetDeControl(handles);
 w = getWindow('SeleccionDeModelo');
-w.controlador = conectar(w.controlador, 'UnTanque');
-setWindow('SeleccionDeModelo', w);
-
+try
+    w.controlador = conectar(w.controlador, 'UnTanque', tipoSetDeControl);
+    setWindow('SeleccionDeModelo', w);
+catch 
+    exception = lasterr;
+    msgbox(sprintf('Ha ocurrido un error al conectarse con el set de control elegido. Revise que los elementos elegidos tengan la conectividad necesaria. \n\n%s', ...
+        exception), 'Error al Conectar', 'error');
+end
 % --- Executes when user attempts to close wSeleccionDeModelo.
 function wSeleccionDeModelo_CloseRequestFcn(hObject, eventdata, handles)
 % hObject    handle to wSeleccionDeModelo (see GCBO)
@@ -242,4 +250,38 @@ user_response = questdlg('¿Desea salir del sistema?','Salir', 'Aceptar', 'Cancel
 if user_response == 'Aceptar'
 	    delete(handles.wSeleccionDeModelo);
 %else doNothing    
+end
+
+
+% --- Executes on button press in rdReproduccion.
+function rdReproduccion_Callback(hObject, eventdata, handles)
+% hObject    handle to rdReproduccion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+toogle_RadioButton(hObject,handles);
+
+% Hint: get(hObject,'Value') returns toggle state of rdReproduccion
+function toogle_RadioButton(hObject, handles)
+    if get(hObject, 'Value') == get(hObject, 'Max')
+        radioHandles = getOtrosRadiosSetDeControl(handles, hObject);
+        set(radioHandles, 'Value', get(hObject, 'Min'));
+    end
+
+function radioHandles = getOtrosRadiosSetDeControl(handles, radioActual)
+    radioHandles = [handles.rdManual, handles.rdAutomaticoABB, handles.rdAutomaticoMatlab, handles.rdReproduccion];
+    iiRadioActual = find(radioHandles == radioActual);
+    radioHandles = radioHandles([1:iiRadioActual-1, iiRadioActual+1:length(radioHandles)]);
+    
+end
+
+function tipo = getTipoSetDeControl(handles)
+	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
+        tipo = 'Manual';
+	elseif get(handles.rdAutomaticoABB, 'Value') == get(handles.rdAutomaticoABB, 'Max')
+        tipo = 'AutomaticoABB';
+	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
+        tipo = 'AutomaticoMatlab';
+	elseif get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
+        tipo = 'Reproduccion';
+	end
 end

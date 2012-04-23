@@ -1,9 +1,24 @@
-function self = conectar( self, archivoSimulink )
+function self = conectar( self, archivoSimulink,tipoSetDeControl)
 
 global conexion
 global setDeControl
-
-    conexion = ConexionDummy(3);
+	switch tipoSetDeControl
+        case 'Manual'
+            conexion = Conexion;
+        case 'AutomaticoMatlab'
+            conexion = Conexion;
+        case 'AutomaticoABB'
+            error('testbed:conectar', 'El tipo de Set de Control Automatico - ABB no esta disponible en esta version del sistema.');
+        case 'Reproduccion'
+            [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de reproduccion...', 'Grabaciones/');
+            if ~filename
+                return;
+            end
+            conexion = ConexionDummy(strcat(filepath, filename));
+        otherwise
+            error('testbed:conectar', 'Tipo de Set de Control invalido.');
+	end
+        
     conexion = crearYConectar(conexion);
 	proceso = Proceso;
 	setDeControl = SetDeControlMatlab(archivoSimulink);

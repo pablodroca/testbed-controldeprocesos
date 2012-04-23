@@ -1,5 +1,4 @@
-function [ self ] = Conexion(modoConexion)
-   self.modoConexion = modoConexion;
+function [ self ] = Conexion()
    self.conectado = 0;
    self.canalSensor = 1;
    self.canalActuador = 1;
