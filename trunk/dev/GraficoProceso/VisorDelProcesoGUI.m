@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 18-Apr-2012 01:37:18
+% Last Modified by GUIDE v2.5 25-Apr-2012 21:29:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,7 +54,7 @@ function VisorDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for VisorDelProcesoGUI
 handles.output = hObject;
-if length(varargin) < 2
+if length(varargin) < 3
     delete (handles.wVisorDelProceso);
     error('testbed:VisorDelProceso', strcat('Visor Del Proceso requiere 2 parametros. Ejemplo de ejecucion: ' ...
             , 'VisorDelProceso(wSeleccionDelProceso, proceso)'));
@@ -62,13 +62,18 @@ end
 
 wSeleccionDeModelo = varargin{1};
 proceso = varargin{2};
+archivoSimulink = varargin{3};
+
 if (~ishandle(wSeleccionDeModelo)) || ...
     (~isobject(proceso)) 
     delete (handles.wVisorDelProceso);
     error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
 end
 
-handles.axesMuestras = handles.axesVisorProceso;
+imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
+image(imagenProceso, 'Parent', handles.axesImagen);
+axis(handles.axesImagen, 'off');
+
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
 window.vista = hObject;
 window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
@@ -144,8 +149,8 @@ function slider3_Callback(hObject, eventdata, handles)
 msgbox('This is slider3');
 
 % --- Executes during object creation, after setting all properties.
-function edit1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function txtKp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKp (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -159,18 +164,23 @@ end
 
 
 
-function edit1_Callback(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function txtKp_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKp (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit1 as text
-%        str2double(get(hObject,'String')) returns contents of edit1 as a double
+% Hints: get(hObject,'String') returns contents of txtKp as text
+%        str2double(get(hObject,'String')) returns contents of txtKp as a double
+
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'Kp', get(handles.txtKp, 'String'));
+setWindow('VisorDelProceso', w);
+
 
 
 % --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function txtKi_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKi (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -184,18 +194,21 @@ end
 
 
 
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function txtKi_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKi (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
-msgbox('This is edit2');
+% Hints: get(hObject,'String') returns contents of txtKi as text
+%        str2double(get(hObject,'String')) returns contents of txtKi as a double
+
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'Ki', get(handles.txtKi, 'String'));
+setWindow('VisorDelProceso', w);
 
 % --- Executes during object creation, after setting all properties.
-function edit3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function txtKd_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKd (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -209,14 +222,17 @@ end
 
 
 
-function edit3_Callback(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function txtKd_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKd (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit3 as text
-%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+% Hints: get(hObject,'String') returns contents of txtKd as text
+%        str2double(get(hObject,'String')) returns contents of txtKd as a double
 
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'Kd', get(handles.txtKd, 'String'));
+setWindow('VisorDelProceso', w);
 
 % --- Executes during object creation, after setting all properties.
 function txtNivel_CreateFcn(hObject, eventdata, handles)
@@ -244,8 +260,8 @@ function txtNivel_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function txtMuestra_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to txtMuestra (see GCBO)
+function txtInstante_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtInstante (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -259,13 +275,13 @@ end
 
 
 
-function txtMuestra_Callback(hObject, eventdata, handles)
-% hObject    handle to txtMuestra (see GCBO)
+function txtInstante_Callback(hObject, eventdata, handles)
+% hObject    handle to txtInstante (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of txtMuestra as text
-%        str2double(get(hObject,'String')) returns contents of txtMuestra as a double
+% Hints: get(hObject,'String') returns contents of txtInstante as text
+%        str2double(get(hObject,'String')) returns contents of txtInstante as a double
 
 % --- Executes on button press in pushbutton2.
 function pushbutton2_Callback(hObject, eventdata, handles)
