@@ -1,7 +1,7 @@
 function agregarMuestra(visorDelProceso, instantes, muestras)
     handles = guihandles(visorDelProceso);
 	set(handles.txtNivel, 'String', muestras(end));
-	set(handles.txtMuestra, 'String', instantes(end));
+	set(handles.txtInstante, 'String', instantes(end));
 
 
 	try %TODO remover el trycatc

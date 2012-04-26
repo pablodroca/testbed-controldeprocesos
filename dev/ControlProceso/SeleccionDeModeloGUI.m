@@ -226,7 +226,7 @@ function btnConectar_Callback(hObject, eventdata, handles)
 tipoSetDeControl = getTipoSetDeControl(handles);
 w = getWindow('SeleccionDeModelo');
 try
-    w.controlador = conectar(w.controlador, 'UnTanque', tipoSetDeControl);
+    w.controlador = conectar(w.controlador, tipoSetDeControl);
     setWindow('SeleccionDeModelo', w);
 catch 
     exception = lasterr;
