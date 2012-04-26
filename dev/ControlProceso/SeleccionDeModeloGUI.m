@@ -108,7 +108,7 @@ function ConfiguracionAvanzada_Callback(hObject, eventdata, handles)
 % hObject    handle to ConfiguracionAvanzada (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+ConfiguracionAvanzadaGUI
 
 % --------------------------------------------------------------------
 function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
