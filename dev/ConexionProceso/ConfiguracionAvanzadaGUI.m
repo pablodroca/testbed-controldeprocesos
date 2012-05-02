@@ -295,7 +295,7 @@ function pushbutton_Aceptar_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
   validado = validarConfiguracion(handles);
   if (validado)
-    % TODO guardar nueva configuracion    
+    % TODO CORREGIR PARA GUARDAR: configuracionAvanzada.guardar();    
     close(handles.output);
   end
 

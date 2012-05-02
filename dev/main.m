@@ -7,6 +7,10 @@ addpath(fullfile(pwd, 'GraficoProceso'));
 addpath(fullfile(pwd, 'SimulinkModels'));
 addpath(fullfile(pwd, 'Utils'));
 
+global configuracionAvanzada;
+configuracionAvanzada = ConfiguracionAvanzada;
+%configuracionAvanzada.leer();
+
 global figura
 
 global conexion

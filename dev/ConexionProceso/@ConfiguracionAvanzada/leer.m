@@ -1,4 +1,4 @@
 function leer( self )
-    'leer'
+    self=load('configuracion');
 end
 
