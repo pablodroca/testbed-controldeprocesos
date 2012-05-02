@@ -22,7 +22,7 @@ function varargout = ConfiguracionAvanzadaGUI(varargin)
 
 % Edit the above text to modify the response to help ConfiguracionAvanzadaGUI
 
-% Last Modified by GUIDE v2.5 25-Apr-2012 21:21:01
+% Last Modified by GUIDE v2.5 01-May-2012 12:44:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -74,8 +74,8 @@ varargout{1} = handles.output;
 
 
 % --- Executes during object creation, after setting all properties.
-function edit1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function edit_DirectorioDefecto_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_DirectorioDefecto (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -89,18 +89,18 @@ end
 
 
 
-function edit1_Callback(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function edit_DirectorioDefecto_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_DirectorioDefecto (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit1 as text
-%        str2double(get(hObject,'String')) returns contents of edit1 as a double
+% Hints: get(hObject,'String') returns contents of edit_DirectorioDefecto as text
+%        str2double(get(hObject,'String')) returns contents of edit_DirectorioDefecto as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function edit_ControlActiveX_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_ControlActiveX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -114,18 +114,40 @@ end
 
 
 
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function edit_ControlActiveX_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_ControlActiveX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
+% Hints: get(hObject,'String') returns contents of edit_ControlActiveX as text
+%        str2double(get(hObject,'String')) returns contents of edit_ControlActiveX as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function edit_Comando_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_Comando (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+function edit_Comando_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_Comando (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_Comando as text
+%        str2double(get(hObject,'String')) returns contents of edit_Comando as a double
+
+% --- Executes during object creation, after setting all properties.
+function edit_Periodo_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_Periodo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -139,18 +161,40 @@ end
 
 
 
-function edit4_Callback(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function edit_Periodo_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_Periodo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit4 as text
-%        str2double(get(hObject,'String')) returns contents of edit4 as a double
+% Hints: get(hObject,'String') returns contents of edit_Periodo as text
+%        str2double(get(hObject,'String')) returns contents of edit_Periodo as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function edit_EjeTemporal_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_EjeTemporal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+function edit_EjeTemporal_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_EjeTemporal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_EjeTemporal as text
+%        str2double(get(hObject,'String')) returns contents of edit_EjeTemporal as a double
+
+% --- Executes during object creation, after setting all properties.
+function edit_NivelMinimo_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_NivelMinimo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -164,18 +208,18 @@ end
 
 
 
-function edit5_Callback(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function edit_NivelMinimo_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_NivelMinimo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit5 as text
-%        str2double(get(hObject,'String')) returns contents of edit5 as a double
+% Hints: get(hObject,'String') returns contents of edit_NivelMinimo as text
+%        str2double(get(hObject,'String')) returns contents of edit_NivelMinimo as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit6_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit6 (see GCBO)
+function edit_NivelMaximo_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_NivelMaximo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -189,18 +233,18 @@ end
 
 
 
-function edit6_Callback(hObject, eventdata, handles)
-% hObject    handle to edit6 (see GCBO)
+function edit_NivelMaximo_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_NivelMaximo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit6 as text
-%        str2double(get(hObject,'String')) returns contents of edit6 as a double
+% Hints: get(hObject,'String') returns contents of edit_NivelMaximo as text
+%        str2double(get(hObject,'String')) returns contents of edit_NivelMaximo as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit7_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit7 (see GCBO)
+function edit_Puerto_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_Puerto (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -212,20 +256,18 @@ else
     set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
 end
 
-
-
-function edit7_Callback(hObject, eventdata, handles)
-% hObject    handle to edit7 (see GCBO)
+function edit_Puerto_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_Puerto (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit7 as text
-%        str2double(get(hObject,'String')) returns contents of edit7 as a double
+% Hints: get(hObject,'String') returns contents of edit_Puerto as text
+%        str2double(get(hObject,'String')) returns contents of edit_Puerto as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit8_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit8 (see GCBO)
+function edit_Velocidad_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_Velocidad (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -237,65 +279,13 @@ else
     set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
 end
 
-
-
-function edit8_Callback(hObject, eventdata, handles)
-% hObject    handle to edit8 (see GCBO)
+function edit_Velocidad_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_Velocidad (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit8 as text
-%        str2double(get(hObject,'String')) returns contents of edit8 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit11_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit11 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc
-    set(hObject,'BackgroundColor','white');
-else
-    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
-end
-
-
-
-function edit11_Callback(hObject, eventdata, handles)
-% hObject    handle to edit11 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit11 as text
-%        str2double(get(hObject,'String')) returns contents of edit11 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit12_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit12 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc
-    set(hObject,'BackgroundColor','white');
-else
-    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
-end
-
-
-
-function edit12_Callback(hObject, eventdata, handles)
-% hObject    handle to edit12 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit12 as text
-%        str2double(get(hObject,'String')) returns contents of edit12 as a double
+% Hints: get(hObject,'String') returns contents of edit_Velocidad as text
+%        str2double(get(hObject,'String')) returns contents of edit_Velocidad as a double
 
 
 % --- Executes on button press in pushbutton_Aceptar.
@@ -303,12 +293,98 @@ function pushbutton_Aceptar_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_Aceptar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+  validado = validarConfiguracion(handles);
+  if (validado)
+    % TODO guardar nueva configuracion    
+    close(handles.output);
+  end
 
 % --- Executes on button press in pushbutton_Cancelar.
 function pushbutton_Cancelar_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_Cancelar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+  close(handles.output);
 
 
+% --- Application specific methods
+
+function validado = validarConfiguracion(handles)
+  validado = false;
+  
+  directorioDefecto = stringTrim(get(handles.edit_DirectorioDefecto,'String'));
+  if (length(directorioDefecto)>0) && not(exist(directorioDefecto,'dir'))
+    msgbox('El directorio especificado no existe','Error en Configuracion','error');
+    return
+  end
+  
+  controlActiveX = stringTrim(get(handles.edit_ControlActiveX,'String'));
+  if (length(controlActiveX)==0)
+    msgBox('El control activeX no esta especificado','error')
+    return
+  end
+  
+  velocidad = stringTrim(get(handles.edit_Velocidad,'String'));
+  if not(isNumber(velocidad))
+    msgbox('El valor para la velocidad debe ser numerico, entero y positivo','error');
+    return
+  end
+  
+  puerto = stringTrim(get(handles.edit_Puerto,'String'));
+  if not(isNumber(puerto))
+    msgbox('El valor para el puerto debe ser numerico, entero y positivo','error');
+    return
+  end
+  
+  comando = stringTrim(get(handles.edit_Comando,'String'));
+  if not(isNumber(comando))
+    msgbox('El valor para el comando debe ser numerico, entero y positivo', 'error');
+    return
+  end
+  
+  periodo = stringTrim(get(handles.edit_Periodo,'String'));
+  if not(isNumber(periodo))
+    msgbox('El periodo debe ser numerico, entero y positivo', 'error');
+    return
+  end
+  
+  ejeTemporal = stringTrim(get(handles.edit_EjeTemporal,'String'));
+  if not(isNumber(ejeTemporal))
+    msgbox('La ventana temporal debe ser numerico, entero y positivo', 'error');
+    return
+  end
+    
+  nivelMinimo = stringTrim(get(handles.edit_NivelMinimo,'String'));
+  if not(isNumber(nivelMinimo))
+    msgbox('El valor del nivel minimo debe ser numerico, entero y positivo', 'error');
+    return
+  end
+
+  nivelMaximo = stringTrim(get(handles.edit_NivelMaximo,'String'));
+  if not(isNumber(nivelMaximo))
+    msgbox('El valor del nivel maximo debe ser numerico, entero y positivo', 'error');
+    return
+  end
+
+  validado = true;
+  return  
+  
+function stringTrimmed = stringTrim(string)
+  stringTrimmed = deblank(strjust(string,'left')); 
+   
+function number = isNumber(strNum)
+  number = false;
+  num = str2num(strNum);
+  [f c] = size(num);
+  if not(f==1 && c==1)
+    return
+  end
+  if (num<=0)
+    return
+  end
+  [f c] = size(strfind(strNum,'.'));
+  if not(f==0 && c==0)
+    return
+  end
+  number = true
+  return
