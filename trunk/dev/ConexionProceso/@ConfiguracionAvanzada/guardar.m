@@ -1,4 +1,4 @@
 function guardar( self )
-    'guardar'
+    save('configuracion',self);
 end
 
