@@ -1,4 +1,5 @@
 function leer( self )
-    self=load('configuracion');
+  global directorioInicio;
+  self=load(strcat(directorioInicio,'configuracionAvanzada'));
 end
 
