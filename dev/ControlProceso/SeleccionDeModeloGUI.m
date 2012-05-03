@@ -22,7 +22,7 @@ function varargout = SeleccionDeModeloGUI(varargin)
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 20-Apr-2012 19:47:02
+% Last Modified by GUIDE v2.5 03-May-2012 02:01:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -198,6 +198,7 @@ function rdManual_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of rdManual
 
 toogle_RadioButton(hObject,handles);
+hideConfiguracionControl(handles);
 
 % --- Executes on button press in rdAutomaticoABB.
 function rdAutomaticoABB_Callback(hObject, eventdata, handles)
@@ -208,6 +209,7 @@ function rdAutomaticoABB_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoABB
 
 toogle_RadioButton(hObject,handles);
+showConfiguracionControl(handles);
 
 % --- Executes on button press in rdAutomaticoMatlab.
 function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
@@ -217,6 +219,7 @@ function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoMatlab
 toogle_RadioButton(hObject,handles);
+showConfiguracionControl(handles);
 
 % --- Executes on button press in btnConectar.
 function btnConectar_Callback(hObject, eventdata, handles)
@@ -259,6 +262,7 @@ function rdReproduccion_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 toogle_RadioButton(hObject,handles);
+showConfiguracionControl(handles);
 
 % Hint: get(hObject,'Value') returns toggle state of rdReproduccion
 function toogle_RadioButton(hObject, handles)
@@ -266,6 +270,23 @@ function toogle_RadioButton(hObject, handles)
         radioHandles = getOtrosRadiosSetDeControl(handles, hObject);
         set(radioHandles, 'Value', get(hObject, 'Min'));
     end
+end
+
+function hideConfiguracionControl(handles)
+    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    set(controls, 'Visible', 'off');
+end
+
+function showConfiguracionControl(handles)
+    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    set(controls, 'Visible', 'on');
+end
+function controls = getFrameControlHandles(handles)
+    controls = [handles.frmControl, handles.lblSetPoint, handles.txtSetPoint, handles.lblBias, handles.txtBias];
+end
+function controls = getFramePIDHandles(handles)
+    controls = [handles.frmPID, handles.lblKp, handles.txtKp, handles.lblKi, handles.txtKi, handles.lblKd, handles.txtKd];
+end
 
 function radioHandles = getOtrosRadiosSetDeControl(handles, radioActual)
     radioHandles = [handles.rdManual, handles.rdAutomaticoABB, handles.rdAutomaticoMatlab, handles.rdReproduccion];
@@ -285,3 +306,260 @@ function tipo = getTipoSetDeControl(handles)
         tipo = 'Reproduccion';
 	end
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function txtKp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtKp_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtKp as text
+%        str2double(get(hObject,'String')) returns contents of txtKp as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtKi_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtKi_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtKi as text
+%        str2double(get(hObject,'String')) returns contents of txtKi as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtKd_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtKd (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtKd_Callback(hObject, eventdata, handles)
+% hObject    handle to txtKd (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtKd as text
+%        str2double(get(hObject,'String')) returns contents of txtKd as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function slider1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slider1_Callback(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slider2_Callback(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slider3_Callback(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider4_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slider4_Callback(hObject, eventdata, handles)
+% hObject    handle to slider4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider5_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slider5_Callback(hObject, eventdata, handles)
+% hObject    handle to slider5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function txtSetPoint_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtSetPoint (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtSetPoint_Callback(hObject, eventdata, handles)
+% hObject    handle to txtSetPoint (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtSetPoint as text
+%        str2double(get(hObject,'String')) returns contents of txtSetPoint as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtBias_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtBias (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtBias_Callback(hObject, eventdata, handles)
+% hObject    handle to txtBias (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtBias as text
+%        str2double(get(hObject,'String')) returns contents of txtBias as a double
+
+
