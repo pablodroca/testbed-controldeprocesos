@@ -7,8 +7,14 @@ addpath(fullfile(pwd, 'GraficoProceso'));
 addpath(fullfile(pwd, 'SimulinkModels'));
 addpath(fullfile(pwd, 'Utils'));
 
+global directorioInicio;
+directorioInicio=pwd;
+
 global configuracionAvanzada;
 configuracionAvanzada = ConfiguracionAvanzada;
+
+%TODO: falla la invocacion al metodo, ???
+%configuracionAvanzada.guardar(configuracionAvanzada);
 %configuracionAvanzada.leer();
 
 global figura

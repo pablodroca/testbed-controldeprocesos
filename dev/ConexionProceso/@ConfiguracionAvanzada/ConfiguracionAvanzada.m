@@ -1,5 +1,4 @@
 function [ self ] = ConfiguracionAvanzada( )
-   %self = struct();
    self.directorioDefecto='';
    self.controlActiveX='RiacQXControl.RiacQX';
    self.velocidad=57600;
@@ -11,4 +10,5 @@ function [ self ] = ConfiguracionAvanzada( )
    self.nivelMinimo=10;
    self.nivelMaximo=50;
    self = class(self, 'ConfiguracionAvanzada');
+   guardar(self);
 end
