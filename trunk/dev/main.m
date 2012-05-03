@@ -12,10 +12,8 @@ directorioInicio=pwd;
 
 global configuracionAvanzada;
 configuracionAvanzada = ConfiguracionAvanzada;
+configuracionAvanzada = leer(configuracionAvanzada);
 
-%TODO: falla la invocacion al metodo, ???
-%configuracionAvanzada.guardar(configuracionAvanzada);
-%configuracionAvanzada.leer();
 
 global figura
 

@@ -58,6 +58,9 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+global configuracionAvanzada;
+set(handles.edit_Velocidad, 'String', getVelocidad(configuracionAvanzada));
+
 % UIWAIT makes ConfiguracionAvanzadaGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -293,9 +296,11 @@ function pushbutton_Aceptar_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_Aceptar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+global configuracionAvanzada
   validado = validarConfiguracion(handles);
   if (validado)
-    % TODO CORREGIR PARA GUARDAR: configuracionAvanzada.guardar();    
+    configuracionAvanzada = recolectarValores(configuracionAvanzada, handles);
+    configuracionAvanzada = guardar(configuracionAvanzada);
     close(handles.output);
   end
 
@@ -308,6 +313,13 @@ function pushbutton_Cancelar_Callback(hObject, eventdata, handles)
 
 
 % --- Application specific methods
+function configuracionAvanzada = recolectarValores(configuracionAvanzada, handles)
+    velocidad = str2num(get(handles.edit_Velocidad,'String'));
+    puerto = str2num(get(handles.edit_Puerto,'String'));
+    %etc
+    configuracionAvanzada = modificar(configuracionAvanzada, velocidad, puerto);
+
+end
 
 function validado = validarConfiguracion(handles)
   validado = false;
