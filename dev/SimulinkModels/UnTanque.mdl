@@ -36,8 +36,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "XPMUser"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Apr 25 21:09:09 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:5>"
+  LastModifiedDate	  "Thu May 03 00:37:33 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:6>"
   ConfigurationManager	  "None"
   SimParamPage		  "WorkspaceI/O"
   LinearizationMsg	  "none"
@@ -318,7 +318,7 @@ Model {
   }
   System {
     Name		    "UnTanque"
-    Location		    [2, 78, 1278, 748]
+    Location		    [2, 82, 1270, 752]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -329,18 +329,6 @@ Model {
     PaperUnits		    "inches"
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    Block {
-      BlockType		      Reference
-      Name		      " SALIDA\nMANUAL"
-      Ports		      [1, 1]
-      Position		      [120, 12, 155, 68]
-      BackgroundColor	      "cyan"
-      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
-      SourceType	      "Slider Gain"
-      low		      "0"
-      gain		      "0"
-      high		      "100"
-    }
     Block {
       BlockType		      Constant
       Name		      "BIAS"
@@ -454,6 +442,18 @@ Model {
       FunctionName	      "RIAC"
     }
     Block {
+      BlockType		      Reference
+      Name		      "SALIDAMANUAL"
+      Ports		      [1, 1]
+      Position		      [120, 12, 155, 68]
+      BackgroundColor	      "cyan"
+      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
+      SourceType	      "Slider Gain"
+      low		      "0"
+      gain		      "0"
+      high		      "100"
+    }
+    Block {
       BlockType		      Constant
       Name		      "SP"
       Position		      [50, 219, 85, 281]
@@ -538,7 +538,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      " SALIDA\nMANUAL"
+      SrcBlock		      "SALIDAMANUAL"
       SrcPort		      1
       DstBlock		      "Manual "
       DstPort		      1
@@ -640,7 +640,7 @@ Model {
     Line {
       SrcBlock		      "C"
       SrcPort		      1
-      DstBlock		      " SALIDA\nMANUAL"
+      DstBlock		      "SALIDAMANUAL"
       DstPort		      1
     }
     Line {
