@@ -1,5 +1,5 @@
-function velocidad = getVelocidad( self )
+function puerto = getPuerto( self )
 %GETVELOCIDAD Summary of this function goes here
 %  Detailed explanation goes here
 
-velocidad = self.velocidad;
+puerto = self.puerto;

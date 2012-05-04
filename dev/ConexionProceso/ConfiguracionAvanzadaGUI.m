@@ -60,10 +60,12 @@ guidata(hObject, handles);
 
 global configuracionAvanzada;
 set(handles.edit_Velocidad, 'String', getVelocidad(configuracionAvanzada));
-
+set(handles.edit_Puerto, 'String', getPuerto(configuracionAvanzada));
+set(handles.edit_EjeTemporal, 'String', getEjeTemporal(configuracionAvanzada));
+set(handles.edit_NivelMinimo, 'String', getNivelMinimo(configuracionAvanzada));
+set(handles.edit_NivelMaximo, 'String', getNivelMaximo(configuracionAvanzada));
 % UIWAIT makes ConfiguracionAvanzadaGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
 
 % --- Outputs from this function are returned to the command line.
 function varargout = ConfiguracionAvanzadaGUI_OutputFcn(hObject, eventdata, handles)
@@ -89,64 +91,6 @@ if ispc
 else
     set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
 end
-
-
-
-function edit_DirectorioDefecto_Callback(hObject, eventdata, handles)
-% hObject    handle to edit_DirectorioDefecto (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit_DirectorioDefecto as text
-%        str2double(get(hObject,'String')) returns contents of edit_DirectorioDefecto as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit_ControlActiveX_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit_ControlActiveX (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc
-    set(hObject,'BackgroundColor','white');
-else
-    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
-end
-
-
-
-function edit_ControlActiveX_Callback(hObject, eventdata, handles)
-% hObject    handle to edit_ControlActiveX (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit_ControlActiveX as text
-%        str2double(get(hObject,'String')) returns contents of edit_ControlActiveX as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit_Comando_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit_Comando (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc
-    set(hObject,'BackgroundColor','white');
-else
-    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
-end
-
-function edit_Comando_Callback(hObject, eventdata, handles)
-% hObject    handle to edit_Comando (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit_Comando as text
-%        str2double(get(hObject,'String')) returns contents of edit_Comando as a double
 
 % --- Executes during object creation, after setting all properties.
 function edit_Periodo_CreateFcn(hObject, eventdata, handles)
@@ -314,89 +258,54 @@ function pushbutton_Cancelar_Callback(hObject, eventdata, handles)
 
 % --- Application specific methods
 function configuracionAvanzada = recolectarValores(configuracionAvanzada, handles)
-    velocidad = str2num(get(handles.edit_Velocidad,'String'));
-    puerto = str2num(get(handles.edit_Puerto,'String'));
-    %etc
-    configuracionAvanzada = modificar(configuracionAvanzada, velocidad, puerto);
-
+  velocidad = str2num(get(handles.edit_Velocidad,'String'));
+  puerto = str2num(get(handles.edit_Puerto,'String'));
+  periodo = str2num(get(handles.edit_Periodo,'String'));
+  ejeTemporal = str2num(get(handles.edit_EjeTemporal,'String'));
+  nivelMinimo = str2num(get(handles.edit_NivelMinimo,'String'));
+  nivelMaximo = str2num(get(handles.edit_NivelMaximo,'String'));
+  configuracionAvanzada = modificar(configuracionAvanzada, velocidad, puerto, periodo, ejeTemporal, nivelMinimo, nivelMaximo);
 end
 
 function validado = validarConfiguracion(handles)
   validado = false;
   
-  directorioDefecto = stringTrim(get(handles.edit_DirectorioDefecto,'String'));
-  if (length(directorioDefecto)>0) && not(exist(directorioDefecto,'dir'))
-    msgbox('El directorio especificado no existe','Error en Configuracion','error');
-    return
-  end
-  
-  controlActiveX = stringTrim(get(handles.edit_ControlActiveX,'String'));
-  if (length(controlActiveX)==0)
-    msgBox('El control activeX no esta especificado','error')
-    return
-  end
-  
-  velocidad = stringTrim(get(handles.edit_Velocidad,'String'));
-  if not(isNumber(velocidad))
+  velocidad = stringtrim(get(handles.edit_Velocidad,'String'));
+  if not(isinteger(velocidad))
     msgbox('El valor para la velocidad debe ser numerico, entero y positivo','error');
     return
   end
   
-  puerto = stringTrim(get(handles.edit_Puerto,'String'));
-  if not(isNumber(puerto))
+  puerto = stringtrim(get(handles.edit_Puerto,'String'));
+  if not(isinteger(puerto))
     msgbox('El valor para el puerto debe ser numerico, entero y positivo','error');
     return
   end
-  
-  comando = stringTrim(get(handles.edit_Comando,'String'));
-  if not(isNumber(comando))
-    msgbox('El valor para el comando debe ser numerico, entero y positivo', 'error');
+ 
+  periodo = stringtrim(get(handles.edit_Periodo,'String'));
+  if not(isnumber(periodo))
+    msgbox('El periodo debe ser numerico y positivo', 'error');
     return
   end
   
-  periodo = stringTrim(get(handles.edit_Periodo,'String'));
-  if not(isNumber(periodo))
-    msgbox('El periodo debe ser numerico, entero y positivo', 'error');
-    return
-  end
-  
-  ejeTemporal = stringTrim(get(handles.edit_EjeTemporal,'String'));
-  if not(isNumber(ejeTemporal))
-    msgbox('La ventana temporal debe ser numerico, entero y positivo', 'error');
+  ejeTemporal = stringtrim(get(handles.edit_EjeTemporal,'String'));
+  if not(isnumber(ejeTemporal))
+    msgbox('La ventana temporal debe ser numerico y positivo', 'error');
     return
   end
     
-  nivelMinimo = stringTrim(get(handles.edit_NivelMinimo,'String'));
-  if not(isNumber(nivelMinimo))
-    msgbox('El valor del nivel minimo debe ser numerico, entero y positivo', 'error');
+  nivelMinimo = stringtrim(get(handles.edit_NivelMinimo,'String'));
+  if not(isnumber(nivelMinimo))
+    msgbox('El valor del nivel minimo debe ser numerico y positivo', 'error');
     return
   end
 
-  nivelMaximo = stringTrim(get(handles.edit_NivelMaximo,'String'));
-  if not(isNumber(nivelMaximo))
-    msgbox('El valor del nivel maximo debe ser numerico, entero y positivo', 'error');
+  nivelMaximo = stringtrim(get(handles.edit_NivelMaximo,'String'));
+  if not(isnumber(nivelMaximo))
+    msgbox('El valor del nivel maximo debe ser numerico y positivo', 'error');
     return
   end
 
   validado = true;
   return  
   
-function stringTrimmed = stringTrim(string)
-  stringTrimmed = deblank(strjust(string,'left')); 
-   
-function number = isNumber(strNum)
-  number = false;
-  num = str2num(strNum);
-  [f c] = size(num);
-  if not(f==1 && c==1)
-    return
-  end
-  if (num<=0)
-    return
-  end
-  [f c] = size(strfind(strNum,'.'));
-  if not(f==0 && c==0)
-    return
-  end
-  number = true
-  return
