@@ -7,10 +7,10 @@ function self = leer( self )
   
     self.velocidad = fileSelf.self.velocidad;
     self.puerto = fileSelf.self.puerto;
-    self.periodo = fileSelf.periodo;
-    self.ejeTemporal = fileSelf.ejeTemporal;
-    self.nivelMinimo = fileSelf.nivelMinimo;
-    self.nivelMaximo = fileSelf.nivelMaximo;
-    end
+    self.periodo = fileSelf.self.periodo;
+    self.ejeTemporal = fileSelf.self.ejeTemporal;
+    self.nivelMinimo = fileSelf.self.nivelMinimo;
+    self.nivelMaximo = fileSelf.self.nivelMaximo;
+  end
 end
 
