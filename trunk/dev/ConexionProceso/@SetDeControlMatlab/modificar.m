@@ -1,5 +1,5 @@
-function self = modificar( self, parametro, valor )
-	fprintf('Modificando modelo ''%s''. %s=%f\n', self.modeloSimulink, parametro, valor); 
-	set_param(strcat(self.modeloSimulink, '/', parametro),'Gain', num2str(valor));
+function self = modificar( self, parametro, propiedad, valor )
+	fprintf('Modificando modelo ''%s''. %s->%s=%f\n', self.modeloSimulink, parametro, propiedad, valor); 
+	set_param(strcat(self.modeloSimulink, '/', parametro),propiedad, num2str(valor));
 end
 

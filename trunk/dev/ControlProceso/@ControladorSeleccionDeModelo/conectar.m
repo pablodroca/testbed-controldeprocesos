@@ -1,14 +1,12 @@
-function self = conectar( self,tipoSetDeControl)
+function self = conectar( self,tipoSetDeControl, configuracion, modelo)
 
 global conexion
 global setDeControl
 	switch tipoSetDeControl
         case 'Manual'
             conexion = Conexion;
-			archivoSimulink = 'UnTanque';
         case 'AutomaticoMatlab'
             conexion = Conexion;
-			archivoSimulink = 'UnTanque';
         case 'AutomaticoABB'
             error('testbed:conectar', 'El tipo de Set de Control Automatico - ABB no esta disponible en esta version del sistema.');
         case 'Reproduccion'
@@ -17,15 +15,20 @@ global setDeControl
                 return;
             end
             conexion = ConexionDummy(strcat(filepath, filename));
-			archivoSimulink = 'UnTanque';
         otherwise
             error('testbed:conectar', 'Tipo de Set de Control invalido.');
-	end
-        
+	end    
     conexion = crearYConectar(conexion);
-	proceso = Proceso;
-	setDeControl = SetDeControlMatlab(archivoSimulink);
     
-	VisorDelProcesoGUI( self.vista, proceso, archivoSimulink);    
+    
+	proceso = Proceso;
+    switch tipoSetDeControl
+        case 'AutomaticoABB'
+            setDeControl = SetDeControlABB(modelo, configuracion);
+        otherwise
+            setDeControl = SetDeControlMatlab(modelo, configuracion);
+    end
+    iniciar(setDeControl);
+	VisorDelProcesoGUI( self.vista, proceso, modelo);    
 end
 

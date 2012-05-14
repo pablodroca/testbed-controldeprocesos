@@ -1,5 +1,5 @@
-function [ self ] = ConfiguracionControlManual( )
-   self = struct('a',123);
+function [ self ] = ConfiguracionControlManual( salidaManual )
+   self.salidaManual = salidaManual;
    self = class(self, 'ConfiguracionControlManual');
 end
 

@@ -9,7 +9,7 @@ addpath(fullfile(pwd, 'Utils'));
 
 global directorioInicio;
 directorioInicio=pwd;
-
+global s;
 global configuracionAvanzada;
 configuracionAvanzada = ConfiguracionAvanzada;
 configuracionAvanzada = leer(configuracionAvanzada);
