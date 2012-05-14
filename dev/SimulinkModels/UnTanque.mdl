@@ -36,8 +36,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "XPMUser"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 03 00:37:33 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:6>"
+  LastModifiedDate	  "Mon May 07 03:10:58 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:7>"
   ConfigurationManager	  "None"
   SimParamPage		  "WorkspaceI/O"
   LinearizationMsg	  "none"
@@ -331,7 +331,7 @@ Model {
     ReportName		    "simulink-default.rpt"
     Block {
       BlockType		      Constant
-      Name		      "BIAS"
+      Name		      "Bias"
       Position		      [50, 369, 85, 431]
       BackgroundColor	      "cyan"
       Value		      "22"
@@ -454,14 +454,6 @@ Model {
       high		      "100"
     }
     Block {
-      BlockType		      Constant
-      Name		      "SP"
-      Position		      [50, 219, 85, 281]
-      BackgroundColor	      "cyan"
-      Value		      "25"
-      VectorParams1D	      off
-    }
-    Block {
       BlockType		      Scope
       Name		      "Salidas-Medicion-SP"
       Ports		      [1]
@@ -486,6 +478,14 @@ Model {
       NamePlacement	      "alternate"
       UpperLimit	      "180"
       LowerLimit	      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "SetPoint"
+      Position		      [50, 219, 85, 281]
+      BackgroundColor	      "cyan"
+      Value		      "25"
+      VectorParams1D	      off
     }
     Block {
       BlockType		      Sum
@@ -544,7 +544,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "SP"
+      SrcBlock		      "SetPoint"
       SrcPort		      1
       Points		      [0, 0; 10, 0]
       Branch {
@@ -558,7 +558,7 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "BIAS"
+      SrcBlock		      "Bias"
       SrcPort		      1
       DstBlock		      "G5"
       DstPort		      1

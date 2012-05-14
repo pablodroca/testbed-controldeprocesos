@@ -34,10 +34,10 @@ Model {
   Created		  "Wed Jul 02 13:08:05 2008"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "L10"
+  LastModifiedBy	  "XPMUser"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 17 13:35:13 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:48>"
+  LastModifiedDate	  "Wed Mar 07 00:59:58 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:49>"
   ConfigurationManager	  "None"
   SimParamPage		  "Solver"
   LinearizationMsg	  "none"
@@ -428,7 +428,7 @@ Model {
       Name		      "PLANTA - PLACA Riac"
       Ports		      [1, 1]
       Position		      [540, 63, 650, 97]
-      FunctionName	      "RIAC_sfcn1"
+      FunctionName	      "RIAC"
     }
     Block {
       BlockType		      Constant
@@ -443,7 +443,7 @@ Model {
       Name		      "Salidas-Medicion-SP"
       Ports		      [1]
       Position		      [1090, 109, 1135, 171]
-      Location		      [9, 527, 1359, 866]
+      Location		      [5, 453, 1289, 792]
       Open		      on
       NumInputPorts	      "1"
       List {

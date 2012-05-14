@@ -22,7 +22,7 @@ function varargout = SeleccionDeModeloGUI(varargin)
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 03-May-2012 02:01:31
+% Last Modified by GUIDE v2.5 07-May-2012 03:22:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -53,6 +53,8 @@ function SeleccionDeModeloGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to SeleccionDeModeloGUI (see VARARGIN)
 
 % Choose default command line output for SeleccionDeModeloGUI
+enableRadioButton(handles.rdManual, handles);
+showConfiguracionManualControl(handles);
 handles.output = hObject;
 window.vista = hObject;
 window.controlador = ControladorSeleccionDeModelo(handles.wSeleccionDeModelo);
@@ -153,22 +155,22 @@ function DetenerGrabacion_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on button press in rd2Tanques.
-function rd2Tanques_Callback(hObject, eventdata, handles)
-% hObject    handle to rd2Tanques (see GCBO)
+% --- Executes on button press in rdDosTanques.
+function rdDosTanques_Callback(hObject, eventdata, handles)
+% hObject    handle to rdDosTanques (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of rd2Tanques
+% Hint: get(hObject,'Value') returns toggle state of rdDosTanques
 
 
-% --- Executes on button press in rd1Tanque.
-function rd1Tanque_Callback(hObject, eventdata, handles)
-% hObject    handle to rd1Tanque (see GCBO)
+% --- Executes on button press in rdUnTanque.
+function rdUnTanque_Callback(hObject, eventdata, handles)
+% hObject    handle to rdUnTanque (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of rd1Tanque
+% Hint: get(hObject,'Value') returns toggle state of rdUnTanque
 
 
 % --- Executes on button press in rdSensores420mA.
@@ -197,8 +199,8 @@ function rdManual_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of rdManual
 
-toogle_RadioButton(hObject,handles);
-hideConfiguracionControl(handles);
+toogleRadioButton(hObject,handles);
+showConfiguracionManualControl(handles);
 
 % --- Executes on button press in rdAutomaticoABB.
 function rdAutomaticoABB_Callback(hObject, eventdata, handles)
@@ -208,8 +210,8 @@ function rdAutomaticoABB_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoABB
 
-toogle_RadioButton(hObject,handles);
-showConfiguracionControl(handles);
+toogleRadioButton(hObject,handles);
+showConfiguracionAutomaticaControl(handles);
 
 % --- Executes on button press in rdAutomaticoMatlab.
 function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
@@ -218,23 +220,29 @@ function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rdAutomaticoMatlab
-toogle_RadioButton(hObject,handles);
-showConfiguracionControl(handles);
+toogleRadioButton(hObject,handles);
+showConfiguracionAutomaticaControl(handles);
 
 % --- Executes on button press in btnConectar.
 function btnConectar_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-tipoSetDeControl = getTipoSetDeControl(handles);
-w = getWindow('SeleccionDeModelo');
 try
-    w.controlador = conectar(w.controlador, tipoSetDeControl);
-    setWindow('SeleccionDeModelo', w);
-catch 
+    [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
+    modelo = getModelo(handles);
+	try
+        w = getWindow('SeleccionDeModelo');
+        w.controlador = conectar(w.controlador, tipoSetDeControl, configuracion, modelo);
+        setWindow('SeleccionDeModelo', w);
+	catch 
+        exception = lasterr;
+        msgbox(sprintf('Ha ocurrido un error al conectarse con el set de control elegido. Revise que los elementos elegidos tengan la conectividad necesaria. \n\n%s', ...
+            exception), 'Error al Conectar', 'error');
+	end
+catch
     exception = lasterr;
-    msgbox(sprintf('Ha ocurrido un error al conectarse con el set de control elegido. Revise que los elementos elegidos tengan la conectividad necesaria. \n\n%s', ...
-        exception), 'Error al Conectar', 'error');
+    msgbox(exception, 'Error de Parametro', 'error');
 end
 % --- Executes when user attempts to close wSeleccionDeModelo.
 function wSeleccionDeModelo_CloseRequestFcn(hObject, eventdata, handles)
@@ -261,25 +269,47 @@ function rdReproduccion_Callback(hObject, eventdata, handles)
 % hObject    handle to rdReproduccion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-toogle_RadioButton(hObject,handles);
-showConfiguracionControl(handles);
+toogleRadioButton(hObject,handles);
+showConfiguracionAutomaticaControl(handles);
 
 % Hint: get(hObject,'Value') returns toggle state of rdReproduccion
-function toogle_RadioButton(hObject, handles)
+function enableRadioButton(radioToEnable, handles)
+    radioHandles = getOtrosRadiosSetDeControl(handles, radioToEnable);
+    set(radioHandles, 'Value', get(radioToEnable, 'Min'));
+    set(radioToEnable, 'Value', get(radioToEnable, 'Max'));
+end
+
+function toogleRadioButton(hObject, handles)
     if get(hObject, 'Value') == get(hObject, 'Max')
         radioHandles = getOtrosRadiosSetDeControl(handles, hObject);
         set(radioHandles, 'Value', get(hObject, 'Min'));
     end
 end
 
-function hideConfiguracionControl(handles)
-    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
+function hideConfiguracionManualControl(handles)
+    controls = getFrameControlManualHandles(handles);
     set(controls, 'Visible', 'off');
 end
 
-function showConfiguracionControl(handles)
-    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
+function hideConfiguracionAutomaticaControl(handles)
+    controls = [handles.lblValoresIniciales handles.btnAbrirConfiguracion getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    set(controls, 'Visible', 'off');
+end
+
+function showConfiguracionManualControl(handles)
+    controls = getFrameControlManualHandles(handles);
     set(controls, 'Visible', 'on');
+    hideConfiguracionAutomaticaControl(handles);
+end
+
+function showConfiguracionAutomaticaControl(handles)
+    controls = [handles.lblValoresIniciales handles.btnAbrirConfiguracion getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    set(controls, 'Visible', 'on');
+    hideConfiguracionManualControl(handles);
+end
+
+function controls = getFrameControlManualHandles(handles)
+    controls = [];
 end
 function controls = getFrameControlHandles(handles)
     controls = [handles.frmControl, handles.lblSetPoint, handles.txtSetPoint, handles.lblBias, handles.txtBias];
@@ -295,19 +325,63 @@ function radioHandles = getOtrosRadiosSetDeControl(handles, radioActual)
     
 end
 
-function tipo = getTipoSetDeControl(handles)
+function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
 	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
         tipo = 'Manual';
+        configuracion = recolectarConfiguracionManual(handles);
 	elseif get(handles.rdAutomaticoABB, 'Value') == get(handles.rdAutomaticoABB, 'Max')
         tipo = 'AutomaticoABB';
+        configuracion = recolectarConfiguracionAutomatica(handles);
 	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
         tipo = 'AutomaticoMatlab';
+        configuracion = recolectarConfiguracionAutomatica(handles);
 	elseif get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
         tipo = 'Reproduccion';
+        configuracion = recolectarConfiguracionAutomatica(handles);
 	end
 end
 
+function modelo = getModelo(handles)
 
+	if get(handles.rdUnTanque, 'Value') == get(handles.rdUnTanque, 'Max')
+        modelo = 'UnTanque';
+    elseif get(handles.rdDosTanques, 'Value') == get(handles.rdDosTanques, 'Max')
+        modelo = 'DosTanque';
+    else
+        error('SeleccionDeModelo:modelo', 'El modelo seleccionado no corresponde niguno de los modelos disponibles.');
+    end
+end
+    
+function configuracion = recolectarConfiguracionAutomatica(handles)
+    setPoint = str2num(get(handles.txtSetPoint, 'String'));
+    bias = str2num(get(handles.txtBias, 'String'));
+    kp = str2num(get(handles.txtKp, 'String'));
+    ki = str2num(get(handles.txtKi, 'String'));
+    kd = str2num(get(handles.txtKd, 'String'));
+	if isempty(setPoint)
+		error('SeleccionDeModelo:parametros','El valor de Set Point ingresado no es valido. Por favor ingrese un valor numerico');
+	elseif isempty(bias)
+		error('SeleccionDeModelo:parametros','El valor de Bias ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(kp)
+		error('SeleccionDeModelo:parametros','El valor de Kp ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(ki)
+		error('SeleccionDeModelo:parametros','El valor de Ki ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(kd)
+		error('SeleccionDeModelo:parametros','El valor de Kd ingresado no es valido. Por favor ingrese un valor numerico');
+    else
+        configuracion = ConfiguracionControlAutomatico(setPoint, bias, kp, ki, kd);
+    end
+end
+
+
+function configuracion = recolectarConfiguracionManual(handles)
+    valorActuador = str2num(get(handles.txtValorActuador, 'String'));
+	if isempty(valorActuador)
+		error('SeleccionDeModelo:parametros','El Valor del Actuador ingresado no es valido. Por favor ingrese un valor numerico');
+    else
+        configuracion = ConfiguracionControlManual(valorActuador);
+    end
+end
 % --- Executes during object creation, after setting all properties.
 function txtKp_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to txtKp (see GCBO)
@@ -561,5 +635,37 @@ function txtBias_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of txtBias as text
 %        str2double(get(hObject,'String')) returns contents of txtBias as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtValorActuador_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtValorActuador (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtValorActuador_Callback(hObject, eventdata, handles)
+% hObject    handle to txtValorActuador (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtValorActuador as text
+%        str2double(get(hObject,'String')) returns contents of txtValorActuador as a double
+
+
+% --- Executes on button press in btnAbrirConfiguracion.
+function btnAbrirConfiguracion_Callback(hObject, eventdata, handles)
+% hObject    handle to btnAbrirConfiguracion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 
 

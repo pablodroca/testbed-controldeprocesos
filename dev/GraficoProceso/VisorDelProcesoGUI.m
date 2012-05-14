@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 03-May-2012 01:01:54
+% Last Modified by GUIDE v2.5 13-May-2012 18:19:24
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -73,6 +73,8 @@ end
 imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
 image(imagenProceso, 'Parent', handles.axesImagen);
 axis(handles.axesImagen, 'off');
+
+refrescarValoresConfiguracionControl(handles);
 
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
 window.vista = hObject;
@@ -154,7 +156,7 @@ function txtKp_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of txtKp as a double
 
 w = getWindow('VisorDelProceso');
-w.controlador = modificarParametro(w.controlador, 'Kp', get(handles.txtKp, 'String'));
+w.controlador = modificarParametro(w.controlador, 'Kp', 'Gain', get(handles.txtKp, 'String'));
 setWindow('VisorDelProceso', w);
 
 
@@ -184,7 +186,7 @@ function txtKi_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of txtKi as a double
 
 w = getWindow('VisorDelProceso');
-w.controlador = modificarParametro(w.controlador, 'Ki', get(handles.txtKi, 'String'));
+w.controlador = modificarParametro(w.controlador, 'Ki', 'Gain', get(handles.txtKi, 'String'));
 setWindow('VisorDelProceso', w);
 
 % --- Executes during object creation, after setting all properties.
@@ -212,7 +214,7 @@ function txtKd_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of txtKd as a double
 
 w = getWindow('VisorDelProceso');
-w.controlador = modificarParametro(w.controlador, 'Kd', get(handles.txtKd, 'String'));
+w.controlador = modificarParametro(w.controlador, 'Kd', 'Gain', get(handles.txtKd, 'String'));
 setWindow('VisorDelProceso', w);
 
 % --- Executes during object creation, after setting all properties.
@@ -264,13 +266,6 @@ function txtInstante_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of txtInstante as text
 %        str2double(get(hObject,'String')) returns contents of txtInstante as a double
 
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-desconectarControlador;
-
 % --------------------------------------------------------------------
 function Archivo_Callback(hObject, eventdata, handles)
 % hObject    handle to Archivo (see GCBO)
@@ -283,7 +278,10 @@ function Desconectar_Callback(hObject, eventdata, handles)
 % hObject    handle to Desconectar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 desconectarControlador;
+delete(handles.wVisorDelProceso);
+
 
 % --------------------------------------------------------------------
 function Grabacion_Callback(hObject, eventdata, handles)
@@ -341,6 +339,7 @@ function desconectarControlador()
 	try
         w = getWindow('VisorDelProceso');
 		w.controlador = desconectar(w.controlador);
+        w.controlador = {};
 		setWindow('VisorDelProceso', w);
 	catch
 		err = lasterr;
@@ -516,6 +515,10 @@ function txtSetPoint_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of txtSetPoint as text
 %        str2double(get(hObject,'String')) returns contents of txtSetPoint as a double
 
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'SetPoint', 'Value', get(handles.txtSetPoint, 'String'));
+setWindow('VisorDelProceso', w);
+
 
 % --- Executes during object creation, after setting all properties.
 function txtBias_CreateFcn(hObject, eventdata, handles)
@@ -537,8 +540,90 @@ function txtBias_Callback(hObject, eventdata, handles)
 % hObject    handle to txtBias (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
 % Hints: get(hObject,'String') returns contents of txtBias as text
 %        str2double(get(hObject,'String')) returns contents of txtBias as a double
+
+
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'Bias', 'Value', get(handles.txtBias, 'String'));
+setWindow('VisorDelProceso', w);
+
+
+function refrescarValoresConfiguracionControl(handles)
+    global setDeControl;
+    configuracion = getConfiguracion(setDeControl);
+    set(handles.txtSetPoint,'String', num2str(getSetPoint(configuracion)));
+    set(handles.txtBias,'String', num2str(getBias(configuracion)));
+    set(handles.txtKp,'String', num2str(getKp(configuracion)));
+    set(handles.txtKi,'String', num2str(getKi(configuracion)));
+    set(handles.txtKd,'String', num2str(getKd(configuracion)));
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function slManual_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background, change
+%       'usewhitebg' to 0 to use default.  See ISPC and COMPUTER.
+usewhitebg = 1;
+if usewhitebg
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on slider movement.
+function slManual_Callback(hObject, eventdata, handles)
+% hObject    handle to slManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function txtManual_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtManual_Callback(hObject, eventdata, handles)
+% hObject    handle to txtManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtManual as text
+%        str2double(get(hObject,'String')) returns contents of txtManual as a double
+
+
+% --------------------------------------------------------------------
+function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
+% hObject    handle to GuardarConfigDeControl (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in btnDesconectar.
+function btnDesconectar_Callback(hObject, eventdata, handles)
+% hObject    handle to btnDesconectar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+desconectarControlador;
+delete(handles.wVisorDelProceso);
 
 
