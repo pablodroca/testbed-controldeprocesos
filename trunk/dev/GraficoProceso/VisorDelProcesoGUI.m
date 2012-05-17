@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 13-May-2012 18:19:24
+% Last Modified by GUIDE v2.5 16-May-2012 21:43:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -626,4 +626,11 @@ function btnDesconectar_Callback(hObject, eventdata, handles)
 desconectarControlador;
 delete(handles.wVisorDelProceso);
 
+
+% --- Executes on mouse press over axes background.
+function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axesVisorProceso (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+GraficoDelProcesoGUI(proceso);
 

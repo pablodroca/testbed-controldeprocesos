@@ -1,4 +1,4 @@
-function varargout = SeleccionDeModeloGUI(varargin)
+ function varargout = SeleccionDeModeloGUI(varargin)
 % SELECCIONDEMODELOGUI M-file for SeleccionDeModeloGUI.fig
 %      SELECCIONDEMODELOGUI, by itself, creates a new SELECCIONDEMODELOGUI or raises the existing
 %      singleton*.

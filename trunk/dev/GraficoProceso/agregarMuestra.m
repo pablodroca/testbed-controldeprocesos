@@ -3,14 +3,13 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
 	set(handles.txtNivel, 'String', muestras(end));
 	set(handles.txtInstante, 'String', instantes(end));
 
-
-	try %TODO remover el trycatc
-		%axes(handles.axesVisorProceso);
-		%line('XData',[instante, instante+1, instante+2, instante+3, instante+4], 'YData', [muestra,  muestra*2, muestra/2, muestra/3, muestra*1.5]);
-		%figure(visorDelProceso);
-		%axes(visorDelProceso.axesisorProceso);
+	try 
         line(instantes, muestras, 'Parent', handles.axesVisorProceso);
-		%plot([instante, instante+1, instante+2, instante+3, instante+4], [muestra,  muestra*1.2, muestra*1.3, muestra*1.5, muestra*3]);
+        try
+          %line(instantes, muestras, 'Parent', handles.graficoDelProceso.axesGraficoDelProceso);
+        catch
+          %no hacer nada por el momento  
+        end
 	catch
 	 exception = lasterr;
 	 disp('Excepcion encontrada');
