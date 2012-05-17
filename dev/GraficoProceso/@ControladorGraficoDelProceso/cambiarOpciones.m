@@ -1,7 +1,4 @@
-function [ output_args ] = cambiarOpciones( input_args )
-%CAMBIAROPCIONES Summary of this function goes here
-%   Detailed explanation goes here
-
+function [ self ] = cambiarOpciones( configuracionEjes )
 
 end
 
