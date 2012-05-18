@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 18-May-2012 01:41:48
+% Last Modified by GUIDE v2.5 18-May-2012 10:04:49
 
 
 % Begin initialization code - DO NOT EDIT
@@ -555,6 +555,12 @@ function refrescarValoresConfiguracionControl(handles)
     global setDeControl;
     configuracion = getConfiguracion(setDeControl);
     if strcmp(class(configuracion), 'configuracioncontrolmanual')
+        controls = [handles.lblSetPoint, handles.txtSetPoint, handles.slSetPoint, ...
+                handles.lblBias, handles.txtBias, handles.slBias, handles.frSetPointBias, ...
+                handles.lblKp, handles.txtKp, handles.slKp, ...
+                handles.lblKi, handles.txtKi, handles.slKi, ...
+                handles.lblKd, handles.txtKd, handles.slKd, handles.frKpKiKd];
+        set(controls, 'Visible', 'off');
         set(handles.txtManual,'String', num2str(getSalidaManual(configuracion)));        
     else
         controls = [handles.lblManual, handles.txtManual, handles.slManual, handles.frManual];
@@ -643,5 +649,8 @@ function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axesVisorProceso (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-GraficoDelProcesoGUI(proceso);
+
+w = getWindow('VisorDelProceso');
+w.controlador = abrirGrafico(w.controlador);
+setWindow('VisorDelProceso', w);
 
