@@ -1,3 +1,2 @@
-function guardar( self )
-    'guardado'
-
+function self = guardar( self , archivo)
+    save(archivo, 'self');

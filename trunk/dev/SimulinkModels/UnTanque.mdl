@@ -34,10 +34,10 @@ Model {
   Created		  "Wed Mar 07 00:38:06 2012"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "XPMUser"
+  LastModifiedBy	  "L10"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 07 03:10:58 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:7>"
+  LastModifiedDate	  "Wed May 16 21:39:44 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:11>"
   ConfigurationManager	  "None"
   SimParamPage		  "WorkspaceI/O"
   LinearizationMsg	  "none"
@@ -334,7 +334,7 @@ Model {
       Name		      "Bias"
       Position		      [50, 369, 85, 431]
       BackgroundColor	      "cyan"
-      Value		      "22"
+      Value		      "23"
       VectorParams1D	      off
     }
     Block {
@@ -398,13 +398,13 @@ Model {
       Name		      "Kd"
       Position		      [215, 275, 245, 305]
       BackgroundColor	      "cyan"
+      Gain		      "0"
     }
     Block {
       BlockType		      Gain
       Name		      "Ki"
       Position		      [215, 210, 245, 240]
       BackgroundColor	      "cyan"
-      Gain		      "0"
     }
     Block {
       BlockType		      Gain
@@ -412,18 +412,6 @@ Model {
       Position		      [215, 165, 245, 195]
       BackgroundColor	      "cyan"
       Gain		      "2"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Manual "
-      Ports		      [2, 1]
-      Position		      [340, 32, 370, 68]
-      BackgroundColor	      "cyan"
-      NamePlacement	      "alternate"
-      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
-      SourceType	      "Manual Switch"
-      sw		      "0"
-      action		      "0"
     }
     Block {
       BlockType		      Mux
@@ -440,18 +428,6 @@ Model {
       Ports		      [1, 1]
       Position		      [520, 33, 630, 67]
       FunctionName	      "RIAC"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "SALIDAMANUAL"
-      Ports		      [1, 1]
-      Position		      [120, 12, 155, 68]
-      BackgroundColor	      "cyan"
-      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
-      SourceType	      "Slider Gain"
-      low		      "0"
-      gain		      "0"
-      high		      "100"
     }
     Block {
       BlockType		      Scope
@@ -484,7 +460,7 @@ Model {
       Name		      "SetPoint"
       Position		      [50, 219, 85, 281]
       BackgroundColor	      "cyan"
-      Value		      "25"
+      Value		      "50"
       VectorParams1D	      off
     }
     Block {
@@ -531,6 +507,30 @@ Model {
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
     }
+    Block {
+      BlockType		      Reference
+      Name		      "SwitchManual"
+      Ports		      [2, 1]
+      Position		      [340, 32, 370, 68]
+      BackgroundColor	      "cyan"
+      NamePlacement	      "alternate"
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      sw		      "0"
+      action		      "0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "ValorManual"
+      Ports		      [1, 1]
+      Position		      [120, 12, 155, 68]
+      BackgroundColor	      "cyan"
+      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
+      SourceType	      "Slider Gain"
+      low		      "0"
+      gain		      "0"
+      high		      "100"
+    }
     Line {
       SrcBlock		      "Mux"
       SrcPort		      1
@@ -538,9 +538,9 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "SALIDAMANUAL"
+      SrcBlock		      "ValorManual"
       SrcPort		      1
-      DstBlock		      "Manual "
+      DstBlock		      "SwitchManual"
       DstPort		      1
     }
     Line {
@@ -566,7 +566,7 @@ Model {
     Line {
       SrcBlock		      "Sat"
       SrcPort		      1
-      DstBlock		      "Manual "
+      DstBlock		      "SwitchManual"
       DstPort		      2
     }
     Line {
@@ -605,7 +605,7 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Manual "
+      SrcBlock		      "SwitchManual"
       SrcPort		      1
       Points		      [0, 0; 15, 0]
       Branch {
@@ -640,7 +640,7 @@ Model {
     Line {
       SrcBlock		      "C"
       SrcPort		      1
-      DstBlock		      "SALIDAMANUAL"
+      DstBlock		      "ValorManual"
       DstPort		      1
     }
     Line {

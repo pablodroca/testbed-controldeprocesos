@@ -112,12 +112,6 @@ function ConfiguracionAvanzada_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 ConfiguracionAvanzadaGUI
 
-% --------------------------------------------------------------------
-function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
-% hObject    handle to GuardarConfigDeControl (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
 
 % --------------------------------------------------------------------
 function Salir_Callback(hObject, eventdata, handles)
@@ -341,6 +335,31 @@ function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
 	end
 end
 
+function [tipo, configuracion] = setTipoSetDeControlYConfiguracionDeGrabacion(handles, archivo, tipo)
+   if strcmp(tipo, 'Manual')
+        configuracion = ConfiguracionControlManual;
+        configuracion = restaurar(configuracion, archivo);
+        radioToEnable = handles.rdManual;
+        showConfiguracionManualControl(handles);
+        establecerConfiguracionManual(handles, configuracion);
+    else
+        configuracion = ConfiguracionControlAutomatico;
+        configuracion = restaurar(configuracion, archivo);
+        if strcmp(tipo, 'AutomaticoABB')
+            radioToEnable = handles.rdAutomaticoABB;
+        elseif  strcmp(tipo, 'AutomaticoMatlab')
+            radioToEnable = handles.rdAutomaticoMatlab;
+        elseif strcmp(tipo, 'Reproduccion')
+            radioToEnable = handles.rdReproduccion;
+         end
+        showConfiguracionAutomaticaControl(handles);
+        establecerConfiguracionAutomatica(handles, configuracion);
+    end
+    
+    set(radioToEnable, 'Value', get(radioToEnable, 'Max'));
+    toogleRadioButton(radioToEnable, handles);
+end
+
 function modelo = getModelo(handles)
 
 	if get(handles.rdUnTanque, 'Value') == get(handles.rdUnTanque, 'Max')
@@ -374,14 +393,28 @@ function configuracion = recolectarConfiguracionAutomatica(handles)
 end
 
 
+function establecerConfiguracionAutomatica(handles, configuracion)
+    set(handles.txtSetPoint, 'String', num2str(getSetPoint(configuracion)));
+    set(handles.txtBias, 'String', num2str(getBias(configuracion)));
+    set(handles.txtKp, 'String', num2str(getKp(configuracion)));
+    set(handles.txtKi, 'String', num2str(getKi(configuracion)));
+    set(handles.txtKd, 'String', num2str(getKd(configuracion)));
+end
+
 function configuracion = recolectarConfiguracionManual(handles)
-    valorActuador = str2num(get(handles.txtValorActuador, 'String'));
+    valorActuador = 0;%str2num(get(handles.txtValorActuador, 'String'));
 	if isempty(valorActuador)
 		error('SeleccionDeModelo:parametros','El Valor del Actuador ingresado no es valido. Por favor ingrese un valor numerico');
     else
         configuracion = ConfiguracionControlManual(valorActuador);
     end
 end
+
+
+function establecerConfiguracionManual(handles, configuracion)
+    set(handles.txtValorActuador, 'String', num2str(getSalidaManual(configuracion)));
+end
+
 % --- Executes during object creation, after setting all properties.
 function txtKp_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to txtKp (see GCBO)
@@ -662,10 +695,28 @@ function txtValorActuador_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of txtValorActuador as a double
 
 
+% --------------------------------------------------------------------
+function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
+% hObject    handle to GuardarConfigDeControl (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global directorioInicio;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+if filename
+    [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
+    configuracion = guardar(configuracion, strcat(filepath, filename));
+    save(strcat(filepath, filename), '-append', 'tipoSetDeControl');
+end
+
 % --- Executes on button press in btnAbrirConfiguracion.
 function btnAbrirConfiguracion_Callback(hObject, eventdata, handles)
 % hObject    handle to btnAbrirConfiguracion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
+global directorioInicio;
+[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de configuracion de control...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+if filename
+    data = load(strcat(filepath, filename));
+    setTipoSetDeControlYConfiguracionDeGrabacion(handles, strcat(filepath, filename), data.tipoSetDeControl);
+end
