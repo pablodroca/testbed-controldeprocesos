@@ -22,7 +22,8 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 16-May-2012 21:43:11
+% Last Modified by GUIDE v2.5 18-May-2012 01:41:48
+
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -295,7 +296,8 @@ function IniciarGrabacion_Callback(hObject, eventdata, handles)
 % hObject    handle to IniciarGrabacion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', 'Grabaciones/proceso.mat');
+global directorioInicio;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', strcat(directorioInicio, '/Grabaciones/proceso.mat'));
 if filename
     w = getWindow('VisorDelProceso');
 	w.controlador = comenzarGrabacion(w.controlador, strcat(filepath,filename));
@@ -552,11 +554,17 @@ setWindow('VisorDelProceso', w);
 function refrescarValoresConfiguracionControl(handles)
     global setDeControl;
     configuracion = getConfiguracion(setDeControl);
-    set(handles.txtSetPoint,'String', num2str(getSetPoint(configuracion)));
-    set(handles.txtBias,'String', num2str(getBias(configuracion)));
-    set(handles.txtKp,'String', num2str(getKp(configuracion)));
-    set(handles.txtKi,'String', num2str(getKi(configuracion)));
-    set(handles.txtKd,'String', num2str(getKd(configuracion)));
+    if strcmp(class(configuracion), 'configuracioncontrolmanual')
+        set(handles.txtManual,'String', num2str(getSalidaManual(configuracion)));        
+    else
+        controls = [handles.lblManual, handles.txtManual, handles.slManual, handles.frManual];
+        set(controls, 'Visible', 'off');
+        set(handles.txtSetPoint,'String', num2str(getSetPoint(configuracion)));
+        set(handles.txtBias,'String', num2str(getBias(configuracion)));
+        set(handles.txtKp,'String', num2str(getKp(configuracion)));
+        set(handles.txtKi,'String', num2str(getKi(configuracion)));
+        set(handles.txtKd,'String', num2str(getKd(configuracion)));
+    end
 end
 
 
@@ -610,6 +618,9 @@ function txtManual_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of txtManual as text
 %        str2double(get(hObject,'String')) returns contents of txtManual as a double
 
+w = getWindow('VisorDelProceso');
+w.controlador = modificarParametro(w.controlador, 'ValorManual', 'Gain', get(handles.txtManual, 'String'));
+setWindow('VisorDelProceso', w);
 
 % --------------------------------------------------------------------
 function GuardarConfigDeControl_Callback(hObject, eventdata, handles)

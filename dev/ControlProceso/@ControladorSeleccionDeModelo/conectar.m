@@ -10,7 +10,8 @@ global setDeControl
         case 'AutomaticoABB'
             error('testbed:conectar', 'El tipo de Set de Control Automatico - ABB no esta disponible en esta version del sistema.');
         case 'Reproduccion'
-            [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de reproduccion...', 'Grabaciones/');
+            global directorioInicio;
+            [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de reproduccion...', strcat(directorioInicio, '/Grabaciones/'));
             if ~filename
                 return;
             end
