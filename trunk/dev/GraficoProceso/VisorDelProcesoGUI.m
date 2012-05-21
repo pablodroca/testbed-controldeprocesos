@@ -649,8 +649,4 @@ function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axesVisorProceso (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-w = getWindow('VisorDelProceso');
-w.controlador = abrirGrafico(w.controlador);
-setWindow('VisorDelProceso', w);
-
+GraficoDelProcesoGUI;
