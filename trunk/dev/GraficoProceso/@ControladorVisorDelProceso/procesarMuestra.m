@@ -20,9 +20,9 @@ function self = procesarMuestra( self )
           try
             agregarMuestraGrafico(getWindow('GraficoDelProceso'), [instanteAnterior; instante], [muestraAnterior; muestra]);
           catch
-            %error = lasterror;
-            %error('Error al intentar agregar muestra a GraficoDelProceso: ' + error.message);
-            disp('Error al intentar agregar muestra a GraficoDelProceso');
+            exception = lasterr;
+	        disp('Excepcion encontrada');
+	        disp(exception);
           end
         end
     else
