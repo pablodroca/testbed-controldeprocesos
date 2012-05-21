@@ -58,19 +58,19 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-if length(varargin) < 1
-    delete (handles.wGraficoDelProceso);
-    error('testbed:GrficoDelProceso', strcat('Grafico Del Proceso requiere 1 parametro. Ejemplo de ejecucion: ' ...
-            , 'GraficoDelProceso(wGraficoDelProceso)'));
-end
+%if length(varargin) < 1
+%    delete (handles.wGraficoDelProceso);
+%    error('testbed:GrficoDelProceso', strcat('Grafico Del Proceso requiere 1 parametro. Ejemplo de ejecucion: ' ...
+%            , 'GraficoDelProceso(wGraficoDelProceso)'));
+%end
 
-proceso = varargin{1};
+%proceso = varargin{1};
 
 w.vista = hObject;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso, proceso);
 setWindow('GraficoDelProceso', w);
 
-plot(getTodasMuestras(proceso));
+%plot(getTodasMuestras(proceso));
 
 % UIWAIT makes GraficoDelProcesoGUI wait for user response (see UIRESUME)
 % uiwait(handles.wGraficoDelProceso);
@@ -112,4 +112,8 @@ function slider1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-
+% --- Executes on mouse press over axes background.
+function axesGraficoDelProceso_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axesVisorProceso (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
