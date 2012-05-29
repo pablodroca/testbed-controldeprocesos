@@ -12,6 +12,7 @@ function self = leer( self )
     self.nivelMinimo = fileSelf.self.nivelMinimo;
     self.nivelMaximo = fileSelf.self.nivelMaximo;
     self.nivelVisorEscala = fileSelf.self.nivelVisorEscala;
+    self.nivelVisorOffset = fileSelf.self.nivelVisorOffset;
     self.actuacionManualMinima = fileSelf.self.actuacionManualMinima;
     self.actuacionManualMaxima = fileSelf.self.actuacionManualMaxima;
     self.actuacionVisorOffset = fileSelf.self.actuacionVisorOffset;
