@@ -77,6 +77,10 @@ axis(handles.axesImagen, 'off');
 
 refrescarValoresConfiguracionControl(handles);
 
+set(handles.slSetPoint, 'Min', 0);
+set(handles.slSetPoint, 'Max', 100);
+set(handles.slSetPoint, 'Value', 50);
+
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
 window.vista = hObject;
 window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
@@ -465,7 +469,8 @@ function slSetPoint_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
+value = get(hObject,'Value');
+set(handles.txtSetPoint, 'String', value);
 
 % --- Executes during object creation, after setting all properties.
 function slBias_CreateFcn(hObject, eventdata, handles)

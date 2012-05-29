@@ -1,5 +1,6 @@
 function self = procesarMuestra( self )
 	global conexion;
+    global configuracionAvanzada;
 	
     [conexion, muestra] = obtenerMuestra(conexion);
     [conexion, actuador] = obtenerValorActuador(conexion);
@@ -14,16 +15,17 @@ function self = procesarMuestra( self )
     end
     self.proceso = agregarMuestra(self.proceso, muestraConActuacion);
     instante = getInstanteUltimaMuestra(self.proceso);
-%    fprintf('Agregando muestra a vista.\n');
  
+    config = configuracionAvanzada;
+    muestrasEscaladas = [muestraAnterior; muestraConActuacion] - repmat([getNivelVisorOffset(config) getActuacionVisorOffset(config)], 2, 1);
+    muestrasEscaladas = muestrasEscaladas * diag([1/getNivelVisorEscala(config) 1/getActuacionVisorEscala(config)]);
     if ishandle(self.vista)       
-        agregarMuestra(self.vista, [instanteAnterior;instante], [muestraAnterior; muestraConActuacion]);
-        if existsWindow('GraficoDelProceso')
- %           fprintf('Agregando muestra al Grafico del Proceso.\n');
-            w = getWindow('GraficoDelProceso');
-            if ishandle(w.vista)   
-                agregarMuestraGrafico(w.vista, [instanteAnterior; instante], [muestraAnterior; muestraConActuacion]);
-            end
+        agregarMuestra(self.vista, [instanteAnterior;instante], muestrasEscaladas);
+    end
+    if existsWindow('GraficoDelProceso')
+        w = getWindow('GraficoDelProceso');
+        if ishandle(w.vista)   
+            agregarMuestraGrafico(w.vista, [instanteAnterior; instante], muestrasEscaladas);
         end
     else
         fprintf('Vista destino inexistente. Deteniendo timer de procesar Muestra...');
