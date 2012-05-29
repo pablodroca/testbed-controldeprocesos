@@ -1,2 +1,2 @@
 function [ muestra ] = getUltimaMuestra( self )
-muestra = self.muestras(self.instanteUltimaMuestra);
+muestra = self.muestras(self.instanteUltimaMuestra,:);

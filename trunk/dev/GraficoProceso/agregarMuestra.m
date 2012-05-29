@@ -3,16 +3,5 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
 	set(handles.txtNivel, 'String', muestras(end));
 	set(handles.txtInstante, 'String', instantes(end));
 
-	try 
-        line(instantes, muestras, 'Parent', handles.axesVisorProceso);
-        try
-          %line(instantes, muestras, 'Parent', handles.graficoDelProceso.axesGraficoDelProceso);
-        catch
-          %no hacer nada por el momento  
-        end
-	catch
-	 exception = lasterr;
-	 disp('Excepcion encontrada');
-	 disp(exception);
-	end
+    line(instantes, muestras, 'Parent', handles.axesVisorProceso);
 end
