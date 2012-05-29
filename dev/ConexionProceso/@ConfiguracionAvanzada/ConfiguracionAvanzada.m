@@ -6,5 +6,10 @@ function self = ConfiguracionAvanzada()
    self.periodo=3;
    self.nivelMinimo=10;
    self.nivelMaximo=50;
+   self.nivelVisorEscala = 1.25;
+   self.actuacionManualMinima = 0;
+   self.actuacionManualMaxima = 50;
+   self.actuacionVisorOffset = 60;
+   self.actuacionVisorEscala = 1.8;
    self = class(self, 'ConfiguracionAvanzada');
 end

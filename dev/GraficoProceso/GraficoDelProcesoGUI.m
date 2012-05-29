@@ -66,11 +66,15 @@ guidata(hObject, handles);
 
 %proceso = varargin{1};
 
-w.vista = hObject;
+w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso, proceso);
 setWindow('GraficoDelProceso', w);
 
-%plot(getTodasMuestras(proceso));
+instantes = 1:getInstanteUltimaMuestra(proceso);
+muestras = getTodasMuestras(proceso);
+line(instantes,muestras','Parent',handles.axesGraficoDelProceso)
+
+
 
 % UIWAIT makes GraficoDelProcesoGUI wait for user response (see UIRESUME)
 % uiwait(handles.wGraficoDelProceso);

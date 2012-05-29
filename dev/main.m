@@ -8,24 +8,15 @@ addpath(fullfile(pwd, 'SimulinkModels'));
 addpath(fullfile(pwd, 'Utils'));
 
 global directorioInicio;
-directorioInicio=pwd;
-global s;
 global configuracionAvanzada;
-configuracionAvanzada = ConfiguracionAvanzada;
-configuracionAvanzada = leer(configuracionAvanzada);
-
-
-global figura
-
 global conexion
 global setDeControl
 global windowHandles
 
-%global muestraTimer
-%global muestras
-
+directorioInicio=pwd;
+configuracionAvanzada = ConfiguracionAvanzada;
+configuracionAvanzada = leer(configuracionAvanzada);
 windowHandles = [];
-muestraTimer = 0;
-muestras = [];
+
 SeleccionDeModeloGUI
 
