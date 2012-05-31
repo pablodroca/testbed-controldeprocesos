@@ -1,4 +1,6 @@
 function [ self ] = Proceso( )
+   global configuracionAvanzada;
+   self.periodo = getPeriodo(configuracionAvanzada);
    self.muestras = [];
    self.instanteUltimaMuestra = 0;
    self.instanteInicioGrabacion = 0;
