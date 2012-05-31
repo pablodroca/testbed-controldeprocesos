@@ -55,16 +55,7 @@ function GraficoDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for GraficoDelProcesoGUI
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
-
-%if length(varargin) < 1
-%    delete (handles.wGraficoDelProceso);
-%    error('testbed:GrficoDelProceso', strcat('Grafico Del Proceso requiere 1 parametro. Ejemplo de ejecucion: ' ...
-%            , 'GraficoDelProceso(wGraficoDelProceso)'));
-%end
-
-%proceso = varargin{1};
+proceso = varargin{1};
 
 w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso, proceso);
@@ -72,9 +63,11 @@ setWindow('GraficoDelProceso', w);
 
 instantes = 1:getInstanteUltimaMuestra(proceso);
 muestras = getTodasMuestras(proceso);
-line(instantes,muestras','Parent',handles.axesGraficoDelProceso)
+plot(muestras);
+zoomproc(w.vista,handles.axesGraficoDelProceso);
 
-
+% Update handles structure
+guidata(hObject, handles);
 
 % UIWAIT makes GraficoDelProcesoGUI wait for user response (see UIRESUME)
 % uiwait(handles.wGraficoDelProceso);
