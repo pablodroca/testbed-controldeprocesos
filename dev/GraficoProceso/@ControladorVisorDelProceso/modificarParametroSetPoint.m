@@ -1,2 +1,9 @@
 function [ self, valido ] = modificarParametroSetPoint( self, valor )
-[self, valido] = modificarParametro(self, 'SetPoint', 'Value', valor);
+valor = validarParametro(self, valor);
+valido = ~isempty(valor);
+if valido
+    global setDeControl
+    configuracion = getConfiguracion(setDeControl);
+    [configuracion, setDeControl] = setSetPoint(configuracion, valor, setDeControl);
+    setDeControl = setConfiguracion(setDeControl, configuracion);
+end

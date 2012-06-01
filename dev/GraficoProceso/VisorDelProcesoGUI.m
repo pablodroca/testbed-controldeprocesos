@@ -724,6 +724,14 @@ function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+global directorioInicio;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+if filename
+    [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
+    configuracion = guardar(configuracion, strcat(filepath, filename));
+    save(strcat(filepath, filename), '-append', 'tipoSetDeControl');
+end
+
 
 % --- Executes on button press in btnDesconectar.
 function btnDesconectar_Callback(hObject, eventdata, handles)
@@ -742,3 +750,41 @@ function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
 
 w = getWindow('VisorDelProceso');
 abrirGrafico(w.controlador);
+
+
+function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
+	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
+        tipo = 'Manual';
+        configuracion = recolectarConfiguracionManual(handles);
+	elseif get(handles.rdAutomaticoABB, 'Value') == get(handles.rdAutomaticoABB, 'Max')
+        tipo = 'AutomaticoABB';
+        configuracion = recolectarConfiguracionAutomatica(handles);
+	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
+        tipo = 'AutomaticoMatlab';
+        configuracion = recolectarConfiguracionAutomatica(handles);
+	elseif get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
+        tipo = 'Reproduccion';
+        configuracion = recolectarConfiguracionAutomatica(handles);
+	end
+end
+
+function configuracion = recolectarConfiguracionAutomatica(handles)
+    setPoint = str2num(get(handles.txtSetPoint, 'String'));
+    bias = str2num(get(handles.txtBias, 'String'));
+    kp = str2num(get(handles.txtKp, 'String'));
+    ki = str2num(get(handles.txtKi, 'String'));
+    kd = str2num(get(handles.txtKd, 'String'));
+	if isempty(setPoint)
+		error('VisorDelProceso:parametros','El valor de Set Point ingresado no es valido. Por favor ingrese un valor numerico');
+	elseif isempty(bias)
+		error('VisorDelProceso:parametros','El valor de Bias ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(kp)
+		error('VisorDelProceso:parametros','El valor de Kp ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(ki)
+		error('VisorDelProceso:parametros','El valor de Ki ingresado no es valido. Por favor ingrese un valor numerico');
+    elseif isempty(kd)
+		error('VisorDelProceso:parametros','El valor de Kd ingresado no es valido. Por favor ingrese un valor numerico');
+    else
+        configuracion = ConfiguracionControlAutomatico(setPoint, bias, kp, ki, kd);
+    end
+end
