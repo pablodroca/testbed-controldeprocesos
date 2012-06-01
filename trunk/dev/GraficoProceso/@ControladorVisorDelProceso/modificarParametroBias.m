@@ -1,3 +1,9 @@
 function [ self, valido ] = modificarParametroBias( self, valor )
-
-[self, valido] = modificarParametro(self, 'Bias', 'Value', valor);
+valor = validarParametro(self, valor);
+valido = ~isempty(valor);
+if valido
+    global setDeControl
+    configuracion = getConfiguracion(setDeControl);
+    [configuracion, setDeControl] = setBias(configuracion, valor, setDeControl);
+    setDeControl = setConfiguracion(setDeControl, configuracion);
+end

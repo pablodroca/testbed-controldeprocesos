@@ -1,5 +1,5 @@
 function [ self ] = aplicarParametrosConfiguracion( self )
-fprintf('Aplicnado parametros Config...\n');
+fprintf('Aplicando parametros Config...\n');
 [config, self] = aplicarParametros(self.configuracion, self);
 self.configuracion = config;
 end
