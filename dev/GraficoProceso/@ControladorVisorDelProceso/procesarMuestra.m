@@ -25,7 +25,7 @@ function self = procesarMuestra( self )
     if existsWindow('GraficoDelProceso')
         w = getWindow('GraficoDelProceso');
         if ishandle(w.vista)   
-            %agregarMuestraGrafico(w.vista, [instanteAnterior; instante], muestrasEscaladas);
+            agregarMuestraGrafico(w.vista, [instanteAnterior; instante], muestrasEscaladas);
         end
     else
         fprintf('Vista destino inexistente. Deteniendo timer de procesar Muestra...');

@@ -22,7 +22,7 @@ function varargout = GraficoDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help GraficoDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 14-May-2012 20:03:59
+% Last Modified by GUIDE v2.5 02-Jun-2012 16:12:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -55,7 +55,13 @@ function GraficoDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for GraficoDelProcesoGUI
 handles.output = hObject;
 
+%ESTE CODIGO SERIA EL CORRECTO PERO NO FUNCIONA
+%wvp = getWindow('VisorDelProceso');
+%proceso = getProceso(wvp.controlador);
+
+%ESTE HABRIA QUE ELIMINARLO SI EL ANTERIOR FUNCIONA
 proceso = varargin{1};
+
 
 w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso, proceso);
@@ -63,8 +69,12 @@ setWindow('GraficoDelProceso', w);
 
 instantes = 1:getInstanteUltimaMuestra(proceso);
 muestras = getTodasMuestras(proceso);
-plot(muestras);
-zoomproc(w.vista,handles.axesGraficoDelProceso);
+
+set(get(handles.axesGraficoDelProceso,'Title'), 'String', 'Grafico del Proceso Ampliado');
+set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [min.]');
+set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
+
+line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -100,17 +110,50 @@ else
 end
 
 
-% --- Executes on slider movement.
-function slider1_Callback(hObject, eventdata, handles)
-% hObject    handle to slider1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
 % --- Executes on mouse press over axes background.
 function axesGraficoDelProceso_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axesVisorProceso (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in toggleZoom.
+function toggleZoom_Callback(hObject, eventdata, handles)
+% hObject    handle to toggleZoom (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of toggleZoom
+if get(hObject,'Value')
+    zoom(handles.wGraficoDelProceso,'on');
+else
+    zoom(handles.wGraficoDelProceso,'out');
+end
+
+% --- Executes on button press in toggleGHorizontal.
+function toggleGHorizontal_Callback(hObject, eventdata, handles)
+% hObject    handle to toggleGHorizontal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of toggleGHorizontal
+if get(hObject,'Value')
+    set(handles.axesGraficoDelProceso,'XGrid','on');
+else
+    set(handles.axesGraficoDelProceso,'XGrid','off');
+end
+
+% --- Executes on button press in toggleGVertical.
+function toggleGVertical_Callback(hObject, eventdata, handles)
+% hObject    handle to toggleGVertical (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of toggleGVertical
+if get(hObject,'Value')
+    set(handles.axesGraficoDelProceso,'YGrid','on');
+else
+    set(handles.axesGraficoDelProceso,'YGrid','off');
+end
+
+

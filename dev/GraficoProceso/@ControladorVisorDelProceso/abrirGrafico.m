@@ -1,4 +1,4 @@
 function self = abrirGrafico( self )
-  GraficoDelProcesoGUI; 
+  GraficoDelProcesoGUI(self.proceso); 
 end
 
