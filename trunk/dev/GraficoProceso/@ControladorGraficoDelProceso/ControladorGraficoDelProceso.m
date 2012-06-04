@@ -1,6 +1,5 @@
-function [ self ] = ControladorGraficoDelProceso( wGraficoDelProceso, proceso)
+function [ self ] = ControladorGraficoDelProceso( wGraficoDelProceso)
 	self.vista = wGraficoDelProceso;
-	self.proceso = proceso;
 	self = class(self, 'ControladorGraficoDelProceso');
 end
 
