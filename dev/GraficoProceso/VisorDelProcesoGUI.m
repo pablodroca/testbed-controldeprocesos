@@ -75,6 +75,12 @@ imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
 image(imagenProceso, 'Parent', handles.axesImagen);
 axis(handles.axesImagen, 'off');
 
+global configuracionAvanzada;
+config = configuracionAvanzada;
+maxValueX = getEjeTemporal(config) * (1000 / getPeriodo(config));
+xlim(handles.axesVisorProceso, [0 maxValueX]);
+ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
+
 inicializarLimitesEnBarrasDeControl(handles);
 refrescarValoresConfiguracionControl(handles);
 

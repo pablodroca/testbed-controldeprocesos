@@ -55,16 +55,13 @@ function GraficoDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for GraficoDelProcesoGUI
 handles.output = hObject;
 
-%ESTE CODIGO SERIA EL CORRECTO PERO NO FUNCIONA
-%wvp = getWindow('VisorDelProceso');
-%proceso = getProceso(wvp.controlador);
-
+w = getWindow('VisorDelProceso');
+proceso = getProceso(w.controlador);
 %ESTE HABRIA QUE ELIMINARLO SI EL ANTERIOR FUNCIONA
-proceso = varargin{1};
-
+%proceso = varargin{1};
 
 w.vista = handles.wGraficoDelProceso;
-w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso, proceso);
+w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso);
 setWindow('GraficoDelProceso', w);
 
 instantes = 1:getInstanteUltimaMuestra(proceso);
