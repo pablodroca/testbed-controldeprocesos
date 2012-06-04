@@ -77,9 +77,12 @@ axis(handles.axesImagen, 'off');
 
 global configuracionAvanzada;
 config = configuracionAvanzada;
-maxValueX = getEjeTemporal(config) * (1000 / getPeriodo(config));
+maxValueX = getEjeTemporal(config) * (getPeriodo(config)/1000);
 xlim(handles.axesVisorProceso, [0 maxValueX]);
 ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
+
+set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
+set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [cm.]');
 
 inicializarLimitesEnBarrasDeControl(handles);
 refrescarValoresConfiguracionControl(handles);

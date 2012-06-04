@@ -1,4 +1,4 @@
-function [self, muestra] = obtenerMuestra( self )
+function [self, nivel] = obtenerNivel( self )
     transcurrido = etime(clock, self.clockUltimaMuestra);
     while transcurrido*1000 < self.msEntreMuestras
         pause(0.33 * self.msEntreMuestras/1000);
@@ -6,7 +6,7 @@ function [self, muestra] = obtenerMuestra( self )
     end
     self.clockUltimaMuestra = clock;
   %  fprintf('Conexion: Muestra Obtenida: %f\n', self.valorDummy);
-    muestra = self.muestrasDummy(self.indiceUltimaMuestraDummy);
-    fprintf('ConexionDummy: Muestra Obtenida: %f.\n', muestra);
+    nivel = self.muestrasDummy(self.indiceUltimaMuestraDummy);
+    fprintf('ConexionDummy: Nivel Obtenido: %f.\n', nivel);
 end
 

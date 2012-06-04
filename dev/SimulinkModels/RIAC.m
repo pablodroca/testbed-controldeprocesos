@@ -32,8 +32,8 @@ switch flag
          conexion = establecerValorActuador(conexion, u);
 salida = 'not null';
     case 3 % output
-		[conexion, muestra] = obtenerMuestra(conexion);
-        sys = muestra;
+		[conexion, nivel] = obtenerNivel(conexion);
+        sys = nivel;
     case {4 9} % 2:discrete
         % 4:calcTimeHit
         % 9:termination

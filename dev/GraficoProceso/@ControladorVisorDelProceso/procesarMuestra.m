@@ -1,31 +1,23 @@
 function self = procesarMuestra( self )
 	global conexion;
     global configuracionAvanzada;
+    global setDeControl;
+    config = getConfiguracion(setDeControl);
 	
-    [conexion, muestra] = obtenerMuestra(conexion);
+    [conexion, nivel] = obtenerNivel(conexion);
     [conexion, actuador] = obtenerValorActuador(conexion);
-    fprintf('Muestra obtenida: %f. Actuador: %f\n', muestra, actuador);
-    muestraConActuacion = [muestra, actuador];
-    instanteAnterior = getInstanteUltimaMuestra(self.proceso);
-    if instanteAnterior == 0
-        instanteAnterior = 1;
-        muestraAnterior = muestraConActuacion;
-    else
-        muestraAnterior = getUltimaMuestra(self.proceso);
-    end
-    self.proceso = agregarMuestra(self.proceso, muestraConActuacion);
-    instante = getInstanteUltimaMuestra(self.proceso);
- 
-    config = configuracionAvanzada;
-    muestrasEscaladas = [muestraAnterior; muestraConActuacion] - repmat([getNivelVisorOffset(config) getActuacionVisorOffset(config)], 2, 1);
-    muestrasEscaladas = muestrasEscaladas * diag([1/getNivelVisorEscala(config) 1/getActuacionVisorEscala(config)]);
+    [referencia] = getValorReferencia(config);
+    self.proceso = agregarMuestra(self.proceso, nivel, actuador, referencia);
+    ultimosInstantes = getUltimosInstantes(self.proceso, 2);
+    ultimasMuestras = getUltimasMuestrasNormalizadas(self.proceso, 2);
+    
     if ishandle(self.vista)       
-        agregarMuestra(self.vista, [instanteAnterior;instante], muestrasEscaladas);
+        agregarMuestra(self.vista, ultimosInstantes, ultimasMuestras);
     end
     if existsWindow('GraficoDelProceso')
         w = getWindow('GraficoDelProceso');
         if ishandle(w.vista)   
-            agregarMuestraGrafico(w.vista, [instanteAnterior; instante], muestrasEscaladas);
+            agregarMuestraGrafico(w.vista, ultimosInstantes, ultimasMuestras);
         end
     else
         fprintf('Vista destino inexistente. Deteniendo timer de procesar Muestra...');
