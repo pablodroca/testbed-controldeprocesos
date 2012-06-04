@@ -9,14 +9,16 @@ addpath(fullfile(pwd, 'Utils'));
 
 global directorioInicio;
 global configuracionAvanzada;
-global conexion
-global setDeControl
-global windowHandles
+global conexion;
+global setDeControl;
+global windowHandles;
+global graficoProcesoZoom;
 
 directorioInicio=pwd;
 configuracionAvanzada = ConfiguracionAvanzada;
 configuracionAvanzada = leer(configuracionAvanzada);
 windowHandles = [];
+graficoProcesoZoom = 1;
 
 SeleccionDeModeloGUI
 

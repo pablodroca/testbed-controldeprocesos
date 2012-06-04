@@ -57,21 +57,24 @@ handles.output = hObject;
 
 w = getWindow('VisorDelProceso');
 proceso = getProceso(w.controlador);
-%ESTE HABRIA QUE ELIMINARLO SI EL ANTERIOR FUNCIONA
-%proceso = varargin{1};
 
 w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso);
 setWindow('GraficoDelProceso', w);
 
-instantes = 1:getInstanteUltimaMuestra(proceso);
-muestras = getTodasMuestras(proceso);
-
 set(get(handles.axesGraficoDelProceso,'Title'), 'String', 'Grafico del Proceso Ampliado');
 set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [min.]');
 set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
 
+instantes = 1:getInstanteUltimaMuestra(proceso);
+muestras = getTodasMuestras(proceso);
+
 line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
+
+global graficoProcesoZoom;
+graficoProcesoZoom = 1;
+set(handles.toggleZoom,'Value',1);
+zoom(handles.wGraficoDelProceso,'on');
 
 % Update handles structure
 guidata(hObject, handles);
@@ -121,10 +124,16 @@ function toggleZoom_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of toggleZoom
-if get(hObject,'Value')
+global graficoProcesoZoom;
+
+graficoProcesoZoom = get(hObject,'Value');
+if graficoProcesoZoom
     zoom(handles.wGraficoDelProceso,'on');
 else
-    zoom(handles.wGraficoDelProceso,'out');
+    zoom(handles.wGraficoDelProceso,'off');
+    instantes = 1:getInstanteUltimaMuestra(proceso);
+    muestras = getTodasMuestras(proceso);
+    line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
 end
 
 % --- Executes on button press in toggleGHorizontal.

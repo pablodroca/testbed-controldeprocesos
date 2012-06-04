@@ -1,4 +1,7 @@
 function agregarMuestraGrafico(graficoDelProceso, instantes, muestras)
+    global graficoProcesoZoom;
     handles = guihandles(graficoDelProceso);
-    %line(instantes, muestras, 'Parent', handles.axesGraficoDelProceso);
+    if not(graficoProcesoZoom)
+      line(instantes, muestras, 'Parent', handles.axesGraficoDelProceso);
+    end
 end
