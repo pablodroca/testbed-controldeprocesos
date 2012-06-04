@@ -12,4 +12,9 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
     if instanteActual > maxValueX
         xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
     end
+    if find(instantes == 1)
+        global setDeControl;
+        configuracion = getConfiguracion(setDeControl);
+        legend(handles.axesVisorProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion));
+    end
 end

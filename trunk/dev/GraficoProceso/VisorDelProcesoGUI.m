@@ -55,15 +55,16 @@ function VisorDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for VisorDelProcesoGUI
 handles.output = hObject;
-if length(varargin) < 3
+if length(varargin) < 4
     delete (handles.wVisorDelProceso);
     error('testbed:VisorDelProceso', strcat('Visor Del Proceso requiere 2 parametros. Ejemplo de ejecucion: ' ...
-            , 'VisorDelProceso(wSeleccionDelProceso, proceso)'));
+            , 'VisorDelProceso(wSeleccionDelProceso, proceso, archSimulink, tipoSetDeControl)'));
 end
 
 wSeleccionDeModelo = varargin{1};
 proceso = varargin{2};
 archivoSimulink = varargin{3};
+tipoSetDeControl = varargin{4};
 
 if (~ishandle(wSeleccionDeModelo)) || ...
     (~isobject(proceso)) 
@@ -87,6 +88,7 @@ set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [cm.]');
 inicializarLimitesEnBarrasDeControl(handles);
 refrescarValoresConfiguracionControl(handles);
 
+handles.tipoSetDeControl = tipoSetDeControl;
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
 window.vista = hObject;
 window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
@@ -736,8 +738,10 @@ function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
 global directorioInicio;
 [filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
 if filename
-    [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
+    global setDeControl;
+    configuracion = getConfiguracion(setDeControl);
     configuracion = guardar(configuracion, strcat(filepath, filename));
+    tipoSetDeControl = handles.tipoSetDeControl;
     save(strcat(filepath, filename), '-append', 'tipoSetDeControl');
 end
 
@@ -760,40 +764,3 @@ function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
 w = getWindow('VisorDelProceso');
 abrirGrafico(w.controlador);
 
-
-function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
-	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
-        tipo = 'Manual';
-        configuracion = recolectarConfiguracionManual(handles);
-	elseif get(handles.rdAutomaticoABB, 'Value') == get(handles.rdAutomaticoABB, 'Max')
-        tipo = 'AutomaticoABB';
-        configuracion = recolectarConfiguracionAutomatica(handles);
-	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
-        tipo = 'AutomaticoMatlab';
-        configuracion = recolectarConfiguracionAutomatica(handles);
-	elseif get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
-        tipo = 'Reproduccion';
-        configuracion = recolectarConfiguracionAutomatica(handles);
-	end
-end
-
-function configuracion = recolectarConfiguracionAutomatica(handles)
-    setPoint = str2num(get(handles.txtSetPoint, 'String'));
-    bias = str2num(get(handles.txtBias, 'String'));
-    kp = str2num(get(handles.txtKp, 'String'));
-    ki = str2num(get(handles.txtKi, 'String'));
-    kd = str2num(get(handles.txtKd, 'String'));
-	if isempty(setPoint)
-		error('VisorDelProceso:parametros','El valor de Set Point ingresado no es valido. Por favor ingrese un valor numerico');
-	elseif isempty(bias)
-		error('VisorDelProceso:parametros','El valor de Bias ingresado no es valido. Por favor ingrese un valor numerico');
-    elseif isempty(kp)
-		error('VisorDelProceso:parametros','El valor de Kp ingresado no es valido. Por favor ingrese un valor numerico');
-    elseif isempty(ki)
-		error('VisorDelProceso:parametros','El valor de Ki ingresado no es valido. Por favor ingrese un valor numerico');
-    elseif isempty(kd)
-		error('VisorDelProceso:parametros','El valor de Kd ingresado no es valido. Por favor ingrese un valor numerico');
-    else
-        configuracion = ConfiguracionControlAutomatico(setPoint, bias, kp, ki, kd);
-    end
-end

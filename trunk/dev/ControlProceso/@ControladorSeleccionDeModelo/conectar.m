@@ -30,6 +30,6 @@ global setDeControl
             setDeControl = SetDeControlMatlab(modelo, configuracion);
     end
     iniciar(setDeControl);
-	VisorDelProcesoGUI( self.vista, proceso, modelo);    
+	VisorDelProcesoGUI( self.vista, proceso, modelo, tipoSetDeControl);    
 end
 

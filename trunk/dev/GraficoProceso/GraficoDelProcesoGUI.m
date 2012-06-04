@@ -69,7 +69,11 @@ set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
 instantes = getInstantes(proceso);
 muestras = getMuestrasNormalizadas(proceso);
 
+global setDeControl;
+configuracion = getConfiguracion(setDeControl);
+
 line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
+legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion));
 
 global graficoProcesoZoom;
 graficoProcesoZoom = 1;
