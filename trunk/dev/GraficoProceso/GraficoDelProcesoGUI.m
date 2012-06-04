@@ -63,11 +63,11 @@ w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso);
 setWindow('GraficoDelProceso', w);
 
 set(get(handles.axesGraficoDelProceso,'Title'), 'String', 'Grafico del Proceso Ampliado');
-set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [min.]');
+set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [seg.]');
 set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
 
-instantes = 1:getInstanteUltimaMuestra(proceso);
-muestras = getTodasMuestras(proceso);
+instantes = getInstantes(proceso);
+muestras = getMuestrasNormalizadas(proceso);
 
 line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
 
@@ -131,8 +131,13 @@ if graficoProcesoZoom
     zoom(handles.wGraficoDelProceso,'on');
 else
     zoom(handles.wGraficoDelProceso,'off');
-    instantes = 1:getInstanteUltimaMuestra(proceso);
-    muestras = getTodasMuestras(proceso);
+    zoom(handles.wGraficoDelProceso,'out');
+    
+    w = getWindow('VisorDelProceso');
+    proceso = getProceso(w.controlador);
+    
+    instantes = getInstantes(proceso);
+    muestras = getMuestrasNormalizadas(proceso);
     line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
 end
 
