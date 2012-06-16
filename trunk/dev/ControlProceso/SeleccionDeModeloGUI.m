@@ -22,7 +22,7 @@
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 07-May-2012 03:22:15
+% Last Modified by GUIDE v2.5 13-Jun-2012 02:55:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -53,6 +53,23 @@ function SeleccionDeModeloGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to SeleccionDeModeloGUI (see VARARGIN)
 
 % Choose default command line output for SeleccionDeModeloGUI
+
+global directorioInicio;
+[pic, map] = imread(strcat(directorioInicio, '\Imagenes\ControlarPlanta.gif'));
+image_rgb = ind2rgb(pic, map);
+set(handles.btnControlarPlanta, 'String', '');
+set(handles.btnControlarPlanta, 'cdata', image_rgb);
+[pic, map] = imread(strcat(directorioInicio, '\Imagenes\AbrirGrabacion.gif'));
+image_rgb = ind2rgb(pic, map);
+set(handles.btnAbrirGrabacion, 'String', '');
+set(handles.btnAbrirGrabacion, 'cdata', image_rgb);
+
+position = get(handles.wSeleccionDeModelo, 'Position');
+handles.originalHeight = position(4);
+
+restablecerVisibilidadControlesPlanta(handles, 0);
+
+
 enableRadioButton(handles.rdManual, handles);
 showConfiguracionManualControl(handles);
 handles.output = hObject;
@@ -134,6 +151,7 @@ function AbrirGrabacion_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+ejecutarAbrirGrabacion(handles);
 
 % --------------------------------------------------------------------
 function IniciarGrabacion_Callback(hObject, eventdata, handles)
@@ -147,42 +165,6 @@ function DetenerGrabacion_Callback(hObject, eventdata, handles)
 % hObject    handle to DetenerGrabacion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in rdDosTanques.
-function rdDosTanques_Callback(hObject, eventdata, handles)
-% hObject    handle to rdDosTanques (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rdDosTanques
-
-
-% --- Executes on button press in rdUnTanque.
-function rdUnTanque_Callback(hObject, eventdata, handles)
-% hObject    handle to rdUnTanque (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rdUnTanque
-
-
-% --- Executes on button press in rdSensores420mA.
-function rdSensores420mA_Callback(hObject, eventdata, handles)
-% hObject    handle to rdSensores420mA (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rdSensores420mA
-
-
-% --- Executes on button press in rdSensoresSiemens.
-function rdSensoresSiemens_Callback(hObject, eventdata, handles)
-% hObject    handle to rdSensoresSiemens (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rdSensoresSiemens
 
 
 % --- Executes on button press in rdManual.
@@ -301,7 +283,14 @@ function showConfiguracionAutomaticaControl(handles)
     set(controls, 'Visible', 'on');
     hideConfiguracionManualControl(handles);
 end
-
+function showTipoSetDeControl(handles)
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoABB handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    set(controls, 'Visible', 'on');
+end
+function hideTipoSetDeControl(handles)
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoABB handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    set(controls, 'Visible', 'off');
+end
 function controls = getFrameControlManualHandles(handles)
     controls = [];
 end
@@ -361,14 +350,7 @@ function [tipo, configuracion] = setTipoSetDeControlYConfiguracionDeGrabacion(ha
 end
 
 function modelo = getModelo(handles)
-
-	if get(handles.rdUnTanque, 'Value') == get(handles.rdUnTanque, 'Max')
-        modelo = 'UnTanque';
-    elseif get(handles.rdDosTanques, 'Value') == get(handles.rdDosTanques, 'Max')
-        modelo = 'DosTanque';
-    else
-        error('SeleccionDeModelo:modelo', 'El modelo seleccionado no corresponde niguno de los modelos disponibles.');
-    end
+    modelo = 'UnTanque';
 end
     
 function configuracion = recolectarConfiguracionAutomatica(handles)
@@ -714,9 +696,77 @@ function btnAbrirConfiguracion_Callback(hObject, eventdata, handles)
 % hObject    handle to btnAbrirConfiguracion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 global directorioInicio;
 [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de configuracion de control...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
 if filename
     data = load(strcat(filepath, filename));
     setTipoSetDeControlYConfiguracionDeGrabacion(handles, strcat(filepath, filename), data.tipoSetDeControl);
+end
+
+
+% --- Executes on button press in btnAbrirGrabacion.
+function btnAbrirGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to btnAbrirGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+ejecutarAbrirGrabacion(handles);
+
+function ejecutarAbrirGrabacion(handles)
+global directorioInicio;
+[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de grabacion de control...', strcat(directorioInicio, '/Grabaciones/'));
+if filename
+   data = load(strcat(filepath, filename));
+    
+   data = importdata(archivo);
+end
+
+
+% --- Executes on button press in btnControlarPlanta.
+function btnControlarPlanta_Callback(hObject, eventdata, handles)
+% hObject    handle to btnControlarPlanta (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+restablecerVisibilidadControlesPlanta(handles, get(handles.btnControlarPlanta, 'Value'));
+
+
+% Hint: get(hObject,'Value') returns toggle state of btnControlarPlanta
+function restablecerVisibilidadControlesPlanta(handles, mostrar)
+heightWithoutFrames = 12;
+diferenciaNuevaViejaAltura = (handles.originalHeight - heightWithoutFrames);
+if mostrar
+   showTipoSetDeControl(handles);
+   restablecerVisibilidadConfiguracionControl(handles);
+   pos = get(handles.wSeleccionDeModelo, 'Position');
+   pos(2) = pos(2) - diferenciaNuevaViejaAltura;
+   pos(4) = handles.originalHeight;
+   set(handles.wSeleccionDeModelo, 'Position', pos);
+   cambiarPosicionBotonesPrincipales(handles, 27);
+else
+   hideConfiguracionManualControl(handles);
+   hideConfiguracionAutomaticaControl(handles);
+   hideTipoSetDeControl(handles);
+   pos = get(handles.wSeleccionDeModelo, 'Position');
+   pos(2) = pos(2) + diferenciaNuevaViejaAltura;
+   pos(4) = heightWithoutFrames;
+   set(handles.wSeleccionDeModelo, 'Position', pos);
+   cambiarPosicionBotonesPrincipales(handles, 3);
+end
+
+function cambiarPosicionBotonesPrincipales(handles, nuevoY)
+   pos = get(handles.btnControlarPlanta, 'Position');
+   pos(2) = nuevoY;
+   set(handles.btnControlarPlanta, 'Position', pos);
+   pos = get(handles.btnAbrirGrabacion, 'Position');
+   pos(2) = nuevoY;
+   set(handles.btnAbrirGrabacion, 'Position', pos);
+end
+
+
+function restablecerVisibilidadConfiguracionControl(handles)
+	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
+        showConfiguracionManualControl(handles);
+    else
+        showConfiguracionAutomaticaControl(handles);
+	end
 end

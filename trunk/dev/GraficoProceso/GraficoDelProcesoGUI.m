@@ -54,9 +54,13 @@ function GraficoDelProcesoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for GraficoDelProcesoGUI
 handles.output = hObject;
+if length(varargin) == 1
+    handles.proceso = varargin{1};
+else
+    handles.proceso = 'null';
+end
 
-w = getWindow('VisorDelProceso');
-proceso = getProceso(w.controlador);
+proceso = localizarProceso(handles);
 
 w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso);
@@ -66,6 +70,7 @@ set(get(handles.axesGraficoDelProceso,'Title'), 'String', 'Grafico del Proceso A
 set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [seg.]');
 set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
 
+
 instantes = getInstantes(proceso);
 muestras = getMuestrasNormalizadas(proceso);
 
@@ -73,12 +78,12 @@ global setDeControl;
 configuracion = getConfiguracion(setDeControl);
 
 line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
-legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion));
+legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion), 2);
 
 global graficoProcesoZoom;
-graficoProcesoZoom = 1;
-set(handles.toggleZoom,'Value',1);
-zoom(handles.wGraficoDelProceso,'on');
+graficoProcesoZoom = 0;
+set(handles.toggleZoom,'Value',0);
+%zoom(handles.wGraficoDelProceso,'off');
 
 % Update handles structure
 guidata(hObject, handles);
@@ -137,8 +142,7 @@ else
     zoom(handles.wGraficoDelProceso,'off');
     zoom(handles.wGraficoDelProceso,'out');
     
-    w = getWindow('VisorDelProceso');
-    proceso = getProceso(w.controlador);
+    proceso = localizarProceso(handles);
     
     instantes = getInstantes(proceso);
     muestras = getMuestrasNormalizadas(proceso);
@@ -172,3 +176,10 @@ else
 end
 
 
+function proceso = localizarProceso(handles)
+if handles.proceso == 'null'
+    w = getWindow('VisorDelProceso');
+    proceso = getProceso(w.controlador);
+else
+    proceso = handles.proceso;
+end

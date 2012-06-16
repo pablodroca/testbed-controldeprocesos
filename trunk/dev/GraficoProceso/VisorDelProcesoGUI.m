@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 18-May-2012 10:04:49
+% Last Modified by GUIDE v2.5 08-Jun-2012 21:13:06
 
 
 % Begin initialization code - DO NOT EDIT
@@ -78,15 +78,22 @@ axis(handles.axesImagen, 'off');
 
 global configuracionAvanzada;
 config = configuracionAvanzada;
-maxValueX = getEjeTemporal(config) * (getPeriodo(config)/1000);
+maxValueX = getEjeTemporal(config) * (1000/getPeriodo(config));
 xlim(handles.axesVisorProceso, [0 maxValueX]);
 ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
 
+
+set(handles.axesVisorProceso,'YGrid', 'on');
 set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
-set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [cm.]');
+set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [%]');
+ticks = get(handles.axesVisorProceso,'XTick');
+labels ={}; %zeros(length(ticks), 1);
+for ii=1:length(ticks); labels{ii}= num2str((getPeriodo(config)*ticks(ii))/1000); end
+set(handles.axesVisorProceso,'XTickLabel', labels);
 
 inicializarLimitesEnBarrasDeControl(handles);
 refrescarValoresConfiguracionControl(handles);
+ocultarCuadroComentario(hObject);
 
 handles.tipoSetDeControl = tipoSetDeControl;
 handles.wSeleccionDeModelo = wSeleccionDeModelo;
@@ -764,3 +771,44 @@ function axesVisorProceso_ButtonDownFcn(hObject, eventdata, handles)
 w = getWindow('VisorDelProceso');
 abrirGrafico(w.controlador);
 
+
+
+% --- Executes on button press in btnAgregarComentario.
+function btnAgregarComentario_Callback(hObject, eventdata, handles)
+% hObject    handle to btnAgregarComentario (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+w = getWindow('VisorDelProceso');
+%w.controlador = agregarComentario(w.controlador, get(handles.txtComentario, 'String'));
+setWindow('VisorDelProceso', w);
+comentario = get(handles.txtComentario, 'String');
+proceso = getProceso(w.controlador);
+instante = getUltimosInstantes(proceso, 1);
+muestra = 90; %getUltimasMuestrasNormalizadas(proceso, 1);
+%fill([instante muestra, instante+1, muestra+1], 'k', 'Parent', handles.axesVisorProceso);
+text(instante, muestra, sprintf(' %s', comentario), 'Parent', handles.axesVisorProceso); 
+
+
+% --- Executes during object creation, after setting all properties.
+function txtComentario_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtComentario (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtComentario_Callback(hObject, eventdata, handles)
+% hObject    handle to txtComentario (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtComentario as text
+%        str2double(get(hObject,'String')) returns contents of txtComentario as a double

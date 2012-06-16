@@ -18,7 +18,7 @@ directorioInicio=pwd;
 configuracionAvanzada = ConfiguracionAvanzada;
 configuracionAvanzada = leer(configuracionAvanzada);
 windowHandles = [];
-graficoProcesoZoom = 1;
+graficoProcesoZoom = 0;
 
 SeleccionDeModeloGUI
 

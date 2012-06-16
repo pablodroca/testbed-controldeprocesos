@@ -8,9 +8,14 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
     instanteActual = instantes(2);
     global configuracionAvanzada;
     config = configuracionAvanzada;
-    maxValueX = getEjeTemporal(config) * (getPeriodo(config)/1000);
+    maxValueX = getEjeTemporal(config) * (1000/getPeriodo(config));
     if instanteActual > maxValueX
         xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
+        
+        ticks = get(handles.axesVisorProceso,'XTick');
+        labels ={}; %zeros(length(ticks), 1);
+        for ii=1:length(ticks); labels{ii}= num2str((getPeriodo(config)*ticks(ii))/1000); end
+        set(handles.axesVisorProceso,'XTickLabel', labels);
     end
     if find(instantes == 1)
         global setDeControl;

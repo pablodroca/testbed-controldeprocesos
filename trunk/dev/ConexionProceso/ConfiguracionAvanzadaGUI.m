@@ -61,6 +61,7 @@ guidata(hObject, handles);
 global configuracionAvanzada;
 set(handles.edit_Velocidad, 'String', getVelocidad(configuracionAvanzada));
 set(handles.edit_Puerto, 'String', getPuerto(configuracionAvanzada));
+set(handles.edit_Periodo, 'String', getPeriodo(configuracionAvanzada));
 set(handles.edit_EjeTemporal, 'String', getEjeTemporal(configuracionAvanzada));
 set(handles.edit_NivelMinimo, 'String', getNivelMinimo(configuracionAvanzada));
 set(handles.edit_NivelMaximo, 'String', getNivelMaximo(configuracionAvanzada));
