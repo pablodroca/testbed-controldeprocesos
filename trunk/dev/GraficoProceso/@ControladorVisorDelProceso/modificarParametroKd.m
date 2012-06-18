@@ -4,7 +4,13 @@ valido = ~isempty(valor);
 if valido
     global setDeControl
     configuracion = getConfiguracion(setDeControl);
-    [configuracion, setDeControl] = setKd(configuracion, valor, setDeControl);
-    setDeControl = setConfiguracion(setDeControl, configuracion);
+    try
+        [configuracion, setDeControl] = setKd(configuracion, valor, setDeControl);
+        setDeControl = setConfiguracion(setDeControl, configuracion);
+    catch
+        exception = lasterr;
+        msgboxException('Error de Parametro', 'Parametro invalido.', exception);
+        valido = false;
+    end
 end
 

@@ -778,15 +778,16 @@ function btnAgregarComentario_Callback(hObject, eventdata, handles)
 % hObject    handle to btnAgregarComentario (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+textoComentario = get(handles.txtComentario, 'String');
 w = getWindow('VisorDelProceso');
-%w.controlador = agregarComentario(w.controlador, get(handles.txtComentario, 'String'));
+[w.controlador, comentario] = agregarComentario(w.controlador, textoComentario);
 setWindow('VisorDelProceso', w);
-comentario = get(handles.txtComentario, 'String');
-proceso = getProceso(w.controlador);
-instante = getUltimosInstantes(proceso, 1);
-muestra = 90; %getUltimasMuestrasNormalizadas(proceso, 1);
+numero = getNumero(comentario);
+texto = getTexto(comentario);
+instante = getInstante(comentario);
+valor = getValor(comentario);
 %fill([instante muestra, instante+1, muestra+1], 'k', 'Parent', handles.axesVisorProceso);
-text(instante, muestra, sprintf(' %s', comentario), 'Parent', handles.axesVisorProceso); 
+text(instante, valor, sprintf(' %s', texto), 'Parent', handles.axesVisorProceso); 
 
 
 % --- Executes during object creation, after setting all properties.

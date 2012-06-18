@@ -57,7 +57,7 @@ handles.output = hObject;
 if length(varargin) == 1
     handles.proceso = varargin{1};
 else
-    handles.proceso = 'null';
+    handles.proceso = [];
 end
 
 proceso = localizarProceso(handles);
@@ -177,7 +177,7 @@ end
 
 
 function proceso = localizarProceso(handles)
-if handles.proceso == 'null'
+if isempty(handles.proceso)
     w = getWindow('VisorDelProceso');
     proceso = getProceso(w.controlador);
 else
