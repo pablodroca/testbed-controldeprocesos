@@ -1,4 +1,4 @@
-function self = guardar( self )
+function self = guardar( self, archivo)
     save(archivo, 'self');
 end
 

@@ -22,7 +22,7 @@
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 13-Jun-2012 02:55:35
+% Last Modified by GUIDE v2.5 17-Jun-2012 11:45:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -98,7 +98,8 @@ varargout{1} = handles.output;
 function A_yuda_Callback(hObject, eventdata, handles)
 % hObject    handle to A_yuda (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+% handles    structure with handles and user data (see GUIDATA
+AyudaGUI;
 
 
 % --------------------------------------------------------------------
@@ -178,17 +179,6 @@ function rdManual_Callback(hObject, eventdata, handles)
 toogleRadioButton(hObject,handles);
 showConfiguracionManualControl(handles);
 
-% --- Executes on button press in rdAutomaticoABB.
-function rdAutomaticoABB_Callback(hObject, eventdata, handles)
-% hObject    handle to rdAutomaticoABB (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rdAutomaticoABB
-
-toogleRadioButton(hObject,handles);
-showConfiguracionAutomaticaControl(handles);
-
 % --- Executes on button press in rdAutomaticoMatlab.
 function rdAutomaticoMatlab_Callback(hObject, eventdata, handles)
 % hObject    handle to rdAutomaticoMatlab (see GCBO)
@@ -213,12 +203,12 @@ try
         setWindow('SeleccionDeModelo', w);
 	catch 
         exception = lasterr;
-        msgbox(sprintf('Ha ocurrido un error al conectarse con el set de control elegido. Revise que los elementos elegidos tengan la conectividad necesaria. \n\n%s', ...
-            exception), 'Error al Conectar', 'error');
+        msgboxException('Ha ocurrido un error al conectarse con el set de control elegido. Revise que los elementos elegidos tengan la conectividad necesaria.', ...
+            'Error al Conectar', exception);
 	end
 catch
     exception = lasterr;
-    msgbox(exception, 'Error de Parametro', 'error');
+    msgboxException('Se ha detectado un error en los parametros.', 'Error de Parametro', exception);
 end
 % --- Executes when user attempts to close wSeleccionDeModelo.
 function wSeleccionDeModelo_CloseRequestFcn(hObject, eventdata, handles)
@@ -268,7 +258,7 @@ function hideConfiguracionManualControl(handles)
 end
 
 function hideConfiguracionAutomaticaControl(handles)
-    controls = [handles.lblValoresIniciales handles.btnAbrirConfiguracion getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
     set(controls, 'Visible', 'off');
 end
 
@@ -279,20 +269,20 @@ function showConfiguracionManualControl(handles)
 end
 
 function showConfiguracionAutomaticaControl(handles)
-    controls = [handles.lblValoresIniciales handles.btnAbrirConfiguracion getFrameControlHandles(handles) getFramePIDHandles(handles)];
+    controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
     set(controls, 'Visible', 'on');
     hideConfiguracionManualControl(handles);
 end
 function showTipoSetDeControl(handles)
-    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoABB handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
     set(controls, 'Visible', 'on');
 end
 function hideTipoSetDeControl(handles)
-    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoABB handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
     set(controls, 'Visible', 'off');
 end
 function controls = getFrameControlManualHandles(handles)
-    controls = [];
+    controls = [handles.frmControlManual handles.txtManual handles.lblManual];
 end
 function controls = getFrameControlHandles(handles)
     controls = [handles.frmControl, handles.lblSetPoint, handles.txtSetPoint, handles.lblBias, handles.txtBias];
@@ -302,7 +292,7 @@ function controls = getFramePIDHandles(handles)
 end
 
 function radioHandles = getOtrosRadiosSetDeControl(handles, radioActual)
-    radioHandles = [handles.rdManual, handles.rdAutomaticoABB, handles.rdAutomaticoMatlab, handles.rdReproduccion];
+    radioHandles = [handles.rdManual, handles.rdAutomaticoMatlab, handles.rdReproduccion];
     iiRadioActual = find(radioHandles == radioActual);
     radioHandles = radioHandles([1:iiRadioActual-1, iiRadioActual+1:length(radioHandles)]);
     
@@ -312,9 +302,6 @@ function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
 	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
         tipo = 'Manual';
         configuracion = recolectarConfiguracionManual(handles);
-	elseif get(handles.rdAutomaticoABB, 'Value') == get(handles.rdAutomaticoABB, 'Max')
-        tipo = 'AutomaticoABB';
-        configuracion = recolectarConfiguracionAutomatica(handles);
 	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
         tipo = 'AutomaticoMatlab';
         configuracion = recolectarConfiguracionAutomatica(handles);
@@ -334,13 +321,13 @@ function [tipo, configuracion] = setTipoSetDeControlYConfiguracionDeGrabacion(ha
     else
         configuracion = ConfiguracionControlAutomatico;
         configuracion = restaurar(configuracion, archivo);
-        if strcmp(tipo, 'AutomaticoABB')
-            radioToEnable = handles.rdAutomaticoABB;
-        elseif  strcmp(tipo, 'AutomaticoMatlab')
-            radioToEnable = handles.rdAutomaticoMatlab;
-        elseif strcmp(tipo, 'Reproduccion')
+        %se mantiene la seleccion de reproduccion para esta configuracion.
+        %Si por otro lado la seleccion es manual o autom => se fuerza autom
+        if get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
             radioToEnable = handles.rdReproduccion;
-         end
+        else
+            radioToEnable = handles.rdAutomaticoMatlab;
+        end
         showConfiguracionAutomaticaControl(handles);
         establecerConfiguracionAutomatica(handles, configuracion);
     end
@@ -384,9 +371,9 @@ function establecerConfiguracionAutomatica(handles, configuracion)
 end
 
 function configuracion = recolectarConfiguracionManual(handles)
-    valorActuador = 0;%str2num(get(handles.txtValorActuador, 'String'));
+    valorActuador = str2num(get(handles.txtManual, 'String'));
 	if isempty(valorActuador)
-		error('SeleccionDeModelo:parametros','El Valor del Actuador ingresado no es valido. Por favor ingrese un valor numerico');
+		error('SeleccionDeModelo:parametros','El porcentaje de control manual ingresado no es valido. Por favor ingrese un valor numerico');
     else
         configuracion = ConfiguracionControlManual(valorActuador);
     end
@@ -394,7 +381,7 @@ end
 
 
 function establecerConfiguracionManual(handles, configuracion)
-    set(handles.txtValorActuador, 'String', num2str(getSalidaManual(configuracion)));
+    set(handles.txtManual, 'String', num2str(getSalidaManual(configuracion)));
 end
 
 % --- Executes during object creation, after setting all properties.
@@ -652,30 +639,6 @@ function txtBias_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of txtBias as a double
 
 
-% --- Executes during object creation, after setting all properties.
-function txtValorActuador_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to txtValorActuador (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc
-    set(hObject,'BackgroundColor','white');
-else
-    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
-end
-
-
-
-function txtValorActuador_Callback(hObject, eventdata, handles)
-% hObject    handle to txtValorActuador (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of txtValorActuador as text
-%        str2double(get(hObject,'String')) returns contents of txtValorActuador as a double
-
 
 % --------------------------------------------------------------------
 function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
@@ -716,9 +679,11 @@ function ejecutarAbrirGrabacion(handles)
 global directorioInicio;
 [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de grabacion de control...', strcat(directorioInicio, '/Grabaciones/'));
 if filename
-   data = load(strcat(filepath, filename));
-    
-   data = importdata(archivo);
+   archivo = strcat(filepath, filename);
+   w = getWindow('SeleccionDeModelo');
+   fprintf(archivo);
+   controlador = cargarProceso(w.controlador, archivo);
+   setWindow('SeleccionDeModelo', w);
 end
 
 
@@ -770,3 +735,30 @@ function restablecerVisibilidadConfiguracionControl(handles)
         showConfiguracionAutomaticaControl(handles);
 	end
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function txtManual_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtManual_Callback(hObject, eventdata, handles)
+% hObject    handle to txtManual (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtManual as text
+%        str2double(get(hObject,'String')) returns contents of txtManual as a double
+
+

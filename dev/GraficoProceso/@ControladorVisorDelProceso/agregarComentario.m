@@ -1,4 +1,4 @@
-function self = agregarComentario( self )
-	self.proceso = agregarComentario(self.proceso);
+function [self, comentario] = agregarComentario( self , textoComentario)
+	[self.proceso, comentario] = agregarComentario(self.proceso, textoComentario);
 end
 

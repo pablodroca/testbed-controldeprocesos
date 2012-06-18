@@ -1,18 +1,23 @@
 function [ self ] = ConfiguracionControlAutomatico( setPoint, bias, kp, ki, kd )
    if nargin == 0
-       self.setPoint = 0;
-       self.bias = 0;
-       self.kp = 0;
-       self.ki = 0;
-       self.kd = 0;
-   else
-       
-       self.setPoint = setPoint;
-       self.bias = bias;
-       self.kp = kp;
-       self.ki = ki;
-       self.kd = kd;
+       setPoint = 0;
+       bias = 0;
+       kp = 0;
+       ki = 0;
+       kd = 0;
    end
+   self.setPoint = setPoint;
+   self.bias = bias;
+   self.kp = kp;
+   self.ki = ki;
+   self.kd = kd;
    self = class(self, 'ConfiguracionControlAutomatico');
+   
+   validarSetPoint(self, setPoint);
+   validarBias(self, bias);
+   validarKp(self, kp);
+   validarKi(self, ki);
+   validarKd(self, kd);
+       
 end
 
