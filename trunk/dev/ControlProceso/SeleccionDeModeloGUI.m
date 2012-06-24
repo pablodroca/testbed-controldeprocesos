@@ -22,7 +22,7 @@
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 17-Jun-2012 11:45:44
+% Last Modified by GUIDE v2.5 18-Jun-2012 19:53:26
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -93,13 +93,6 @@ function varargout = SeleccionDeModeloGUI_OutputFcn(hObject, eventdata, handles)
 % Get default command line output from handles structure
 varargout{1} = handles.output;
 
-
-% --------------------------------------------------------------------
-function A_yuda_Callback(hObject, eventdata, handles)
-% hObject    handle to A_yuda (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA
-AyudaGUI;
 
 
 % --------------------------------------------------------------------
@@ -224,7 +217,7 @@ function EvaluarSalir(handles)
 
 user_response = questdlg('¿Desea salir del sistema?','Salir', 'Aceptar', 'Cancelar', 'Aceptar');
 %user_response = ConfirmarSalidaGUI;
-if user_response == 'Aceptar'
+if strcmp(user_response, 'Aceptar')
 	    delete(handles.wSeleccionDeModelo);
 %else doNothing    
 end
@@ -679,10 +672,14 @@ function ejecutarAbrirGrabacion(handles)
 global directorioInicio;
 [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de grabacion de control...', strcat(directorioInicio, '/Grabaciones/'));
 if filename
-   archivo = strcat(filepath, filename);
-   w = getWindow('SeleccionDeModelo');
-   fprintf(archivo);
-   controlador = cargarProceso(w.controlador, archivo);
+    archivo = strcat(filepath, filename);
+    w = getWindow('SeleccionDeModelo');
+    try
+        controlador = cargarProceso(w.controlador, archivo);
+    catch
+        exception = lasterr;
+        msgboxException('Se ha detectado un error al abrir el archivo.', 'Error de archivo', exception);
+    end
    setWindow('SeleccionDeModelo', w);
 end
 
@@ -760,5 +757,13 @@ function txtManual_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of txtManual as text
 %        str2double(get(hObject,'String')) returns contents of txtManual as a double
+
+
+% --------------------------------------------------------------------
+function AcercaDe_Callback(hObject, eventdata, handles)
+% hObject    handle to AcercaDe (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+AyudaGUI;
 
 
