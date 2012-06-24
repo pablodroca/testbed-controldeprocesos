@@ -1,8 +1,10 @@
 function agregarMuestra(visorDelProceso, instantes, muestras)
     handles = guihandles(visorDelProceso);
-    %bar(muestras(end, 1), 'Parent', handles.axesBarraTanque);
-	set(handles.txtNivel, 'String', muestras(end, 1));
+    valor = muestras(end, 1);
+	set(handles.txtNivel, 'String', valor);
 	set(handles.txtInstante, 'String', instantes(end, 1));
+    rectangle('Position', [0 0 20 100], 'Curvature', [0.1 0.1], 'FaceColor', [1 1 1]*206/255, 'Parent', handles.axesBarraTanque);
+    rectangle('Position', [0 0 20 valor], 'Curvature', [0.1 0.1], 'FaceColor', 'b', 'Parent', handles.axesBarraTanque);
 
     line(instantes, muestras, 'Parent', handles.axesVisorProceso);
     
@@ -13,7 +15,7 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
     if instanteActual > maxValueX
         xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
         ticks = get(handles.axesVisorProceso,'XTick');
-        set(handles.axesVisorProceso,'XTickLabel', getPeriodo(config)*ticks'/1000);
+        set(handles.axesVisorProceso,'XTickLabel', periodo*ticks'/1000);
     end
     if find(instantes == 1)
         global setDeControl;
