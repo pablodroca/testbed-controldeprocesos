@@ -60,29 +60,21 @@ else
     handles.proceso = [];
 end
 
-proceso = localizarProceso(handles);
-
 w.vista = handles.wGraficoDelProceso;
 w.controlador = ControladorGraficoDelProceso(handles.wGraficoDelProceso);
 setWindow('GraficoDelProceso', w);
 
 set(get(handles.axesGraficoDelProceso,'Title'), 'String', 'Grafico del Proceso Ampliado');
 set(get(handles.axesGraficoDelProceso,'XLabel'), 'String', 'Tiempo [seg.]');
-set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
+set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');  
 
-
-instantes = getInstantes(proceso);
-muestras = getMuestrasNormalizadas(proceso);
-
-global setDeControl;
-configuracion = getConfiguracion(setDeControl);
-
-line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
-legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion), 2);
+graficarProceso(handles);
 
 global graficoProcesoZoom;
 graficoProcesoZoom = 0;
 set(handles.toggleZoom,'Value',0);
+
+
 %zoom(handles.wGraficoDelProceso,'off');
 
 % Update handles structure
@@ -142,11 +134,7 @@ else
     zoom(handles.wGraficoDelProceso,'off');
     zoom(handles.wGraficoDelProceso,'out');
     
-    proceso = localizarProceso(handles);
-    
-    instantes = getInstantes(proceso);
-    muestras = getMuestrasNormalizadas(proceso);
-    line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
+    graficarProceso(handles);
 end
 
 % --- Executes on button press in toggleGHorizontal.
@@ -183,3 +171,20 @@ if isempty(handles.proceso)
 else
     proceso = handles.proceso;
 end
+
+function graficarProceso(handles)
+proceso = localizarProceso(handles);
+
+instantes = getInstantes(proceso);
+muestras = getMuestrasNormalizadas(proceso);
+line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
+legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', 'Set Point', 2);
+normalizarEjeTemporal(handles.axesGraficoDelProceso);
+
+function normalizarEjeTemporalCallback(src, eventData)
+normalizarEjeTemporal(eventData.axes);
+
+function normalizarEjeTemporal(axes)
+global configuracionAvanzada;
+ticks = get(axes,'XTick');
+set(axes,'XTickLabel', getPeriodo(configuracionAvanzada)*ticks'/1000);

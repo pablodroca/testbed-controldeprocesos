@@ -2,6 +2,9 @@ function self = conectar( self,tipoSetDeControl, configuracion, modelo)
 
 global conexion
 global setDeControl
+    if ~isempty(conexion)
+        conexion = desconectar(conexion);
+    end
 	switch tipoSetDeControl
         case 'Manual'
             conexion = Conexion;

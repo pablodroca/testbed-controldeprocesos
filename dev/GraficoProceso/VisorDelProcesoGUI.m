@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 08-Jun-2012 21:13:06
+% Last Modified by GUIDE v2.5 18-Jun-2012 21:39:19
 
 
 % Begin initialization code - DO NOT EDIT
@@ -75,6 +75,8 @@ end
 imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
 image(imagenProceso, 'Parent', handles.axesImagen);
 axis(handles.axesImagen, 'off');
+%bar(50, 'Parent', handles.axesBarraTanque);
+%axis(handles.axesBarraTanque, 'off');
 
 global configuracionAvanzada;
 config = configuracionAvanzada;
@@ -87,9 +89,7 @@ set(handles.axesVisorProceso,'YGrid', 'on');
 set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
 set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [%]');
 ticks = get(handles.axesVisorProceso,'XTick');
-labels ={}; %zeros(length(ticks), 1);
-for ii=1:length(ticks); labels{ii}= num2str((getPeriodo(config)*ticks(ii))/1000); end
-set(handles.axesVisorProceso,'XTickLabel', labels);
+set(handles.axesVisorProceso,'XTickLabel', getPeriodo(config)*ticks'/1000);
 
 inicializarLimitesEnBarrasDeControl(handles);
 refrescarValoresConfiguracionControl(handles);
@@ -786,9 +786,18 @@ numero = getNumero(comentario);
 texto = getTexto(comentario);
 instante = getInstante(comentario);
 valor = getValor(comentario);
-%fill([instante muestra, instante+1, muestra+1], 'k', 'Parent', handles.axesVisorProceso);
-text(instante, valor, sprintf(' %s', texto), 'Parent', handles.axesVisorProceso); 
 
+rectangle('Position', [instante-1 valor-1 2 2], 'Curvature', [1 1], 'FaceColor', 'k', 'Parent', handles.axesVisorProceso);
+text(instante-1, valor+9, sprintf('%d', numero), 'Parent', handles.axesVisorProceso); 
+text(instante-1, valor+4,'\downarrow', 'Parent', handles.axesVisorProceso); 
+
+if numero == 1
+    textos = {};
+else
+    textos = get(handles.lstComentarios, 'String');
+end
+textos{length(textos)+1} = sprintf('%d - %s', numero, texto); 
+set(handles.lstComentarios, 'String', textos);
 
 % --- Executes during object creation, after setting all properties.
 function txtComentario_CreateFcn(hObject, eventdata, handles)
@@ -813,3 +822,55 @@ function txtComentario_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of txtComentario as text
 %        str2double(get(hObject,'String')) returns contents of txtComentario as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtLogComentarios_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtLogComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtLogComentarios_Callback(hObject, eventdata, handles)
+% hObject    handle to txtLogComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtLogComentarios as text
+%        str2double(get(hObject,'String')) returns contents of txtLogComentarios as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lstComentarios_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lstComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on selection change in lstComentarios.
+function lstComentarios_Callback(hObject, eventdata, handles)
+% hObject    handle to lstComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = get(hObject,'String') returns lstComentarios contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from lstComentarios
+
+
