@@ -66,43 +66,51 @@ proceso = varargin{2};
 archivoSimulink = varargin{3};
 tipoSetDeControl = varargin{4};
 
-if (~ishandle(wSeleccionDeModelo)) || ...
-    (~isobject(proceso)) 
-    delete (handles.wVisorDelProceso);
-    error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
-end
-
-imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
-image(imagenProceso, 'Parent', handles.axesImagen);
-axis(handles.axesImagen, 'off');
-%bar(50, 'Parent', handles.axesBarraTanque);
-%axis(handles.axesBarraTanque, 'off');
-
-global configuracionAvanzada;
-config = configuracionAvanzada;
-maxValueX = getEjeTemporal(config) * (1000/getPeriodo(config));
-xlim(handles.axesVisorProceso, [0 maxValueX]);
-ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
-
-
-set(handles.axesVisorProceso,'YGrid', 'on');
-set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
-set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [%]');
-ticks = get(handles.axesVisorProceso,'XTick');
-set(handles.axesVisorProceso,'XTickLabel', getPeriodo(config)*ticks'/1000);
-
-inicializarLimitesEnBarrasDeControl(handles);
-refrescarValoresConfiguracionControl(handles);
-ocultarCuadroComentario(hObject);
-
-handles.tipoSetDeControl = tipoSetDeControl;
-handles.wSeleccionDeModelo = wSeleccionDeModelo;
 window.vista = hObject;
 window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
 setWindow('VisorDelProceso', window);
-window.controlador = iniciar(window.controlador);
-setWindow('VisorDelProceso', window);
-guidata(hObject, handles);
+try
+    if (~ishandle(wSeleccionDeModelo)) || ...
+            (~isobject(proceso)) 
+        delete (handles.wVisorDelProceso);
+        error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
+    end
+    
+    imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
+    image(imagenProceso, 'Parent', handles.axesImagen);
+    axis(handles.axesImagen, 'off');
+    
+    rectangle('Position', [0 0 20 100], 'Curvature', [0.1 0.1], 'FaceColor', [1 1 1]*206/255, 'Parent', handles.axesBarraTanque);
+    axis(handles.axesBarraTanque, 'off');
+    
+    global configuracionAvanzada;
+    config = configuracionAvanzada;
+    maxValueX = getEjeTemporal(config) * (1000/getPeriodo(config));
+    xlim(handles.axesVisorProceso, [0 maxValueX]);
+    ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
+    
+    
+    set(handles.axesVisorProceso,'YGrid', 'on');
+    set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
+    set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [%]');
+    ticks = get(handles.axesVisorProceso,'XTick');
+    set(handles.axesVisorProceso,'XTickLabel', getPeriodo(config)*ticks'/1000);
+    
+    inicializarLimitesEnBarrasDeControl(handles);
+    refrescarValoresConfiguracionControl(handles);
+    ocultarCuadroComentario(hObject);
+    
+    handles.tipoSetDeControl = tipoSetDeControl;
+    handles.wSeleccionDeModelo = wSeleccionDeModelo;
+    window.controlador = iniciar(window.controlador);
+    setWindow('VisorDelProceso', window);
+    guidata(hObject, handles);
+catch
+    exception = lasterr;
+    msgboxException('Ha ocurrido un error durante la iniciacion del Proceso. El set de control sera desconectado.', 'Error durante la iniciacion', exception);
+    desconectarControlador;
+    delete(handles.wVisorDelProceso);
+end
 
 
 
@@ -322,8 +330,8 @@ try
     setWindow('VisorDelProceso', w);
 	msgbox('El proceso ha sido grabado correctamente.', 'Grabacion Finalizada', 'modal');
 catch
-	err = lasterr;
-	msgbox(sprintf('Ha ocurrido un error durante la grabacion.%s\n', err), 'Error de Grabacion', 'error', 'modal');
+    exception = lasterr;
+    msgboxException('Ha ocurrido un error durante la grabacion.', 'Error de Grabacion', exception);
 end
 
 
@@ -350,8 +358,8 @@ function desconectarControlador()
         w.controlador = {};
 		setWindow('VisorDelProceso', w);
 	catch
-		err = lasterr;
-		msgbox(sprintf('Ha ocurrido un error durante la desconexion.%s\n', err), 'Error durante Desconexion', 'error', 'modal');
+        exception = lasterr;
+        msgboxException('Ha ocurrido un error durante la desconexion.', 'Error durante Desconexion', exception);
 	end
 end
 

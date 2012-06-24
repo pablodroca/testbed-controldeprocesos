@@ -2,9 +2,6 @@ function self = conectar( self,tipoSetDeControl, configuracion, modelo)
 
 global conexion
 global setDeControl
-    if ~isempty(conexion)
-        conexion = desconectar(conexion);
-    end
 	switch tipoSetDeControl
         case 'Manual'
             conexion = Conexion;
@@ -33,6 +30,11 @@ global setDeControl
             setDeControl = SetDeControlMatlab(modelo, configuracion);
     end
     iniciar(setDeControl);
-	VisorDelProcesoGUI( self.vista, proceso, modelo, tipoSetDeControl);    
+    try
+        VisorDelProcesoGUI( self.vista, proceso, modelo, tipoSetDeControl);
+    catch
+        %los errores de iniciacion del VisorDelProcesoGUI son controlados dentro de su iniciacion con su posterior destruccion.
+        %No es necesario efectuar acciones con errores de GUI por no haber creado una figure en la accion anterior
+    end
 end
 

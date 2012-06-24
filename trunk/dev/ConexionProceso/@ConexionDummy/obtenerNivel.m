@@ -7,6 +7,6 @@ function [self, nivel] = obtenerNivel( self )
     %end
     %self.clockUltimaMuestra = clock;
     nivel = self.muestrasDummy(self.indiceUltimaMuestraDummy);
-    fprintf('ConexionDummy: Nivel Obtenido: %f.\n', nivel);
+    logDebug(sprintf('ConexionDummy: Nivel Obtenido: %f.\n', nivel));
 end
 
