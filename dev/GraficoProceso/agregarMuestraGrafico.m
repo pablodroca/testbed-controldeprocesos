@@ -2,7 +2,8 @@ function agregarMuestraGrafico(graficoDelProceso, instantes, muestras)
     global graficoProcesoZoom;
     handles = guihandles(graficoDelProceso);
     if not(graficoProcesoZoom)
-      line(instantes, muestras, 'Parent', handles.axesGraficoDelProceso);
+      lineHandle = line(instantes, muestras, 'Parent', handles.axesGraficoDelProceso);
+      set(lineHandle,'LineWidth',2);
       limitesActuales = xlim(handles.axesGraficoDelProceso);
       maxValueX = max(instantes);
       if limitesActuales(2) < maxValueX

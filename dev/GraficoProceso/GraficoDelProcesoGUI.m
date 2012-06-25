@@ -22,7 +22,7 @@ function varargout = GraficoDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help GraficoDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 02-Jun-2012 16:12:51
+% Last Modified by GUIDE v2.5 24-Jun-2012 20:24:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -173,18 +173,83 @@ else
 end
 
 function graficarProceso(handles)
-proceso = localizarProceso(handles);
+	proceso = localizarProceso(handles);
+	
+	instantes = getInstantes(proceso);
+	muestras = getMuestrasNormalizadas(proceso);
+	comentarios = getComentarios(proceso);
+    
+	lineHandle = line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
+	set(lineHandle,'LineWidth',2);
+    legendHandle = legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', 'Set Point', 2);
+    set(legendHandle,'FontSize',11);
+	normalizarEjeTemporal(handles.axesGraficoDelProceso);
+    
+    controlesComentarios = [handles.lblComentarios, handles.lstComentarios];
+    if isempty(comentarios)
+        set(controlesComentarios, 'Visible', 'off');
+    else
+        set(controlesComentarios, 'Visible', 'on');
+        textos = {};
+        for ii = 1:length(comentarios)
+            comentario = comentarios{ii};
+            graficarComentario(handles, comentario);
+            textos{length(textos)+1} = toString(comentario); 
+        end
+        set(handles.lstComentarios, 'String', textos);
+    end
+end
 
-instantes = getInstantes(proceso);
-muestras = getMuestrasNormalizadas(proceso);
-line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
-legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', 'Set Point', 2);
-normalizarEjeTemporal(handles.axesGraficoDelProceso);
+function graficarComentario(handles, comentario)
+	
+	numero = getNumero(comentario);
+	instante = getInstante(comentario);
+	valor = getValor(comentario);
+	
+    limitesActuales = xlim(handles.axesGraficoDelProceso);
+    tamX = (limitesActuales(2) - limitesActuales(1))/75;
+    limitesActuales = ylim(handles.axesGraficoDelProceso);
+    tamY = (limitesActuales(2) - limitesActuales(1))/75;
+    
+	 puntoHandle = text(instante, valor, 'O', 'Parent', handles.axesGraficoDelProceso); 
+    comentarioHandle = text(instante, valor+4*tamY, sprintf('%d', numero), 'Parent', handles.axesGraficoDelProceso); 
+    set(comentarioHandle,'FontSize',11);
+
+end
+
 
 function normalizarEjeTemporalCallback(src, eventData)
-normalizarEjeTemporal(eventData.axes);
+    normalizarEjeTemporal(eventData.axes);
+end
 
 function normalizarEjeTemporal(axes)
-global configuracionAvanzada;
-ticks = get(axes,'XTick');
-set(axes,'XTickLabel', getPeriodo(configuracionAvanzada)*ticks'/1000);
+    global configuracionAvanzada;
+    ticks = get(axes,'XTick');
+    set(axes,'XTickLabel', getPeriodo(configuracionAvanzada)*ticks'/1000);
+end
+
+% --- Executes during object creation, after setting all properties.
+function lstComentarios_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lstComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+% --- Executes on selection change in lstComentarios.
+function lstComentarios_Callback(hObject, eventdata, handles)
+% hObject    handle to lstComentarios (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = get(hObject,'String') returns lstComentarios contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from lstComentarios
+
+
