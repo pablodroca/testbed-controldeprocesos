@@ -22,7 +22,7 @@ function varargout = VisorDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help VisorDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 18-Jun-2012 21:39:19
+% Last Modified by GUIDE v2.5 25-Jun-2012 01:40:24
 
 
 % Begin initialization code - DO NOT EDIT
@@ -313,6 +313,7 @@ function IniciarGrabacion_Callback(hObject, eventdata, handles)
 global directorioInicio;
 [filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', strcat(directorioInicio, '/Grabaciones/proceso.mat'));
 if filename
+    set(handles.lstComentarios, 'String', {});
     w = getWindow('VisorDelProceso');
 	w.controlador = comenzarGrabacion(w.controlador, strcat(filepath,filename));
     setWindow('VisorDelProceso', w);
@@ -788,24 +789,9 @@ function btnAgregarComentario_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 textoComentario = get(handles.txtComentario, 'String');
 w = getWindow('VisorDelProceso');
-[w.controlador, comentario] = agregarComentario(w.controlador, textoComentario);
+w.controlador = agregarComentario(w.controlador, textoComentario);
+set(handles.txtComentario, 'String', '');
 setWindow('VisorDelProceso', w);
-numero = getNumero(comentario);
-texto = getTexto(comentario);
-instante = getInstante(comentario);
-valor = getValor(comentario);
-
-rectangle('Position', [instante-1 valor-1 2 2], 'Curvature', [1 1], 'FaceColor', 'k', 'Parent', handles.axesVisorProceso);
-text(instante-1, valor+9, sprintf('%d', numero), 'Parent', handles.axesVisorProceso); 
-text(instante-1, valor+4,'\downarrow', 'Parent', handles.axesVisorProceso); 
-
-if numero == 1
-    textos = {};
-else
-    textos = get(handles.lstComentarios, 'String');
-end
-textos{length(textos)+1} = sprintf('%d - %s', numero, texto); 
-set(handles.lstComentarios, 'String', textos);
 
 % --- Executes during object creation, after setting all properties.
 function txtComentario_CreateFcn(hObject, eventdata, handles)
@@ -880,5 +866,30 @@ function lstComentarios_Callback(hObject, eventdata, handles)
 
 % Hints: contents = get(hObject,'String') returns lstComentarios contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from lstComentarios
+
+
+% --- Executes during object creation, after setting all properties.
+function txtActuador_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtActuador (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function txtActuador_Callback(hObject, eventdata, handles)
+% hObject    handle to txtActuador (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtActuador as text
+%        str2double(get(hObject,'String')) returns contents of txtActuador as a double
 
 
