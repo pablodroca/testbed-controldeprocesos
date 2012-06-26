@@ -1,6 +1,7 @@
 function [ self ] = Proceso( )
    global configuracionAvanzada;
    self.periodo = getPeriodo(configuracionAvanzada);
+   self.leyendaMuestras = {};
    self.muestras = [];
    self.comentarios = {};
    self.instanteUltimaMuestra = 0;

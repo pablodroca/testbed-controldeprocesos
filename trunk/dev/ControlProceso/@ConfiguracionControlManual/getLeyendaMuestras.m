@@ -1,2 +1,2 @@
 function [ leyenda ] = getLeyendaValorReferencia( self )
-leyenda = 'Salida Manual';
+leyenda = {'Nivel', 'Actuador', 'Salida Manual'};

@@ -1,9 +1,10 @@
 function self = leer( self, archivo)
    data = importdata(archivo);
-   if ~isstruct(data) || ~find(strcmp(fieldnames(data), 'muestras')) || ~find(strcmp(fieldnames(data), 'comentarios'))
-        error('Proceso:leer', 'El archivo indicado no posee las variables "muestras" y "comentarios", requeridos para el proceso.');
+   if ~isstruct(data) || ~find(strcmp(fieldnames(data), 'muestras')) || ~find(strcmp(fieldnames(data), 'comentarios')) || ~find(strcmp(fieldnames(data), 'leyendaMuestras'))
+        error('Proceso:leer', 'El archivo indicado no posee las variables "muestras", "comentarios" y "leyendaMuestras", requeridos para el proceso.');
    end
    self.muestras = data.muestras;
+   self.leyendaMuestras = data.leyendaMuestras;
    self.comentarios = {};
    for ii=1:length(data.comentarios)
       c = data.comentarios{ii};

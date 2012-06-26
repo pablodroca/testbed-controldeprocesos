@@ -181,7 +181,7 @@ function graficarProceso(handles)
     
 	lineHandle = line(instantes, muestras','Parent', handles.axesGraficoDelProceso);
 	set(lineHandle,'LineWidth',2);
-    legendHandle = legend(handles.axesGraficoDelProceso, 'Nivel', 'Actuador', 'Set Point', 2);
+    legendHandle = legend(handles.axesGraficoDelProceso, getLeyendaMuestras(proceso), 2);
     set(legendHandle,'FontSize',11);
 	normalizarEjeTemporal(handles.axesGraficoDelProceso);
     
