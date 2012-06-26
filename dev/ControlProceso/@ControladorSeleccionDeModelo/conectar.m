@@ -23,6 +23,7 @@ global setDeControl
     
     
 	proceso = Proceso;
+    proceso = inicializarLeyendaMuestras(proceso, getLeyendaMuestras(configuracion));
     switch tipoSetDeControl
         case 'AutomaticoABB'
             setDeControl = SetDeControlABB(modelo, configuracion);

@@ -1,4 +1,4 @@
-function agregarMuestra(visorDelProceso, instantes, muestras)
+function agregarMuestra(visorDelProceso, instantes, muestras, leyendaMuestras)
     handles = guihandles(visorDelProceso);
     global configuracionAvanzada;
     periodo = getPeriodo(configuracionAvanzada);
@@ -25,7 +25,7 @@ function agregarMuestra(visorDelProceso, instantes, muestras)
     if find(instantes == 1)
         global setDeControl;
         configuracion = getConfiguracion(setDeControl);
-        legendHandle = legend(handles.axesVisorProceso, 'Nivel', 'Actuador', getLeyendaValorReferencia(configuracion), 2);
+        legendHandle = legend(handles.axesVisorProceso, leyendaMuestras, 2);
         set(legendHandle,'FontSize',11);
     end
 end

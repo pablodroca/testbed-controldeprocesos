@@ -10,9 +10,10 @@ function self = procesarMuestra( self )
     self.proceso = agregarMuestra(self.proceso, nivel, actuador, referencia);
     ultimosInstantes = getUltimosInstantes(self.proceso, 2);
     ultimasMuestras = getUltimasMuestrasNormalizadas(self.proceso, 2);
+    leyendaMuestras = getLeyendaMuestras(self.proceso);
     
     if ishandle(self.vista)       
-        agregarMuestra(self.vista, ultimosInstantes, ultimasMuestras);
+        agregarMuestra(self.vista, ultimosInstantes, ultimasMuestras, leyendaMuestras);
     end
     if existsWindow('GraficoDelProceso')
         w = getWindow('GraficoDelProceso');
