@@ -4,6 +4,7 @@ function self = guardar( self )
 		muestras = self.muestras(self.instanteInicioGrabacion:end, :);
         leyendaMuestras = self.leyendaMuestras;
 		comentarios = {};
+        cambiosCofiguracion = {};
         for ii=1:length(self.comentarios)
             c = self.comentarios{ii};
             if getInstante(c) >= self.instanteInicioGrabacion
@@ -11,7 +12,15 @@ function self = guardar( self )
                 comentarios{length(comentarios)+1} = struct('numero', getNumero(c), 'texto', getTexto(c), 'instante', instanteCorregido, 'valor', getValor(c));
             end
         end
-		save(self.archivo, 'muestras', 'leyendaMuestras', 'comentarios');
+        for ii=1:length(self.cambiosConfiguracion)
+            c = self.cambiosConfiguracion{ii};
+            if c.instante >= self.instanteInicioGrabacion
+                instanteCorregido = c.instante - self.instanteInicioGrabacion + 1;
+                cambiosConfiguracion{length(cambiosCofiguracion)+1} = struct('instante', instanteCorregido, 'configuracion', c);
+            end
+        end
+        configuracion = self.configuracionInicial;
+		save(self.archivo, 'muestras', 'leyendaMuestras', 'comentarios', 'configuracion', 'cambiosConfiguracion', 'configuraion');
 		self.modoGrabacion = false;
 		self.instanteInicioGrabacion = 0;
 	end

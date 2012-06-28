@@ -61,6 +61,12 @@ if length(varargin) < 4
             , 'VisorDelProceso(wSeleccionDelProceso, proceso, archSimulink, tipoSetDeControl)'));
 end
 
+global directorioInicio;
+[pic, map] = imread(strcat(directorioInicio, '\Imagenes\Desconectar.gif'));
+image_rgb = ind2rgb(pic, map);
+set(handles.btnDesconectar, 'String', '');
+set(handles.btnDesconectar, 'cdata', image_rgb);
+
 wSeleccionDeModelo = varargin{1};
 proceso = varargin{2};
 archivoSimulink = varargin{3};
