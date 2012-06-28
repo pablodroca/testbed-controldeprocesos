@@ -15,7 +15,9 @@ global setDeControl
             if ~filename
                 return;
             end
-            conexion = ConexionDummy(strcat(filepath, filename));
+            archivo = strcat(filepath, filename);
+            conexion = ConexionDummy;
+            [conexion,configuracion] = importarDesdeArchivo(conexion, archivo); 
         otherwise
             error('testbed:conectar', 'Tipo de Set de Control invalido.');
 	end    
@@ -23,7 +25,7 @@ global setDeControl
     
     
 	proceso = Proceso;
-    proceso = inicializarLeyendaMuestras(proceso, getLeyendaMuestras(configuracion));
+    proceso = setConfiguracionInicial(proceso, configuracion);
     switch tipoSetDeControl
         case 'AutomaticoABB'
             setDeControl = SetDeControlABB(modelo, configuracion);

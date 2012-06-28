@@ -22,7 +22,7 @@
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 18-Jun-2012 19:53:26
+% Last Modified by GUIDE v2.5 27-Jun-2012 22:54:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -63,6 +63,14 @@ set(handles.btnControlarPlanta, 'cdata', image_rgb);
 image_rgb = ind2rgb(pic, map);
 set(handles.btnAbrirGrabacion, 'String', '');
 set(handles.btnAbrirGrabacion, 'cdata', image_rgb);
+[pic, map] = imread(strcat(directorioInicio, '\Imagenes\ReproducirGrabacion.gif'));
+image_rgb = ind2rgb(pic, map);
+set(handles.btnReproducirGrabacion, 'String', '');
+set(handles.btnReproducirGrabacion, 'cdata', image_rgb);
+[pic, map] = imread(strcat(directorioInicio, '\Imagenes\Conectar.gif'));
+image_rgb = ind2rgb(pic, map);
+set(handles.btnConectar, 'String', '');
+set(handles.btnConectar, 'cdata', image_rgb);
 
 position = get(handles.wSeleccionDeModelo, 'Position');
 handles.originalHeight = position(4);
@@ -189,8 +197,8 @@ function btnConectar_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
-    modelo = getModelo(handles);
-	try
+    modelo = 'UnTanque';
+    try
         w = getWindow('SeleccionDeModelo');
         w.controlador = conectar(w.controlador, tipoSetDeControl, configuracion, modelo);
         setWindow('SeleccionDeModelo', w);
@@ -223,14 +231,6 @@ if strcmp(user_response, 'Aceptar')
 end
 
 
-% --- Executes on button press in rdReproduccion.
-function rdReproduccion_Callback(hObject, eventdata, handles)
-% hObject    handle to rdReproduccion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-toogleRadioButton(hObject,handles);
-showConfiguracionAutomaticaControl(handles);
-
 % Hint: get(hObject,'Value') returns toggle state of rdReproduccion
 function enableRadioButton(radioToEnable, handles)
     radioHandles = getOtrosRadiosSetDeControl(handles, radioToEnable);
@@ -259,19 +259,23 @@ function showConfiguracionManualControl(handles)
     controls = getFrameControlManualHandles(handles);
     set(controls, 'Visible', 'on');
     hideConfiguracionAutomaticaControl(handles);
+    pos = get(handles.frmControlManual, 'Position');
+    cambiarPosicionYBoton(handles.btnAbrirConfiguracion, pos(2) - 3);
 end
 
 function showConfiguracionAutomaticaControl(handles)
     controls = [getFrameControlHandles(handles) getFramePIDHandles(handles)];
     set(controls, 'Visible', 'on');
     hideConfiguracionManualControl(handles);
+    pos = get(handles.frmPID, 'Position');
+    cambiarPosicionYBoton(handles.btnAbrirConfiguracion, pos(2) - 3);
 end
 function showTipoSetDeControl(handles)
-    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.btnConectar];
     set(controls, 'Visible', 'on');
 end
 function hideTipoSetDeControl(handles)
-    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.rdReproduccion handles.btnConectar];
+    controls = [handles.frmTipoSetDeControl handles.lblTipoSetDeControl handles.rdManual handles.rdAutomaticoMatlab, handles.btnConectar];
     set(controls, 'Visible', 'off');
 end
 function controls = getFrameControlManualHandles(handles)
@@ -285,7 +289,7 @@ function controls = getFramePIDHandles(handles)
 end
 
 function radioHandles = getOtrosRadiosSetDeControl(handles, radioActual)
-    radioHandles = [handles.rdManual, handles.rdAutomaticoMatlab, handles.rdReproduccion];
+    radioHandles = [handles.rdManual, handles.rdAutomaticoMatlab];
     iiRadioActual = find(radioHandles == radioActual);
     radioHandles = radioHandles([1:iiRadioActual-1, iiRadioActual+1:length(radioHandles)]);
     
@@ -295,13 +299,10 @@ function [tipo, configuracion] = getTipoSetDeControlYConfiguracion(handles)
 	if get(handles.rdManual, 'Value') == get(handles.rdManual, 'Max')
         tipo = 'Manual';
         configuracion = recolectarConfiguracionManual(handles);
-	elseif get(handles.rdAutomaticoMatlab, 'Value') == get(handles.rdAutomaticoMatlab, 'Max')
+	else
         tipo = 'AutomaticoMatlab';
         configuracion = recolectarConfiguracionAutomatica(handles);
-	elseif get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
-        tipo = 'Reproduccion';
-        configuracion = recolectarConfiguracionAutomatica(handles);
-	end
+    end
 end
 
 function [tipo, configuracion] = setTipoSetDeControlYConfiguracionDeGrabacion(handles, archivo, tipo)
@@ -314,23 +315,13 @@ function [tipo, configuracion] = setTipoSetDeControlYConfiguracionDeGrabacion(ha
     else
         configuracion = ConfiguracionControlAutomatico;
         configuracion = restaurar(configuracion, archivo);
-        %se mantiene la seleccion de reproduccion para esta configuracion.
-        %Si por otro lado la seleccion es manual o autom => se fuerza autom
-        if get(handles.rdReproduccion, 'Value') == get(handles.rdReproduccion, 'Max')
-            radioToEnable = handles.rdReproduccion;
-        else
-            radioToEnable = handles.rdAutomaticoMatlab;
-        end
+        radioToEnable = handles.rdAutomaticoMatlab;
         showConfiguracionAutomaticaControl(handles);
         establecerConfiguracionAutomatica(handles, configuracion);
     end
     
     set(radioToEnable, 'Value', get(radioToEnable, 'Max'));
     toogleRadioButton(radioToEnable, handles);
-end
-
-function modelo = getModelo(handles)
-    modelo = 'UnTanque';
 end
     
 function configuracion = recolectarConfiguracionAutomatica(handles)
@@ -705,6 +696,7 @@ if mostrar
    set(handles.wSeleccionDeModelo, 'Position', pos);
    cambiarPosicionBotonesPrincipales(handles, 27);
 else
+   hideBotonAbrirConfiguracion(handles);
    hideConfiguracionManualControl(handles);
    hideConfiguracionAutomaticaControl(handles);
    hideTipoSetDeControl(handles);
@@ -716,12 +708,15 @@ else
 end
 
 function cambiarPosicionBotonesPrincipales(handles, nuevoY)
-   pos = get(handles.btnControlarPlanta, 'Position');
+   cambiarPosicionYBoton(handles.btnControlarPlanta, nuevoY);
+   cambiarPosicionYBoton(handles.btnAbrirGrabacion, nuevoY);
+   cambiarPosicionYBoton(handles.btnReproducirGrabacion, nuevoY);
+end
+
+function cambiarPosicionYBoton(handleBoton, nuevoY)
+   pos = get(handleBoton, 'Position');
    pos(2) = nuevoY;
-   set(handles.btnControlarPlanta, 'Position', pos);
-   pos = get(handles.btnAbrirGrabacion, 'Position');
-   pos(2) = nuevoY;
-   set(handles.btnAbrirGrabacion, 'Position', pos);
+   set(handleBoton, 'Position', pos);
 end
 
 
@@ -731,6 +726,7 @@ function restablecerVisibilidadConfiguracionControl(handles)
     else
         showConfiguracionAutomaticaControl(handles);
 	end
+    showBotonAbrirConfiguracion(handles);
 end
 
 
@@ -767,3 +763,35 @@ function AcercaDe_Callback(hObject, eventdata, handles)
 AyudaGUI;
 
 
+% --- Executes on button press in btnReproducirGrabacion.
+function btnReproducirGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to btnReproducirGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+try
+    tipoSetDeControl = 'Reproduccion';
+    configuracion = []; %recolectarConfiguracionAutomatica
+    modelo = 'UnTanque';
+    try
+        w = getWindow('SeleccionDeModelo');
+        w.controlador = conectar(w.controlador, tipoSetDeControl, configuracion, modelo);
+        setWindow('SeleccionDeModelo', w);
+	catch 
+        exception = lasterr;
+        msgboxException('Ha ocurrido un error al reproducir la grabacion elegida. Revise la grabacion sea un archivo valido.', ...
+            'Error al Reproducir', exception);
+	end
+catch
+    exception = lasterr;
+    msgboxException('Se ha detectado un error en los parametros.', 'Error de Parametro', exception);
+end
+
+
+function showBotonAbrirConfiguracion(handles)
+    set(handles.btnAbrirConfiguracion, 'Visible', 'on');
+end
+
+function hideBotonAbrirConfiguracion(handles)
+    set(handles.btnAbrirConfiguracion, 'Visible', 'off');
+end
