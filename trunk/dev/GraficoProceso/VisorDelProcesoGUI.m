@@ -72,8 +72,10 @@ proceso = varargin{2};
 archivoSimulink = varargin{3};
 tipoSetDeControl = varargin{4};
 
+habilitarDeshabilitarControles(hObject, tipoSetDeControl);
+    
 window.vista = hObject;
-window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso);
+window.controlador = ControladorVisorDelProceso(handles.wVisorDelProceso, proceso, tipoSetDeControl);
 setWindow('VisorDelProceso', window);
 try
     if (~ishandle(wSeleccionDeModelo)) || ...
@@ -319,6 +321,8 @@ function IniciarGrabacion_Callback(hObject, eventdata, handles)
 global directorioInicio;
 [filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', strcat(directorioInicio, '/Grabaciones/proceso.mat'));
 if filename
+    set(handles.IniciarGrabacion, 'Enable', 'off');
+    set(handles.FinalizarGrabacion, 'Enable', 'on');
     set(handles.lstComentarios, 'String', {});
     w = getWindow('VisorDelProceso');
 	w.controlador = comenzarGrabacion(w.controlador, strcat(filepath,filename));
@@ -335,6 +339,8 @@ try
     w = getWindow('VisorDelProceso');
 	w.controlador = finalizarGrabacion(w.controlador);
     setWindow('VisorDelProceso', w);
+    set(handles.IniciarGrabacion, 'Enable', 'off');
+    set(handles.FinalizarGrabacion, 'Enable', 'off');
 	msgbox('El proceso ha sido grabado correctamente.', 'Grabacion Finalizada', 'modal');
 catch
     exception = lasterr;
@@ -793,11 +799,10 @@ function btnAgregarComentario_Callback(hObject, eventdata, handles)
 % hObject    handle to btnAgregarComentario (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 textoComentario = get(handles.txtComentario, 'String');
-w = getWindow('VisorDelProceso');
-w.controlador = agregarComentario(w.controlador, textoComentario);
+registrarCambioComentario(handles.visorDelProceso, textoComentario);
 set(handles.txtComentario, 'String', '');
-setWindow('VisorDelProceso', w);
 
 % --- Executes during object creation, after setting all properties.
 function txtComentario_CreateFcn(hObject, eventdata, handles)

@@ -22,7 +22,7 @@
 
 % Edit the above text to modify the response to help SeleccionDeModeloGUI
 
-% Last Modified by GUIDE v2.5 27-Jun-2012 22:54:48
+% Last Modified by GUIDE v2.5 02-Jul-2012 00:31:21
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -110,19 +110,6 @@ function Archivo_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --------------------------------------------------------------------
-function Conectar_Callback(hObject, eventdata, handles)
-% hObject    handle to Conectar (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --------------------------------------------------------------------
-function Desconectar_Callback(hObject, eventdata, handles)
-% hObject    handle to Desconectar (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
 
 % --------------------------------------------------------------------
 function ConfiguracionAvanzada_Callback(hObject, eventdata, handles)
@@ -154,19 +141,6 @@ function AbrirGrabacion_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 ejecutarAbrirGrabacion(handles);
-
-% --------------------------------------------------------------------
-function IniciarGrabacion_Callback(hObject, eventdata, handles)
-% hObject    handle to IniciarGrabacion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --------------------------------------------------------------------
-function DetenerGrabacion_Callback(hObject, eventdata, handles)
-% hObject    handle to DetenerGrabacion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
 
 % --- Executes on button press in rdManual.
@@ -768,7 +742,28 @@ function btnReproducirGrabacion_Callback(hObject, eventdata, handles)
 % hObject    handle to btnReproducirGrabacion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+ejecutarReproducirGrabacion(handles);
 
+
+function showBotonAbrirConfiguracion(handles)
+    set(handles.btnAbrirConfiguracion, 'Visible', 'on');
+end
+
+function hideBotonAbrirConfiguracion(handles)
+    set(handles.btnAbrirConfiguracion, 'Visible', 'off');
+end
+
+
+% --------------------------------------------------------------------
+function ReproducirGrabacion_Callback(hObject, eventdata, handles)
+% hObject    handle to ReproducirGrabacion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+ejecutarReproducirGrabacion(handles);
+
+
+function ejecutarReproducirGrabacion(handles)
 try
     tipoSetDeControl = 'Reproduccion';
     configuracion = []; %recolectarConfiguracionAutomatica
@@ -785,13 +780,4 @@ try
 catch
     exception = lasterr;
     msgboxException('Se ha detectado un error en los parametros.', 'Error de Parametro', exception);
-end
-
-
-function showBotonAbrirConfiguracion(handles)
-    set(handles.btnAbrirConfiguracion, 'Visible', 'on');
-end
-
-function hideBotonAbrirConfiguracion(handles)
-    set(handles.btnAbrirConfiguracion, 'Visible', 'off');
 end
