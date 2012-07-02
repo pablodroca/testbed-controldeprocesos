@@ -13,9 +13,9 @@ function self = leer( self, archivo)
    end
    
    
-   if strcmp(data.configuracion.tipoSetDeControl, 'Manual')
+   if strcmp(data.tipo, 'Manual')
        self.configuracionInicial = ConfiguracionControlManual;
-   elseif strcmp(data.configuracion.tipoSetDeControl,'AutomaticoMatlab')
+   else %if strcmp(data.tipo,'AutomaticoMatlab')
        self.configuracionInicial = ConfiguracionControlAutomatico;
    end
    self.configuracionInicial = importarStruct(self.configuracionInicial, data.configuracion);
@@ -24,13 +24,16 @@ function self = leer( self, archivo)
    self.cambiosConfiguracion = {};
    for ii=1:length(data.cambiosConfiguracion)
        c = data.cambiosConfiguracion{ii};
-       
-       if strcmp(c.configuracion.tipoSetDeControl, 'Manual')
-           self.configuracionInicial = ConfiguracionControlManual;
-       elseif strcmp(c.configuracion.tipoSetDeControl,'AutomaticoMatlab')
-           self.configuracionInicial = ConfiguracionControlAutomatico;
-       end
-      self.cambiosConfiguracion{ii} = importarStruct(self.configuracionInicial, c.configuracion);
+       config = self.configuracionInicial;
+       config = importarStruct(config, c.configuracion);
+       self.cambiosConfiguracion{ii} = struct('instante',c.instante, 'configuracion',config);
+       %tipo = getTipo(c.configuracion);
+       %if strcmp(tipo, 'Manual')
+       %    self.configuracionInicial = ConfiguracionControlManual;
+       %elseif strcmp(tipo, 'AutomaticoMatlab')
+      %     self.configuracionInicial = ConfiguracionControlAutomatico;
+      % end
+     % self.cambiosConfiguracion{ii} = importarStruct(self.configuracionInicial, c.configuracion);
    end
    self.instanteUltimaMuestra = size(self.muestras, 1);
    self.instanteInicioGrabacion = 0;

@@ -6,9 +6,9 @@ if ~isstruct(data) || ~find(strcmp(fieldnames(data), 'muestras')) || ~find(strcm
 end
     
 self.muestrasDummy = data.muestras;
-if strcmp(data.configuracion.tipoSetDeControl, 'Manual')
+if strcmp(data.tipo, 'Manual')
     configuracion = ConfiguracionControlManual;
-elseif strcmp(data.configuracion.tipoSetDeControl,'AutomaticoMatlab')
+else %if strcmp(data.tipo,'AutomaticoMatlab')
     configuracion = ConfiguracionControlAutomatico;
 end
 configuracion = importarStruct(configuracion, data.configuracion);
