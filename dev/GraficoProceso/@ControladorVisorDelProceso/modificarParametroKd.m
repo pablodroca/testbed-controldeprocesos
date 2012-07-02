@@ -7,6 +7,7 @@ if valido
     try
         [configuracion, setDeControl] = setKd(configuracion, valor, setDeControl);
         setDeControl = setConfiguracion(setDeControl, configuracion);
+        self.proceso = agregarCambioConfiguracion(self.proceso, configuracion);
     catch
         exception = lasterr;
         msgboxException('Error de Parametro', 'Parametro invalido.', exception);

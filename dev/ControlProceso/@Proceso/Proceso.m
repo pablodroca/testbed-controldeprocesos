@@ -10,5 +10,6 @@ function [ self ] = Proceso( )
    self.configuracionInicial = {};
    self.leyendaMuestras = {};
    self.cambiosConfiguracion = {};
+   self.tipo = '';
    self = class(self, 'Proceso');
 end
