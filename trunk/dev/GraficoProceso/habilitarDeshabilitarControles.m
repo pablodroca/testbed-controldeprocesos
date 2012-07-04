@@ -8,7 +8,6 @@ function deshabilitarControlYGrabacion( visorDelProceso, tipoSetDeControl)
                 handles.txtKd, handles.slKd, ...
                 handles.txtManual, handles.slManual, handles.Grabacion];
         set(controles, 'Enable', 'off');
-        %set(handles.FinalizarGrabacion, 'Enable', 'off');
     else
         controles = [handles.FinalizarGrabacion];
         set(controles, 'Enable', 'off');

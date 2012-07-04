@@ -84,6 +84,12 @@ try
         error('testbed:VisorDelProceso', 'Error al abrir el Visor Del Proceso sin una Seleccion del Modelo o un Proceso Valido');
     end
     
+    if strcmp(tipoSetDeControl, 'Reproduccion')
+        mostrarCuadroComentario(hObject);
+    else
+        ocultarCuadroComentario(hObject);
+    end
+    
     imagenProceso = imread(strcat(archivoSimulink, '.jpg'));
     image(imagenProceso, 'Parent', handles.axesImagen);
     axis(handles.axesImagen, 'off');
@@ -106,7 +112,6 @@ try
     
     inicializarLimitesEnBarrasDeControl(handles);
     refrescarValoresConfiguracionControl(handles);
-    ocultarCuadroComentario(hObject);
     
     handles.tipoSetDeControl = tipoSetDeControl;
     handles.wSeleccionDeModelo = wSeleccionDeModelo;
