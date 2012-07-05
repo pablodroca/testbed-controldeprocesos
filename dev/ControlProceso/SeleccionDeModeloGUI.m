@@ -668,7 +668,7 @@ if mostrar
    pos(2) = pos(2) - diferenciaNuevaViejaAltura;
    pos(4) = handles.originalHeight;
    set(handles.wSeleccionDeModelo, 'Position', pos);
-   cambiarPosicionBotonesPrincipales(handles, 27);
+   cambiarPosicionBotonesPrincipales(handles, 29.8);
 else
    hideBotonAbrirConfiguracion(handles);
    hideConfiguracionManualControl(handles);

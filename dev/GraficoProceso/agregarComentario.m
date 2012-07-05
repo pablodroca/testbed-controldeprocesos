@@ -3,7 +3,7 @@ function agregarComentario( visorDelProceso, comentario )
     handles = guihandles(visorDelProceso);
     
     numero = getNumero(comentario);
-    instante = getInstante(comentario);
+    instante = getInstanteNormalizado(comentario);
     valor = getValor(comentario);
     
     limitesActuales = xlim(handles.axesVisorProceso);

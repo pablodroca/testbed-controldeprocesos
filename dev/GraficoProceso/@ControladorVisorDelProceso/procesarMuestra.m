@@ -8,7 +8,7 @@ function self = procesarMuestra( self )
     [conexion, actuador] = obtenerValorActuador(conexion);
     [referencia] = getValorReferencia(config);
     self.proceso = agregarMuestra(self.proceso, nivel, actuador, referencia);
-    ultimosInstantes = getUltimosInstantes(self.proceso, 2);
+    ultimosInstantes = getUltimosInstantesNormalizados(self.proceso, 2);
     ultimasMuestras = getUltimasMuestrasNormalizadas(self.proceso, 2);
     leyendaMuestras = getLeyendaMuestras(self.proceso);
     
