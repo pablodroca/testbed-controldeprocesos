@@ -86,6 +86,8 @@ try
     
     if strcmp(tipoSetDeControl, 'Reproduccion')
         mostrarCuadroComentario(hObject);
+        set(handles.txtComentario, 'Enable', 'off');
+        set(handles.btnAgregarComentario, 'Enable', 'off');
     else
         ocultarCuadroComentario(hObject);
     end
@@ -99,7 +101,7 @@ try
     
     global configuracionAvanzada;
     config = configuracionAvanzada;
-    maxValueX = getEjeTemporal(config) * (1000/getPeriodo(config));
+    maxValueX = getEjeTemporal(config);
     xlim(handles.axesVisorProceso, [0 maxValueX]);
     ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
     
@@ -107,8 +109,6 @@ try
     set(handles.axesVisorProceso,'YGrid', 'on');
     set(get(handles.axesVisorProceso,'XLabel'), 'String', 'Tiempo [seg.]');
     set(get(handles.axesVisorProceso,'YLabel'), 'String', 'Nivel [%]');
-    ticks = get(handles.axesVisorProceso,'XTick');
-    set(handles.axesVisorProceso,'XTickLabel', getPeriodo(config)*ticks'/1000);
     
     inicializarLimitesEnBarrasDeControl(handles);
     refrescarValoresConfiguracionControl(handles);

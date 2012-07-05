@@ -175,7 +175,7 @@ end
 function graficarProceso(handles)
 	proceso = localizarProceso(handles);
 	
-	instantes = getInstantes(proceso);
+	instantes = getInstantesNormalizados(proceso);
 	muestras = getMuestrasNormalizadas(proceso);
 	comentarios = getComentarios(proceso);
     
@@ -183,11 +183,15 @@ function graficarProceso(handles)
 	set(lineHandle,'LineWidth',2);
     legendHandle = legend(handles.axesGraficoDelProceso, getLeyendaMuestras(proceso), 2);
     set(legendHandle,'FontSize',11);
-	normalizarEjeTemporal(handles.axesGraficoDelProceso);
     
     controlesComentarios = [handles.lblComentarios, handles.lstComentarios];
     if isempty(comentarios)
         set(controlesComentarios, 'Visible', 'off');
+        posicionAxes = get(handles.axesGraficoDelProceso, 'Position');
+        posicionComentarios = get(handles.lstComentarios, 'Position');
+        posicionAxes(4) = posicionAxes(2) + posicionAxes(4) - (posicionComentarios(2)+3); 
+        posicionAxes(2) = posicionComentarios(2)+3;
+        set(handles.axesGraficoDelProceso, 'Position', posicionAxes);
     else
         set(controlesComentarios, 'Visible', 'on');
         textos = {};
@@ -203,7 +207,7 @@ end
 function graficarComentario(handles, comentario)
 	
 	numero = getNumero(comentario);
-	instante = getInstante(comentario);
+	instante = getInstanteNormalizado(comentario);
 	valor = getValor(comentario);
 	
     limitesActuales = xlim(handles.axesGraficoDelProceso);
@@ -217,16 +221,6 @@ function graficarComentario(handles, comentario)
 
 end
 
-
-function normalizarEjeTemporalCallback(src, eventData)
-    normalizarEjeTemporal(eventData.axes);
-end
-
-function normalizarEjeTemporal(axes)
-    global configuracionAvanzada;
-    ticks = get(axes,'XTick');
-    set(axes,'XTickLabel', getPeriodo(configuracionAvanzada)*ticks'/1000);
-end
 
 % --- Executes during object creation, after setting all properties.
 function lstComentarios_CreateFcn(hObject, eventdata, handles)

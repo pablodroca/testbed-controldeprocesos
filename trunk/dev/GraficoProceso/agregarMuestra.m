@@ -4,7 +4,7 @@ function agregarMuestra(visorDelProceso, instantes, muestras, leyendaMuestras)
     periodo = getPeriodo(configuracionAvanzada);
     
     nivel = muestras(end, 1);
-    tiempo = instantes(end, 1) * periodo / 1000;
+    tiempo = instantes(end, 1);
     actuador = muestras(end, 2);
 	set(handles.txtNivel, 'String', nivel);
 	set(handles.txtInstante, 'String', sprintf('%.1f',tiempo));
@@ -15,13 +15,6 @@ function agregarMuestra(visorDelProceso, instantes, muestras, leyendaMuestras)
     lineHandle = line(instantes, muestras, 'Parent', handles.axesVisorProceso);
     set(lineHandle,'LineWidth',2);
 
-    instanteActual = instantes(2);
-    maxValueX = getEjeTemporal(configuracionAvanzada) * (1000/periodo);
-    if instanteActual > maxValueX
-        xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
-        ticks = get(handles.axesVisorProceso,'XTick');
-        set(handles.axesVisorProceso,'XTickLabel', periodo*ticks'/1000);
-    end
     if find(instantes == 1)
         global setDeControl;
         configuracion = getConfiguracion(setDeControl);
