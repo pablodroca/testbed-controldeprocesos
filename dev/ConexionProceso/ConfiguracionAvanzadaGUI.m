@@ -22,7 +22,7 @@ function varargout = ConfiguracionAvanzadaGUI(varargin)
 
 % Edit the above text to modify the response to help ConfiguracionAvanzadaGUI
 
-% Last Modified by GUIDE v2.5 01-May-2012 12:44:07
+% Last Modified by GUIDE v2.5 05-Jul-2012 01:15:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -65,6 +65,11 @@ set(handles.edit_Periodo, 'String', getPeriodo(configuracionAvanzada));
 set(handles.edit_EjeTemporal, 'String', getEjeTemporal(configuracionAvanzada));
 set(handles.edit_NivelMinimo, 'String', getNivelMinimo(configuracionAvanzada));
 set(handles.edit_NivelMaximo, 'String', getNivelMaximo(configuracionAvanzada));
+
+set(handles.edit_NivelDesplazamiento, 'String', getNivelVisorOffset(configuracionAvanzada));
+set(handles.edit_NivelEscala, 'String', getNivelVisorEscala(configuracionAvanzada));
+set(handles.edit_ActuadorDesplazamiento, 'String', getActuacionVisorOffset(configuracionAvanzada));
+set(handles.edit_ActuadorEscala, 'String', getActuacionVisorEscala(configuracionAvanzada));
 % UIWAIT makes ConfiguracionAvanzadaGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -265,7 +270,13 @@ function configuracionAvanzada = recolectarValores(configuracionAvanzada, handle
   ejeTemporal = str2num(get(handles.edit_EjeTemporal,'String'));
   nivelMinimo = str2num(get(handles.edit_NivelMinimo,'String'));
   nivelMaximo = str2num(get(handles.edit_NivelMaximo,'String'));
-  configuracionAvanzada = modificar(configuracionAvanzada, velocidad, puerto, periodo, ejeTemporal, nivelMinimo, nivelMaximo);
+  
+
+  nivelOffset = str2num(get(handles.edit_NivelDesplazamiento, 'String'));
+  nivelEscala = str2num(get(handles.edit_NivelEscala, 'String'));
+  actuadorOffset = str2num(get(handles.edit_ActuadorDesplazamiento, 'String'));
+  actuadorEscala = str2num(get(handles.edit_ActuadorEscala, 'String'));
+  configuracionAvanzada = modificar(configuracionAvanzada, velocidad, puerto, periodo, ejeTemporal, nivelMinimo, nivelMaximo, nivelOffset, nivelEscala, actuadorOffset, actuadorEscala);
 end
 
 function validado = validarConfiguracion(handles)
@@ -310,3 +321,105 @@ function validado = validarConfiguracion(handles)
   validado = true;
   return  
   
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_NivelDesplazamiento_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_NivelDesplazamiento (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function edit_NivelDesplazamiento_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_NivelDesplazamiento (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_NivelDesplazamiento as text
+%        str2double(get(hObject,'String')) returns contents of edit_NivelDesplazamiento as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_NivelEscala_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_NivelEscala (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function edit_NivelEscala_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_NivelEscala (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_NivelEscala as text
+%        str2double(get(hObject,'String')) returns contents of edit_NivelEscala as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_ActuadorDesplazamiento_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_ActuadorDesplazamiento (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function edit_ActuadorDesplazamiento_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_ActuadorDesplazamiento (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_ActuadorDesplazamiento as text
+%        str2double(get(hObject,'String')) returns contents of edit_ActuadorDesplazamiento as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_ActuadorEscala_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_ActuadorEscala (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc
+    set(hObject,'BackgroundColor','white');
+else
+    set(hObject,'BackgroundColor',get(0,'defaultUicontrolBackgroundColor'));
+end
+
+
+
+function edit_ActuadorEscala_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_ActuadorEscala (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_ActuadorEscala as text
+%        str2double(get(hObject,'String')) returns contents of edit_ActuadorEscala as a double
+
+

@@ -208,7 +208,7 @@ function graficarComentario(handles, comentario)
 	
 	numero = getNumero(comentario);
 	instante = getInstanteNormalizado(comentario);
-	valor = getValor(comentario);
+	valor = getValorNormalizado(comentario);
 	
     limitesActuales = xlim(handles.axesGraficoDelProceso);
     tamX = (limitesActuales(2) - limitesActuales(1))/75;

@@ -1,4 +1,4 @@
-function self = modificar( self, velocidad, puerto, periodo, ejeTemporal, nivelMinimo, nivelMaximo)
+function self = modificar( self, velocidad, puerto, periodo, ejeTemporal, nivelMinimo, nivelMaximo, nivelOffset, nivelEscala, actuacionOffset, actuacionEscala)
 %MODIFICAR Summary of this function goes here
 %  Detailed explanation goes here
     self.velocidad = velocidad;
@@ -7,3 +7,8 @@ function self = modificar( self, velocidad, puerto, periodo, ejeTemporal, nivelM
     self.ejeTemporal = ejeTemporal;
     self.nivelMinimo = nivelMinimo;
     self.nivelMaximo = nivelMaximo;
+    
+   self.nivelVisorOffset = nivelOffset;
+   self.nivelVisorEscala = nivelEscala;
+   self.actuacionVisorOffset = actuacionOffset;
+   self.actuacionVisorEscala = actuacionEscala;
