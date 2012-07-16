@@ -1,38 +1,37 @@
 function self = conectar( self,tipoSetDeControl, configuracion, modelo)
 
-global conexion
-global setDeControl
+global testbedContexto
 	switch tipoSetDeControl
         case 'Manual'
-            conexion = Conexion;
+            testbedContexto.conexion = Conexion;
         case 'AutomaticoMatlab'
-            conexion = Conexion;
+            testbedContexto.conexion = Conexion;
         case 'AutomaticoABB'
             error('testbed:conectar', 'El tipo de Set de Control Automatico - ABB no esta disponible en esta version del sistema.');
         case 'Reproduccion'
-            global directorioInicio;
-            [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de reproduccion...', strcat(directorioInicio, '/Grabaciones/'));
+            global testbedContexto;
+            [filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de reproduccion...', strcat(testbedContexto.directorioInicio, '/Grabaciones/'));
             if ~filename
                 return;
             end
             archivo = strcat(filepath, filename);
-            conexion = ConexionDummy;
-            [conexion,configuracion] = importarDesdeArchivo(conexion, archivo); 
+            testbedContexto.conexion = ConexionDummy;
+            [testbedContexto.conexion,configuracion] = importarDesdeArchivo(testbedContexto.conexion, archivo); 
         otherwise
             error('testbed:conectar', 'Tipo de Set de Control invalido.');
 	end    
-    conexion = crearYConectar(conexion);
+    testbedContexto.conexion = crearYConectar(testbedContexto.conexion);
     
     
 	proceso = Proceso;
     proceso = setConfiguracionInicial(proceso, configuracion);
     switch tipoSetDeControl
         case 'AutomaticoABB'
-            setDeControl = SetDeControlABB(modelo, configuracion);
+            testbedContexto.setDeControl = SetDeControlABB(modelo, configuracion);
         otherwise
-            setDeControl = SetDeControlMatlab(modelo, configuracion);
+            testbedContexto.setDeControl = SetDeControlMatlab(modelo, configuracion);
     end
-    iniciar(setDeControl);
+    iniciar(testbedContexto.setDeControl);
     try
         VisorDelProcesoGUI( self.vista, proceso, modelo, tipoSetDeControl);
     catch

@@ -1,4 +1,4 @@
 function [ instante ] = getInstanteNormalizado( self )
-    global configuracionAvanzada;
+global testbedContexto;
     
-    instante = getPeriodo(configuracionAvanzada)*self.instante/1000;
+    instante = getPeriodo(testbedContexto.configuracionAvanzada)*self.instante/1000;

@@ -70,8 +70,8 @@ set(get(handles.axesGraficoDelProceso,'YLabel'), 'String', 'Nivel [cm.]');
 
 graficarProceso(handles);
 
-global graficoProcesoZoom;
-graficoProcesoZoom = 0;
+global testbedContexto;
+testbedContexto.graficoProcesoZoom = 0;
 set(handles.toggleZoom,'Value',0);
 
 
@@ -125,10 +125,10 @@ function toggleZoom_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of toggleZoom
-global graficoProcesoZoom;
+global testbedContexto;
 
-graficoProcesoZoom = get(hObject,'Value');
-if graficoProcesoZoom
+testbedContexto.graficoProcesoZoom = get(hObject,'Value');
+if testbedContexto.graficoProcesoZoom
     zoom(handles.wGraficoDelProceso,'on');
 else
     zoom(handles.wGraficoDelProceso,'off');

@@ -1,16 +1,15 @@
 function self = desconectar( self )
 
-global conexion
-global setDeControl
+global testbedContexto
 
     if ~isempty(self.timer)
         stop(self.timer);
         delete(self.timer);
     end
-	setDeControl = cerrar(setDeControl);
-	conexion = desconectar(conexion);
-    setDeControl = [];
-    conexion = [];
+	testbedContexto.setDeControl = cerrar(testbedContexto.setDeControl);
+	testbedContexto.conexion = desconectar(testbedContexto.conexion);
+    testbedContexto.setDeControl = [];
+    testbedContexto.conexion = [];
 	self.proceso = cerrar(self.proceso);
 end
 

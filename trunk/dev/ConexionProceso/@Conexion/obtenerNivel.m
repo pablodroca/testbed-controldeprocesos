@@ -1,4 +1,4 @@
-function [ self, nivel ] = obtenerMuestra( self )
+function [nivel ] = obtenerMuestra( self )
 %obtenerMuestra Obtiene una muestra de la placa para el canal de la
 %conexion
     nivel = AnalogicInput(self.placa, self.canalSensor)/1298*3;

@@ -2,11 +2,11 @@ function [ self, valido ] = modificarParametroKd( self, valor )
 valor = validarParametro(self, valor);
 valido = ~isempty(valor);
 if valido
-    global setDeControl
+    global testbedContexto
     configuracion = getConfiguracion(setDeControl);
     try
-        [configuracion, setDeControl] = setKd(configuracion, valor, setDeControl);
-        setDeControl = setConfiguracion(setDeControl, configuracion);
+        [configuracion, testbedContexto.setDeControl] = setKd(configuracion, valor, testbedContexto.setDeControl);
+        testbedContexto.setDeControl = setConfiguracion(testbedContexto.setDeControl, configuracion);
         self.proceso = agregarCambioConfiguracion(self.proceso, configuracion);
     catch
         exception = lasterr;

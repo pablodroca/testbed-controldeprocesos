@@ -1,2 +1,5 @@
-function [ self, valorActuador ] = obtenerValorActuador( self )
-valorActuador = self.ultimoActuadorDummy;
+function [ valorActuador ] = obtenerValorActuador( self )
+%valorActuador = self.ultimoActuadorDummy;
+    valorActuador = self.muestrasDummy(self.indiceUltimaMuestraDummy,2);
+end
+

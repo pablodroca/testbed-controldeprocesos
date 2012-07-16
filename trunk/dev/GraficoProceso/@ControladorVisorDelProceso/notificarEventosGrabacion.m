@@ -1,11 +1,11 @@
 function self = notificarEventosGrabacion( self )
-    global conexion
+    global testbedContexto
     
     instante = getUltimosInstantes(self.proceso, 1);
     instante = instante(1);
     
-    cambioConfig = getCambioConfiguracionPorInstante(conexion, instante);
-    comentario = getComentarioPorInstante(conexion, instante);
+    cambioConfig = getCambioConfiguracionPorInstante(testbedContexto.conexion, instante);
+    comentario = getComentarioPorInstante(testbedContexto.conexion, instante);
     if ~isempty(cambioConfig)
         registrarCambioConfiguracion(self.vista, cambioConfig);
     end

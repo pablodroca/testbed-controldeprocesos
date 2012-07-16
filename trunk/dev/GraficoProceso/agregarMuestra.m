@@ -1,7 +1,7 @@
 function agregarMuestra(visorDelProceso, instantes, muestras, leyendaMuestras)
     handles = guihandles(visorDelProceso);
-    global configuracionAvanzada;
-    periodo = getPeriodo(configuracionAvanzada);
+global testbedContexto;
+    periodo = getPeriodo(testbedContexto.configuracionAvanzada);
     
     nivel = muestras(end, 1);
     tiempo = instantes(end, 1);
@@ -14,10 +14,14 @@ function agregarMuestra(visorDelProceso, instantes, muestras, leyendaMuestras)
 
     lineHandle = line(instantes, muestras, 'Parent', handles.axesVisorProceso);
     set(lineHandle,'LineWidth',2);
-
+    instanteActual = instantes(2);
+    maxValueX = getEjeTemporal(testbedContexto.configuracionAvanzada) * (1000/periodo);
+    if instanteActual > maxValueX
+        xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
+    end
     if find(instantes == 1)
-        global setDeControl;
-        configuracion = getConfiguracion(setDeControl);
+        global testbedContexto;
+        configuracion = getConfiguracion(testbedContexto.setDeControl);
         legendHandle = legend(handles.axesVisorProceso, leyendaMuestras, 2);
         set(legendHandle,'FontSize',11);
     end

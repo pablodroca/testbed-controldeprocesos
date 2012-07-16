@@ -1,10 +1,9 @@
 function agregarComentario( visorDelProceso, comentario )
-    global configuracionAvanzada;
     handles = guihandles(visorDelProceso);
     
     numero = getNumero(comentario);
     instante = getInstanteNormalizado(comentario);
-    valor = getValor(comentario);
+    valor = getValorNormalizado(comentario);
     
     limitesActuales = xlim(handles.axesVisorProceso);
     tamX = (limitesActuales(2) - limitesActuales(1))/75;

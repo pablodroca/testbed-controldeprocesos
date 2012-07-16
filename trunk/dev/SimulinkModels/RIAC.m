@@ -1,5 +1,5 @@
 function [sys,x0,str,ts]= RIAC(t,x,u,flag)
-global dt T A Ts B C n conexion
+global dt T A Ts B C n
 
 switch flag
     case 0 % initialize
@@ -29,10 +29,12 @@ switch flag
              dt=toc;
          end
          actuador = u;
-         conexion = establecerValorActuador(conexion, u);
+         global testbedContexto;
+         testbedContexto.conexion = establecerValorActuador(testbedContexto.conexion, u);
 salida = 'not null';
     case 3 % output
-		[conexion, nivel] = obtenerNivel(conexion);
+         global testbedContexto;
+		[nivel] = obtenerNivel(testbedContexto.conexion);
         sys = nivel;
     case {4 9} % 2:discrete
         % 4:calcTimeHit

@@ -54,20 +54,20 @@ function SeleccionDeModeloGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for SeleccionDeModeloGUI
 
-global directorioInicio;
-[pic, map] = imread(strcat(directorioInicio, '\Imagenes\ControlarPlanta.gif'));
+global testbedContexto;
+[pic, map] = imread(strcat(testbedContexto.directorioInicio, '\Imagenes\ControlarPlanta.gif'));
 image_rgb = ind2rgb(pic, map);
 set(handles.btnControlarPlanta, 'String', '');
 set(handles.btnControlarPlanta, 'cdata', image_rgb);
-[pic, map] = imread(strcat(directorioInicio, '\Imagenes\AbrirGrabacion.gif'));
+[pic, map] = imread(strcat(testbedContexto.directorioInicio, '\Imagenes\AbrirGrabacion.gif'));
 image_rgb = ind2rgb(pic, map);
 set(handles.btnAbrirGrabacion, 'String', '');
 set(handles.btnAbrirGrabacion, 'cdata', image_rgb);
-[pic, map] = imread(strcat(directorioInicio, '\Imagenes\ReproducirGrabacion.gif'));
+[pic, map] = imread(strcat(testbedContexto.directorioInicio, '\Imagenes\ReproducirGrabacion.gif'));
 image_rgb = ind2rgb(pic, map);
 set(handles.btnReproducirGrabacion, 'String', '');
 set(handles.btnReproducirGrabacion, 'cdata', image_rgb);
-[pic, map] = imread(strcat(directorioInicio, '\Imagenes\Conectar.gif'));
+[pic, map] = imread(strcat(testbedContexto.directorioInicio, '\Imagenes\Conectar.gif'));
 image_rgb = ind2rgb(pic, map);
 set(handles.btnConectar, 'String', '');
 set(handles.btnConectar, 'cdata', image_rgb);
@@ -604,8 +604,8 @@ function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global directorioInicio;
-[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+global testbedContexto;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(testbedContexto.directorioInicio, '/Configuraciones/configuracion.mat'));
 if filename
     [tipoSetDeControl, configuracion] = getTipoSetDeControlYConfiguracion(handles);
     configuracion = guardar(configuracion, strcat(filepath, filename));
@@ -618,8 +618,8 @@ function btnAbrirConfiguracion_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global directorioInicio;
-[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de configuracion de control...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+global testbedContexto;
+[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de configuracion de control...', strcat(testbedContexto.directorioInicio, '/Configuraciones/configuracion.mat'));
 if filename
     data = load(strcat(filepath, filename));
     setTipoSetDeControlYConfiguracionDeGrabacion(handles, strcat(filepath, filename), data.tipoSetDeControl);
@@ -634,8 +634,8 @@ function btnAbrirGrabacion_Callback(hObject, eventdata, handles)
 ejecutarAbrirGrabacion(handles);
 
 function ejecutarAbrirGrabacion(handles)
-global directorioInicio;
-[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de grabacion de control...', strcat(directorioInicio, '/Grabaciones/'));
+global testbedContexto;
+[filename, filepath] = uigetfile({'*.mat'}, 'Seleccionar archivo de grabacion de control...', strcat(testbedContexto.directorioInicio, '/Grabaciones/'));
 if filename
     archivo = strcat(filepath, filename);
     w = getWindow('SeleccionDeModelo');

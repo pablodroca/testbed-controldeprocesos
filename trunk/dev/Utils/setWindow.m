@@ -1,13 +1,13 @@
 function setWindow(name, handle)
-global windowHandles
-	if isempty(windowHandles)
-		windowHandles = [{name, handle}];
+global testbedContexto;
+	if isempty(testbedContexto.windowHandles)
+		testbedContexto.windowHandles = [{name, handle}];
 	else
-		index = find(strcmp(windowHandles(:, 1), name));
+		index = find(strcmp(testbedContexto.windowHandles(:, 1), name));
 		if index
-			windowHandles{index, 2} = handle;
+			testbedContexto.windowHandles{index, 2} = handle;
 		else
-			windowHandles = [windowHandles;{name, handle}];
+			testbedContexto.windowHandles = [testbedContexto.windowHandles;{name, handle}];
 		end
 	end
 end

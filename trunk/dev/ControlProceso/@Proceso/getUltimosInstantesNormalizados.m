@@ -1,5 +1,5 @@
 function [ instantes ] = getUltimosInstantesNormalizados( self, cant)
 
-    global configuracionAvanzada;
+global testbedContexto;
     
-    instantes = getPeriodo(configuracionAvanzada)*getUltimosInstantes(self, cant)/1000;
+    instantes = getPeriodo(testbedContexto.configuracionAvanzada)*getUltimosInstantes(self, cant)/1000;

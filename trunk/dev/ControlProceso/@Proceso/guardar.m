@@ -1,5 +1,5 @@
 function self = guardar( self )
-    fprintf('Proceso: Guardando muestras [%d %d] en archivo %s\n', self.instanteInicioGrabacion, self.instanteUltimaMuestra, self.archivo);
+    logDebug(sprintf('Proceso: Guardando muestras [%d %d] en archivo %s\n', self.instanteInicioGrabacion, self.instanteUltimaMuestra, self.archivo));
 	if self.modoGrabacion
 		muestras = self.muestras(self.instanteInicioGrabacion:end, :);
         leyendaMuestras = self.leyendaMuestras;
