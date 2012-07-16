@@ -2,11 +2,11 @@ function [ self, valido ] = modificarParametroBias( self, valor )
 valor = validarParametro(self, valor);
 valido = ~isempty(valor);
 if valido
-    global setDeControl
-    configuracion = getConfiguracion(setDeControl);
+    global testbedContexto;
+    configuracion = getConfiguracion(testbedContexto.setDeControl);
     try
-        [configuracion, setDeControl] = setBias(configuracion, valor, setDeControl);
-        setDeControl = setConfiguracion(setDeControl, configuracion);
+        [configuracion, setDeControl] = setBias(configuracion, valor, testbedContexto.setDeControl);
+        testbedContexto.setDeControl = setConfiguracion(testbedContexto.setDeControl, configuracion);
         self.proceso = agregarCambioConfiguracion(self.proceso, configuracion);
     catch
         exception = lasterr;

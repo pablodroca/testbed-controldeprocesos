@@ -1,2 +1,2 @@
-function [ self, valorActuador ] = obtenerValorActuador( self )
+function [ valorActuador ] = obtenerValorActuador( self )
 valorActuador = self.valorActuador;

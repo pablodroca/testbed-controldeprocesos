@@ -1,8 +1,8 @@
 function self = crearYConectar( self )
 %crearYConectar Inicializa la conexión para sensar valores.
-    global configuracionAvanzada
-    velocidad = getVelocidad(configuracionAvanzada); % ejemplo: 57600 -> Periodo de lectura: T=20ms
-    puerto = getPuerto(configuracionAvanzada);
+global testbedContexto;
+    velocidad = getVelocidad(testbedContexto.configuracionAvanzada); % ejemplo: 57600 -> Periodo de lectura: T=20ms
+    puerto = getPuerto(testbedContexto.configuracionAvanzada);
 
     self.placa = actxserver('RiacQXControl.RiacQX');
     try

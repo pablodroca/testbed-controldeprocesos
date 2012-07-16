@@ -61,8 +61,8 @@ if length(varargin) < 4
             , 'VisorDelProceso(wSeleccionDelProceso, proceso, archSimulink, tipoSetDeControl)'));
 end
 
-global directorioInicio;
-[pic, map] = imread(strcat(directorioInicio, '\Imagenes\Desconectar.gif'));
+global testbedContexto;
+[pic, map] = imread(strcat(testbedContexto.directorioInicio, '\Imagenes\Desconectar.gif'));
 image_rgb = ind2rgb(pic, map);
 set(handles.btnDesconectar, 'String', '');
 set(handles.btnDesconectar, 'cdata', image_rgb);
@@ -99,8 +99,8 @@ try
     rectangle('Position', [0 0 20 100], 'Curvature', [0.1 0.1], 'FaceColor', [1 1 1]*206/255, 'Parent', handles.axesBarraTanque);
     axis(handles.axesBarraTanque, 'off');
     
-    global configuracionAvanzada;
-    config = configuracionAvanzada;
+global testbedContexto;
+    config = testbedContexto.configuracionAvanzada;
     maxValueX = getEjeTemporal(config);
     xlim(handles.axesVisorProceso, [0 maxValueX]);
     ylim(handles.axesVisorProceso, [getNivelMinimo(config) getNivelMaximo(config)]);
@@ -323,8 +323,8 @@ function IniciarGrabacion_Callback(hObject, eventdata, handles)
 % hObject    handle to IniciarGrabacion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global directorioInicio;
-[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', strcat(directorioInicio, '/Grabaciones/proceso.mat'));
+global testbedContexto;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de grabacion...', strcat(testbedContexto.directorioInicio, '/Grabaciones/proceso.mat'));
 if filename
     set(handles.IniciarGrabacion, 'Enable', 'off');
     set(handles.FinalizarGrabacion, 'Enable', 'on');
@@ -362,7 +362,7 @@ function wVisorDelProceso_CloseRequestFcn(hObject, eventdata, handles)
 % Hint: delete(hObject) closes the figure
 user_response = questdlg('Desea salir del Visor Del Proceso y desconectar el modelo actual?','Desconectar Modelo', 'Aceptar', 'Cancelar', 'Aceptar');
 %user_response = ConfirmarSalidaGUI;
-if user_response == 'Aceptar'
+if strcmp(user_response, 'Aceptar')
 	desconectarControlador;
 	delete(hObject);
 %else doNothing    
@@ -663,8 +663,8 @@ set(handles.slManual, 'Max', 100);
 end
 
 function refrescarValoresConfiguracionControl(handles)
-    global setDeControl;
-    configuracion = getConfiguracion(setDeControl);
+    global testbedContexto;
+    configuracion = getConfiguracion(testbedContexto.setDeControl);
     if strcmp(class(configuracion), 'configuracioncontrolmanual')
         controls = [handles.lblSetPoint, handles.txtSetPoint, handles.slSetPoint, ...
                 handles.lblBias, handles.txtBias, handles.slBias, handles.frSetPointBias, ...
@@ -768,11 +768,11 @@ function GuardarConfigDeControl_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global directorioInicio;
-[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(directorioInicio, '/Configuraciones/configuracion.mat'));
+global testbedContexto;
+[filename, filepath] = uiputfile({'*.mat'}, 'Seleccionar archivo de Configuracion...', strcat(testbedContexto.directorioInicio, '/Configuraciones/configuracion.mat'));
 if filename
-    global setDeControl;
-    configuracion = getConfiguracion(setDeControl);
+    global testbedContexto;
+    configuracion = getConfiguracion(testbedContexto.setDeControl);
     configuracion = guardar(configuracion, strcat(filepath, filename));
     tipoSetDeControl = handles.tipoSetDeControl;
     save(strcat(filepath, filename), '-append', 'tipoSetDeControl');
@@ -806,7 +806,7 @@ function btnAgregarComentario_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 textoComentario = get(handles.txtComentario, 'String');
-registrarCambioComentario(handles.visorDelProceso, textoComentario);
+registrarCambioComentario(handles.wVisorDelProceso, textoComentario);
 set(handles.txtComentario, 'String', '');
 
 % --- Executes during object creation, after setting all properties.

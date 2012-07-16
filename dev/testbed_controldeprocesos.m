@@ -7,19 +7,15 @@ addpath(fullfile(pwd, 'GraficoProceso'));
 addpath(fullfile(pwd, 'SimulinkModels'));
 addpath(fullfile(pwd, 'Utils'));
 
-global directorioInicio;
-global configuracionAvanzada;
-global conexion;
-global setDeControl;
-global windowHandles;
-global graficoProcesoZoom;
+global testbedContexto;
+testbedContexto.directorioInicio = pwd;
+testbedContexto.conexion = {};
+testbedContexto.setDeControl = {};
+testbedContexto.windowHandles = {};
+testbedContexto.graficoProcesoZoom = 0;
+testbedContexto.configuracionAvanzada = ConfiguracionAvanzada;
+testbedContexto.configuracionAvanzada = leer(testbedContexto.configuracionAvanzada);
 
-directorioInicio=pwd;
-configuracionAvanzada = ConfiguracionAvanzada;
-configuracionAvanzada = leer(configuracionAvanzada);
-windowHandles = [];
-conexion = [];
-graficoProcesoZoom = 0;
 
 SeleccionDeModeloGUI
 

@@ -1,7 +1,7 @@
 function self = leer( self )
-  global directorioInicio;
+global testbedContexto;
   
-  file = strcat(directorioInicio,'/configuracionAvanzada.mat');
+  file = strcat(testbedContexto.directorioInicio,'/configuracionAvanzada.mat');
   if exist(file, 'file')
     fileSelf = load(file);
   

@@ -1,8 +1,8 @@
 function registrarCambioConfiguracion( visorDelProceso, configuracionStruct )
-    global setDeControl
+    global testbedContexto
     handles = guihandles(visorDelProceso);
     
-    configuracionActual = getConfiguracion(setDeControl);
+    configuracionActual = getConfiguracion(testbedContexto.setDeControl);
     configuracionModificada = configuracionActual; %clonamos la config para tener un objeto del tipo correcto
     configuracionModificada = importarStruct(configuracionModificada, configuracionStruct);
     diferencia = calcularDiferencia(configuracionActual, configuracionModificada);

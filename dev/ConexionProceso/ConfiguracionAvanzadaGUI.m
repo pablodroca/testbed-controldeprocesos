@@ -58,18 +58,19 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-global configuracionAvanzada;
-set(handles.edit_Velocidad, 'String', getVelocidad(configuracionAvanzada));
-set(handles.edit_Puerto, 'String', getPuerto(configuracionAvanzada));
-set(handles.edit_Periodo, 'String', getPeriodo(configuracionAvanzada));
-set(handles.edit_EjeTemporal, 'String', getEjeTemporal(configuracionAvanzada));
-set(handles.edit_NivelMinimo, 'String', getNivelMinimo(configuracionAvanzada));
-set(handles.edit_NivelMaximo, 'String', getNivelMaximo(configuracionAvanzada));
+global testbedContexto;
+config = testbedContexto.configuracionAvanzada;
+set(handles.edit_Velocidad, 'String', getVelocidad(config));
+set(handles.edit_Puerto, 'String', getPuerto(config));
+set(handles.edit_Periodo, 'String', getPeriodo(config));
+set(handles.edit_EjeTemporal, 'String', getEjeTemporal(config));
+set(handles.edit_NivelMinimo, 'String', getNivelMinimo(config));
+set(handles.edit_NivelMaximo, 'String', getNivelMaximo(config));
 
-set(handles.edit_NivelDesplazamiento, 'String', getNivelVisorOffset(configuracionAvanzada));
-set(handles.edit_NivelEscala, 'String', getNivelVisorEscala(configuracionAvanzada));
-set(handles.edit_ActuadorDesplazamiento, 'String', getActuacionVisorOffset(configuracionAvanzada));
-set(handles.edit_ActuadorEscala, 'String', getActuacionVisorEscala(configuracionAvanzada));
+set(handles.edit_NivelDesplazamiento, 'String', getNivelVisorOffset(config));
+set(handles.edit_NivelEscala, 'String', getNivelVisorEscala(config));
+set(handles.edit_ActuadorDesplazamiento, 'String', getActuacionVisorOffset(config));
+set(handles.edit_ActuadorEscala, 'String', getActuacionVisorEscala(config));
 % UIWAIT makes ConfiguracionAvanzadaGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -246,11 +247,11 @@ function pushbutton_Aceptar_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_Aceptar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global configuracionAvanzada
+global testbedContexto;
   validado = validarConfiguracion(handles);
   if (validado)
-    configuracionAvanzada = recolectarValores(configuracionAvanzada, handles);
-    configuracionAvanzada = guardar(configuracionAvanzada);
+    testbedContexto.configuracionAvanzada = recolectarValores(testbedContexto.configuracionAvanzada, handles);
+    testbedContexto.configuracionAvanzada = guardar(testbedContexto.configuracionAvanzada);
     close(handles.output);
   end
 

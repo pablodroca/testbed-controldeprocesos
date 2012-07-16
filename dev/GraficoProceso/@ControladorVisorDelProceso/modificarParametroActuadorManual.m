@@ -3,11 +3,11 @@ function [ self, valido ] = modificarParametroActuadorManual( self, valor )
 valor = validarParametro(self, valor);
 valido = ~isempty(valor);
 if valido
-    global setDeControl
-    configuracion = getConfiguracion(setDeControl);
+    global testbedContexto
+    configuracion = getConfiguracion(testbedContexto.setDeControl);
     try
-        [configuracion, setDeControl] = setSalidaManual(configuracion, valor, setDeControl);
-        setDeControl = setConfiguracion(setDeControl, configuracion);
+        [configuracion, testbedContexto.setDeControl] = setSalidaManual(configuracion, valor, testbedContexto.setDeControl);
+        testbedContexto.setDeControl = setConfiguracion(testbedContexto.setDeControl, configuracion);
         self.proceso = agregarCambioConfiguracion(self.proceso, configuracion);
     catch
         exception = lasterr;

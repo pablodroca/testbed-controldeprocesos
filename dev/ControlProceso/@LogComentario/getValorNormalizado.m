@@ -1,4 +1,4 @@
 function [ valorNormalizado] = getValorNormalizado( self )
 
-    global configuracionAvanzada;
-    valorNormalizado = self.valor; %normalizarValorNivel(configuracionAvanzada, self.valor);
+global testbedContexto;
+    valorNormalizado = normalizarValorNivel(testbedContexto.configuracionAvanzada, self.valor);

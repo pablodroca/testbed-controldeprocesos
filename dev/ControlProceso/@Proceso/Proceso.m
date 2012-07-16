@@ -1,6 +1,6 @@
 function [ self ] = Proceso( )
-   global configuracionAvanzada;
-   self.periodo = getPeriodo(configuracionAvanzada);
+global testbedContexto;
+   self.periodo = getPeriodo(testbedContexto.configuracionAvanzada);
    self.muestras = [];
    self.comentarios = {};
    self.instanteUltimaMuestra = 0;
