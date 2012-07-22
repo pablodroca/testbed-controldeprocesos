@@ -22,7 +22,7 @@ function varargout = GraficoDelProcesoGUI(varargin)
 
 % Edit the above text to modify the response to help GraficoDelProcesoGUI
 
-% Last Modified by GUIDE v2.5 24-Jun-2012 20:24:31
+% Last Modified by GUIDE v2.5 22-Jul-2012 12:48:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -184,7 +184,7 @@ function graficarProceso(handles)
     legendHandle = legend(handles.axesGraficoDelProceso, getLeyendaMuestras(proceso), 2);
     set(legendHandle,'FontSize',11);
     
-    controlesComentarios = [handles.lblComentarios, handles.lstComentarios];
+    controlesComentarios = [handles.lblComentarios, handles.lstComentarios, handles.btnExportarTXT];
     if isempty(comentarios)
         set(controlesComentarios, 'Visible', 'off');
         posicionAxes = get(handles.axesGraficoDelProceso, 'Position');
@@ -247,3 +247,40 @@ function lstComentarios_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from lstComentarios
 
 
+% --- Executes on button press in btnExportarPNG.
+function btnExportarPNG_Callback(hObject, eventdata, handles)
+% hObject    handle to btnExportarPNG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global testbedContexto;
+[filename, filepath] = uiputfile({'*.png'}, 'Seleccionar destino de exportacion...', strcat(testbedContexto.directorioInicio, '/Grabaciones/grafico.png'));
+if filename
+    file = strcat(filepath, filename);
+    set(handles.wGraficoDelProceso,'PaperPositionMode','auto')
+    print(handles.wGraficoDelProceso, file, '-dpng', '-noui');
+end
+
+% Hint: get(hObject,'Value') returns toggle state of btnExportarPNG
+
+
+% --- Executes on button press in btnExportarTXT.
+function btnExportarTXT_Callback(hObject, eventdata, handles)
+% hObject    handle to btnExportarTXT (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global testbedContexto;
+[filename, filepath] = uiputfile({'*.txt'}, 'Seleccionar destino de exportacion...', strcat(testbedContexto.directorioInicio, '/Grabaciones/comentariosGrafico.txt'));
+if filename
+    file = strcat(filepath, filename);
+    [fid,msg] = fopen(file, 'w');
+    if fid >= 0
+        textos = get(handles.lstComentarios, 'String');
+        for ii=1:length(textos)
+            fprintf(fid, '%s \r\n', textos{ii});
+        end
+        fclose(fid);
+    else
+        msgbox(msg, 'Error al abrir el archivo', 'error');
+    end
+end

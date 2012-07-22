@@ -28,6 +28,8 @@ global testbedContexto
     switch tipoSetDeControl
         case 'AutomaticoABB'
             testbedContexto.setDeControl = SetDeControlABB(modelo, configuracion);
+        case 'Reproduccion'
+            testbedContexto.setDeControl = SetDeControlDummy(modelo, configuracion);
         otherwise
             testbedContexto.setDeControl = SetDeControlMatlab(modelo, configuracion);
     end
