@@ -4,7 +4,11 @@ global testbedContexto;
     velocidad = getVelocidad(testbedContexto.configuracionAvanzada); % ejemplo: 57600 -> Periodo de lectura: T=20ms
     puerto = getPuerto(testbedContexto.configuracionAvanzada);
 
-    self.placa = actxserver('RiacQXControl.RiacQX');
+    try
+        self.placa = actxserver('RiacQXControl.RiacQX');
+    catch
+        error('Conexion:crearYConectar', 'No fue posible iniciar la conexion con la placa adquisidora. Controle que el driver y el puerto de control se encuentren configurados.');
+    end
     try
         self.placa.ComBaudRate = velocidad;
     catch
