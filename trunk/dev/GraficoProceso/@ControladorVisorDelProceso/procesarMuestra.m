@@ -1,8 +1,9 @@
 function self = procesarMuestra( self )
-	global testbedContexto;
-    config = getConfiguracion(testbedContexto.setDeControl);
-	
-    [testbedContexto.conexion] = notificarNuevoMuestreo(testbedContexto.conexion);
+global testbedContexto;
+config = getConfiguracion(testbedContexto.setDeControl);
+
+[testbedContexto.conexion, activo] = notificarNuevoMuestreo(testbedContexto.conexion);
+if activo
     [nivel] = obtenerNivel(testbedContexto.conexion);
     [actuador] = obtenerValorActuador(testbedContexto.conexion);
     [referencia] = getValorReferencia(config);
@@ -22,4 +23,4 @@ function self = procesarMuestra( self )
     else
         logDebug(sprintf('Vista destino inexistente. Deteniendo timer de procesar Muestra...'));
     end
-    
+end
