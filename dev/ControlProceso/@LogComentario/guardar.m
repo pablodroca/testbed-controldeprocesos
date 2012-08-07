@@ -1,4 +1,0 @@
-function guardar( )
-    'guardar'
-end
-
