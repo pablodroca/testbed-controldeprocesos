@@ -15,8 +15,6 @@ global testbedContexto;
    self.indiceUltimaMuestraDummy = 1;
    self.clockUltimaMuestraDummy = {};
    self.segundosErrorAcumulado = 0;
-   timerFunction = 'global testbedContexto; testbedContexto.conexion = establecerUltimaMuestraDummy(testbedContexto.conexion);';
-   self.timer = timer('Name', 'timerConexionDummy_establecerUltimaMuestra', 'BusyMode', 'drop', 'Period',self.segundosEntreMuestras * 0.01, 'ExecutionMode','fixedDelay', 'TimerFcn', timerFunction);
    self = class(self, 'ConexionDummy');
 end
 
