@@ -296,29 +296,50 @@ function validado = validarConfiguracion(handles)
   end
  
   periodo = stringtrim(get(handles.edit_Periodo,'String'));
-  if not(isnumber(periodo))
+  if not(ispositivenumber(periodo))
     msgbox('El periodo debe ser numerico y positivo', 'error');
     return
   end
   
   ejeTemporal = stringtrim(get(handles.edit_EjeTemporal,'String'));
-  if not(isnumber(ejeTemporal))
+  if not(ispositivenumber(ejeTemporal))
     msgbox('La ventana temporal debe ser numerico y positivo', 'error');
     return
   end
     
   nivelMinimo = stringtrim(get(handles.edit_NivelMinimo,'String'));
-  if not(isnumber(nivelMinimo))
+  if not(ispositivenumber(nivelMinimo))
     msgbox('El valor del nivel minimo debe ser numerico y positivo', 'error');
     return
   end
 
   nivelMaximo = stringtrim(get(handles.edit_NivelMaximo,'String'));
-  if not(isnumber(nivelMaximo))
+  if not(ispositivenumber(nivelMaximo))
     msgbox('El valor del nivel maximo debe ser numerico y positivo', 'error');
     return
   end
 
+  
+  nivelDesplazamiento = stringtrim(get(handles.edit_NivelDesplazamiento,'String'));
+  if not(isnumber(nivelDesplazamiento))
+    msgbox('El valor del nivel desplazamiento debe ser numerico', 'error');
+    return
+  end
+  nivelEscala = stringtrim(get(handles.edit_NivelEscala,'String'));
+  if not(isnumber(nivelEscala))
+    msgbox('El valor del nivel escala debe ser numerico', 'error');
+    return
+  end
+  actuadorDesplazamiento = stringtrim(get(handles.edit_ActuadorDesplazamiento,'String'));
+  if not(isnumber(actuadorDesplazamiento))
+    msgbox('El valor del actuador desplazamiento debe ser numerico', 'error');
+    return
+  end
+  actuadorEscala = stringtrim(get(handles.edit_ActuadorEscala,'String'));
+  if not(isnumber(actuadorEscala))
+    msgbox('El valor del actuador escala debe ser numerico', 'error');
+    return
+  end
   validado = true;
   return  
   

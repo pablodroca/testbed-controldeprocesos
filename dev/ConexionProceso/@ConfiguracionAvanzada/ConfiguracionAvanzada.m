@@ -9,7 +9,7 @@ function self = ConfiguracionAvanzada()
    self.nivelVisorEscala = 1.25;
    self.actuacionManualMinima = 0;
    self.actuacionManualMaxima = 50;
-   self.actuacionVisorOffset = 60;
-   self.actuacionVisorEscala = 1.8;
+   self.actuacionVisorOffset = -60;
+   self.actuacionVisorEscala = 0.56;
    self = class(self, 'ConfiguracionAvanzada');
 end

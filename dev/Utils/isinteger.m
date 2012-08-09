@@ -1,5 +1,5 @@
 function number = isinteger(strNum)
-  number = isNumber(strNum);
+  number = ispositivenumber(strNum);
   if not(number)
       return
   end

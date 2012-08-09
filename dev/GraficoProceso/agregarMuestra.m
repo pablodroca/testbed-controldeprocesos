@@ -15,7 +15,7 @@ global testbedContexto;
     lineHandle = line(instantes, muestras, 'Parent', handles.axesVisorProceso);
     set(lineHandle,'LineWidth',2);
     instanteActual = instantes(2);
-    maxValueX = getEjeTemporal(testbedContexto.configuracionAvanzada) * (1000/periodo);
+    maxValueX = getEjeTemporal(testbedContexto.configuracionAvanzada);
     if instanteActual > maxValueX
         xlim(handles.axesVisorProceso, [instanteActual-maxValueX instanteActual]);
     end

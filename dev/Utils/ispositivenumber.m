@@ -8,6 +8,9 @@ function number = isnumber(strNum)
       if not(f==1 && c==1)
           return
       end
+      if (num<=0)
+          return
+      end
       number=true;
   end
 end
