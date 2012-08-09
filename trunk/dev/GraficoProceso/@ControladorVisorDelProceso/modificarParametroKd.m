@@ -3,7 +3,7 @@ valor = validarParametro(self, valor);
 valido = ~isempty(valor);
 if valido
     global testbedContexto
-    configuracion = getConfiguracion(setDeControl);
+    configuracion = getConfiguracion(testbedContexto.setDeControl);
     try
         [configuracion, testbedContexto.setDeControl] = setKd(configuracion, valor, testbedContexto.setDeControl);
         testbedContexto.setDeControl = setConfiguracion(testbedContexto.setDeControl, configuracion);
