@@ -36,8 +36,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "L10"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed May 16 21:39:44 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:11>"
+  LastModifiedDate	  "Thu Aug 09 20:07:48 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:14>"
   ConfigurationManager	  "None"
   SimParamPage		  "WorkspaceI/O"
   LinearizationMsg	  "none"
@@ -334,54 +334,60 @@ Model {
       Name		      "Bias"
       Position		      [50, 369, 85, 431]
       BackgroundColor	      "cyan"
-      Value		      "23"
+      Value		      "40"
       VectorParams1D	      off
     }
     Block {
       BlockType		      Constant
-      Name		      "C"
-      Position		      [45, 25, 75, 55]
-      Value		      "1.8"
-      VectorParams1D	      off
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "C2"
+      Name		      "CActDesplazamiento"
       Position		      [475, 165, 505, 195]
       Orientation	      "left"
-      Value		      "60"
+      BackgroundColor	      "orange"
+      Value		      "50"
       VectorParams1D	      off
     }
     Block {
+      BlockType		      Gain
+      Name		      "CActEscalaBias"
+      Position		      [245, 385, 275, 415]
+      BackgroundColor	      "orange"
+      Gain		      "1.43"
+    }
+    Block {
       BlockType		      Constant
-      Name		      "C3"
-      Position		      [660, 180, 690, 210]
-      Value		      "13"
+      Name		      "CActEscalaManual"
+      Position		      [45, 25, 75, 55]
+      BackgroundColor	      "orange"
+      Value		      "1.43"
       VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "CActEscalaVisor"
+      Position		      [510, 95, 540, 125]
+      BackgroundColor	      "orange"
+      Gain		      "0.7"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "CNivelDesplazamiento"
+      Position		      [660, 180, 690, 210]
+      BackgroundColor	      "green"
+      Value		      "16.32"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "CNivelEscala"
+      Position		      [745, 35, 775, 65]
+      BackgroundColor	      "green"
+      Gain		      "0.606"
     }
     Block {
       BlockType		      Derivative
       Name		      "D"
       Position		      [285, 270, 315, 300]
       BackgroundColor	      "cyan"
-    }
-    Block {
-      BlockType		      Gain
-      Name		      "G3"
-      Position		      [510, 95, 540, 125]
-      Gain		      "1/1.8"
-    }
-    Block {
-      BlockType		      Gain
-      Name		      "G4"
-      Position		      [745, 35, 775, 65]
-      Gain		      "1.25"
-    }
-    Block {
-      BlockType		      Gain
-      Name		      "G5"
-      Position		      [245, 385, 275, 415]
-      Gain		      "1.8"
     }
     Block {
       BlockType		      Integrator
@@ -398,13 +404,13 @@ Model {
       Name		      "Kd"
       Position		      [215, 275, 245, 305]
       BackgroundColor	      "cyan"
-      Gain		      "0"
     }
     Block {
       BlockType		      Gain
       Name		      "Ki"
       Position		      [215, 210, 245, 240]
       BackgroundColor	      "cyan"
+      Gain		      "0"
     }
     Block {
       BlockType		      Gain
@@ -434,12 +440,16 @@ Model {
       Name		      "Salidas-Medicion-SP"
       Ports		      [1]
       Position		      [1070, 79, 1115, 141]
-      Location		      [9, 527, 1359, 866]
+      Location		      [6, 388, 1356, 727]
       Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
       }
       TimeRange		      "300"
       YMin		      "0"
@@ -460,7 +470,7 @@ Model {
       Name		      "SetPoint"
       Position		      [50, 219, 85, 281]
       BackgroundColor	      "cyan"
-      Value		      "50"
+      Value		      "21.4"
       VectorParams1D	      off
     }
     Block {
@@ -528,7 +538,7 @@ Model {
       SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
       SourceType	      "Slider Gain"
       low		      "0"
-      gain		      "0"
+      gain		      "40"
       high		      "100"
     }
     Line {
@@ -560,7 +570,7 @@ Model {
     Line {
       SrcBlock		      "Bias"
       SrcPort		      1
-      DstBlock		      "G5"
+      DstBlock		      "CActEscalaBias"
       DstPort		      1
     }
     Line {
@@ -578,11 +588,11 @@ Model {
     Line {
       SrcBlock		      "Sum2"
       SrcPort		      1
-      DstBlock		      "G4"
+      DstBlock		      "CNivelEscala"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "G4"
+      SrcBlock		      "CNivelEscala"
       SrcPort		      1
       Points		      [0, 0; 5, 0]
       Branch {
@@ -598,7 +608,7 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "C3"
+      SrcBlock		      "CNivelDesplazamiento"
       SrcPort		      1
       Points		      [15, 0]
       DstBlock		      "Sum2"
@@ -614,12 +624,12 @@ Model {
       }
       Branch {
 	Points			[0, 60]
-	DstBlock		"G3"
+	DstBlock		"CActEscalaVisor"
 	DstPort			1
       }
     }
     Line {
-      SrcBlock		      "C2"
+      SrcBlock		      "CActDesplazamiento"
       SrcPort		      1
       Points		      [-5, 0; 0, -105]
       DstBlock		      "Sum4"
@@ -632,13 +642,13 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "G3"
+      SrcBlock		      "CActEscalaVisor"
       SrcPort		      1
       DstBlock		      "Mux"
       DstPort		      2
     }
     Line {
-      SrcBlock		      "C"
+      SrcBlock		      "CActEscalaManual"
       SrcPort		      1
       DstBlock		      "ValorManual"
       DstPort		      1
@@ -671,7 +681,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "G5"
+      SrcBlock		      "CActEscalaBias"
       SrcPort		      1
       Points		      [105, 0]
       DstBlock		      "Sum3"

@@ -653,11 +653,11 @@ set(handles.slSetPoint, 'Max', 100);
 set(handles.slBias, 'Min', 0);
 set(handles.slBias, 'Max', 100);
 set(handles.slKp, 'Min', 0);
-set(handles.slKp, 'Max', 3);
+set(handles.slKp, 'Max', 5);
 set(handles.slKi, 'Min', 0);
-set(handles.slKi, 'Max', 3);
+set(handles.slKi, 'Max', 5);
 set(handles.slKd, 'Min', 0);
-set(handles.slKd, 'Max', 3);
+set(handles.slKd, 'Max', 5);
 set(handles.slManual, 'Min', 0);
 set(handles.slManual, 'Max', 100);
 end
@@ -804,10 +804,7 @@ function btnAgregarComentario_Callback(hObject, eventdata, handles)
 % hObject    handle to btnAgregarComentario (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-textoComentario = get(handles.txtComentario, 'String');
-registrarCambioComentario(handles.wVisorDelProceso, textoComentario);
-set(handles.txtComentario, 'String', '');
+agregarComentario(handles);
 
 % --- Executes during object creation, after setting all properties.
 function txtComentario_CreateFcn(hObject, eventdata, handles)
@@ -832,7 +829,7 @@ function txtComentario_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of txtComentario as text
 %        str2double(get(hObject,'String')) returns contents of txtComentario as a double
-
+agregarComentario(handles);
 
 % --- Executes during object creation, after setting all properties.
 function txtLogComentarios_CreateFcn(hObject, eventdata, handles)
@@ -908,4 +905,8 @@ function txtActuador_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of txtActuador as text
 %        str2double(get(hObject,'String')) returns contents of txtActuador as a double
 
+function agregarComentario(handles)
 
+textoComentario = get(handles.txtComentario, 'String');
+registrarCambioComentario(handles.wVisorDelProceso, textoComentario);
+set(handles.txtComentario, 'String', '');
