@@ -5,11 +5,11 @@ function self = ConfiguracionAvanzada()
    self.periodo=500;
    self.nivelMinimo=0;
    self.nivelMaximo=100;
-   self.nivelVisorOffset = 0;
-   self.nivelVisorEscala = 1.25;
+   self.nivelVisorOffset = -16.32;
+   self.nivelVisorEscala = 0.606;
    self.actuacionManualMinima = 0;
    self.actuacionManualMaxima = 50;
-   self.actuacionVisorOffset = -60;
-   self.actuacionVisorEscala = 0.56;
+   self.actuacionVisorOffset = -50;
+   self.actuacionVisorEscala = 0.5;
    self = class(self, 'ConfiguracionAvanzada');
 end
