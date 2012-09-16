@@ -1,0 +1,15 @@
+function [ self ] = Proceso( )
+global testbedContexto;
+   self.periodo = getPeriodo(testbedContexto.configuracionAvanzada);
+   self.muestras = [];
+   self.comentarios = {};
+   self.instanteUltimaMuestra = 0;
+   self.instanteInicioGrabacion = 0;
+   self.archivo = '';
+   self.modoGrabacion = false;
+   self.configuracionInicial = {};
+   self.leyendaMuestras = {};
+   self.cambiosConfiguracion = {};
+   self.tipo = '';
+   self = class(self, 'Proceso');
+end
