@@ -1,0 +1,704 @@
+Model {
+  Name			  "conroltanquesconvariadorvelocidad2"
+  Version		  5.0
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ExecutionOrder	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Wed Jul 02 13:08:05 2008"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "XPMUser"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Wed Mar 07 00:59:58 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:49>"
+  ConfigurationManager	  "None"
+  SimParamPage		  "Solver"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  RTWExpressionDepthLimit 5
+  SimulationMode	  "normal"
+  Solver		  "ode5"
+  SolverMode		  "Auto"
+  StartTime		  "0.0"
+  StopTime		  "inf"
+  MaxOrder		  5
+  MaxStep		  "auto"
+  MinStep		  "auto"
+  MaxNumMinSteps	  "-1"
+  InitialStep		  "auto"
+  FixedStep		  "0.125"
+  RelTol		  "1e-3"
+  AbsTol		  "auto"
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  Refine		  "1"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Array"
+  Decimation		  "1"
+  LimitDataPoints	  on
+  MaxDataPoints		  "1000"
+  SignalLoggingName	  "sigsOut"
+  ConsistencyChecking	  "none"
+  ArrayBoundsChecking	  "none"
+  AlgebraicLoopMsg	  "warning"
+  BlockPriorityViolationMsg "warning"
+  MinStepSizeMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  DiscreteInheritContinuousMsg "warning"
+  MultiTaskRateTransMsg	  "error"
+  SingleTaskRateTransMsg  "none"
+  CheckForMatrixSingularity "none"
+  IntegerOverflowMsg	  "warning"
+  Int32ToFloatConvMsg	  "warning"
+  ParameterDowncastMsg	  "error"
+  ParameterOverflowMsg	  "error"
+  ParameterPrecisionLossMsg "warning"
+  UnderSpecifiedDataTypeMsg "none"
+  UnnecessaryDatatypeConvMsg "none"
+  VectorMatrixConversionMsg "none"
+  InvalidFcnCallConnMsg	  "error"
+  SignalLabelMismatchMsg  "none"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  SfunCompatibilityCheckMsg "none"
+  RTWInlineParameters	  off
+  BlockReductionOpt	  on
+  BooleanDataType	  on
+  ConditionallyExecuteInputs on
+  ParameterPooling	  on
+  OptimizeBlockIOStorage  on
+  ZeroCross		  on
+  AssertionControl	  "UseLocalSettings"
+  ProdHWDeviceType	  "Microprocessor"
+  ProdHWWordLengths	  "8,16,32,32"
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  RTWRetainRTWFile	  off
+  TLCProfiler		  off
+  TLCDebug		  off
+  TLCCoverage		  off
+  TLCAssertion		  off
+  RTWOptions		  " -aEnforceIntegerDowncast=1 -aExtMode=0 -aExtModeTe"
+"sting=0 -aFoldNonRolledExpr=1 -aForceParamTrailComments=0 -aGenerateComments="
+"1 -aGenerateReport=0 -aIgnoreCustomStorageClasses=1 -aIncDataTypeInIds=0 -aIn"
+"cHierarchyInIds=0 -aInlineInvariantSignals=1 -aInlineParameters=0 -aInlinedPr"
+"mAccess=\"Literals\" -aLocalBlockOutputs=1 -aLogVarNameModifier=\"rt_\" -aMax"
+"RTWIdLen=31 -aPrefixModelToSubsysFcnNames=1 -aRTWVerbose=1 -aRollThreshold=5 "
+"-aShowEliminatedStatements=0"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      ShowAdditionalParam     off
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "sfix(16)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ShowAdditionalParam     off
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "sfix(16)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      ShowAdditionalParam     off
+      LatchInput	      off
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Scope
+      Floating		      off
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      PortCounts	      "[]"
+      SFunctionModules	      "''"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      RTWSystemCode	      "Auto"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      ShowAdditionalParam     off
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Switch
+      Criteria		      "u2 >= Threshold"
+      Threshold		      "0"
+      ShowAdditionalParam     off
+      InputSameDT	      on
+      OutDataTypeMode	      "Inherit via internal rule"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      ZeroCross		      on
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "conroltanquesconvariadorvelocidad2"
+    Location		    [79, 82, 1117, 464]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Reference
+      Name		      " SALIDA\nMANUAL"
+      Ports		      [1, 1]
+      Position		      [140, 42, 175, 98]
+      BackgroundColor	      "cyan"
+      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
+      SourceType	      "Slider Gain"
+      low		      "0"
+      gain		      "0"
+      high		      "100"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "BIAS"
+      Position		      [70, 399, 105, 461]
+      BackgroundColor	      "cyan"
+      Value		      "22"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "C"
+      Position		      [65, 55, 95, 85]
+      Value		      "1.8"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "C2"
+      Position		      [410, 195, 440, 225]
+      Value		      "60"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "C3"
+      Position		      [680, 210, 710, 240]
+      Value		      "13"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "G3"
+      Position		      [530, 125, 560, 155]
+      Gain		      "1/1.8"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "G4"
+      Position		      [765, 65, 795, 95]
+      Gain		      "1.25"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "G5"
+      Position		      [265, 415, 295, 445]
+      Gain		      "1.8"
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "I"
+      Ports		      [1, 1]
+      Position		      [295, 194, 325, 226]
+      BackgroundColor	      "cyan"
+      LimitOutput	      on
+      UpperSaturationLimit    "180"
+      LowerSaturationLimit    "-180"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Manual "
+      Ports		      [2, 1]
+      Position		      [360, 62, 390, 98]
+      BackgroundColor	      "cyan"
+      NamePlacement	      "alternate"
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      sw		      "1"
+      action		      "0"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [3, 1]
+      Position		      [1025, 87, 1030, 193]
+      ShowName		      off
+      Inputs		      "3"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "P"
+      Position		      [200, 265, 230, 295]
+      BackgroundColor	      "cyan"
+      Gain		      "2"
+    }
+    Block {
+      BlockType		      "S-Function"
+      Name		      "PLANTA - PLACA Riac"
+      Ports		      [1, 1]
+      Position		      [540, 63, 650, 97]
+      FunctionName	      "RIAC"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "SP"
+      Position		      [70, 249, 105, 311]
+      BackgroundColor	      "cyan"
+      Value		      "25"
+      VectorParams1D	      off
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Salidas-Medicion-SP"
+      Ports		      [1]
+      Position		      [1090, 109, 1135, 171]
+      Location		      [5, 453, 1289, 792]
+      Open		      on
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+      }
+      TimeRange		      "300"
+      YMin		      "0"
+      YMax		      "100"
+      DataFormat	      "StructureWithTime"
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Sat"
+      Position		      [330, 135, 360, 165]
+      Orientation	      "up"
+      NamePlacement	      "alternate"
+      UpperLimit	      "180"
+      LowerLimit	      "0"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum1"
+      Ports		      [2, 1]
+      Position		      [165, 270, 185, 290]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|+-"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      Ports		      [2, 1]
+      Position		      [720, 70, 740, 90]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|+-"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum3"
+      Ports		      [3, 1]
+      Position		      [315, 265, 345, 295]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "+++"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum4"
+      Ports		      [2, 1]
+      Position		      [455, 70, 475, 90]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|++"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "T"
+      Position		      [250, 195, 280, 225]
+      BackgroundColor	      "cyan"
+      Gain		      "0"
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "Salidas-Medicion-SP"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      " SALIDA\nMANUAL"
+      SrcPort		      1
+      DstBlock		      "Manual "
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "SP"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	DstBlock		"Sum1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 105; 890, 0]
+	DstBlock		"Mux"
+	DstPort			3
+      }
+    }
+    Line {
+      SrcBlock		      "BIAS"
+      SrcPort		      1
+      DstBlock		      "G5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sat"
+      SrcPort		      1
+      DstBlock		      "Manual "
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "PLANTA - PLACA Riac"
+      SrcPort		      1
+      DstBlock		      "Sum2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      DstBlock		      "G4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "G4"
+      SrcPort		      1
+      Points		      [5, 0]
+      Branch {
+	Labels			[1, 0]
+	Points			[205, 0]
+	DstBlock		"Mux"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 275; -630, 0]
+	DstBlock		"Sum1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "C3"
+      SrcPort		      1
+      Points		      [15, 0]
+      DstBlock		      "Sum2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Manual "
+      SrcPort		      1
+      Points		      [15, 0]
+      Branch {
+	DstBlock		"Sum4"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 60]
+	DstBlock		"G3"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "C2"
+      SrcPort		      1
+      Points		      [20, 0]
+      DstBlock		      "Sum4"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Sum4"
+      SrcPort		      1
+      DstBlock		      "PLANTA - PLACA Riac"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "G3"
+      SrcPort		      1
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "C"
+      SrcPort		      1
+      DstBlock		      " SALIDA\nMANUAL"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      DstBlock		      "P"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum3"
+      SrcPort		      1
+      Points		      [15, 0; 0, -100]
+      DstBlock		      "Sat"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "G5"
+      SrcPort		      1
+      Points		      [30, 0]
+      DstBlock		      "Sum3"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "I"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "T"
+      SrcPort		      1
+      DstBlock		      "I"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "P"
+      SrcPort		      1
+      Points		      [0, 0]
+      Branch {
+	DstBlock		"Sum3"
+	DstPort			2
+      }
+      Branch {
+	DstBlock		"T"
+	DstPort			1
+      }
+    }
+    Annotation {
+      Name		      "Auto"
+      Position		      [376, 111]
+    }
+    Annotation {
+      Name		      "Medicion - A"
+      Position		      [968, 71]
+    }
+    Annotation {
+      Name		      "Salida - V"
+      Position		      [971, 125]
+    }
+    Annotation {
+      Name		      "SP - C"
+      Position		      [987, 156]
+    }
+    Annotation {
+      Name		      "Borne 07"
+      Position		      [509, 73]
+    }
+    Annotation {
+      Name		      "Borne 01"
+      Position		      [678, 74]
+    }
+  }
+}
