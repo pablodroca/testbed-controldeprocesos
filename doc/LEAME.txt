@@ -1,0 +1,24 @@
+SISTEMA TESTBED CONTROL DE PROCESOS v1.0 Año 2012
+
+Facultad de Ingeniería UBA
+
+Ing. Carlos Godfrid
+Ing. Daniel Aldet
+Lic. María Feldgen
+
+Asignatura: Taller de Programación III
+
+Pablo D. Roca
+Ezequiel Di Donato
+
+Organización del contenido en directorios:
+
+* testbed-control: contiene el programa para Matlab 6.5 a instalar. Este es el directorio que debe copiarse integro con toda su estructura al disco rígido de una máquina con Matlab 6.5 instalado. Consúltese el manual de instalación.
+
+* documentos: contiene la presentación en PDF y ODP (presentación de Open Office) y  el diseño en formato imagen PNG, de la etiqueta del disco (CD o DVD).
+
+*documentos/manuales: contiene los manuales en formato pdf y odt (editables con Open Office)
+
+*documentos/desarrollo: contiene la documentación del proceso de desarrollo del software (sólo para la materia Taller de Programación III)
+
+* riac: contiene el driver para la placa adquisidora de datos RIAC y su correspondiente documentacion.
